@@ -83,7 +83,7 @@ export default {
 
 <style scoped>
 .input-offer-outer-container {
-	background: #f0e6d2; /* Beige background */
+	background: #fff1e7; /* Beige background */
 	padding: 1em;
 	border-radius: 16px;
 	display: flex;
