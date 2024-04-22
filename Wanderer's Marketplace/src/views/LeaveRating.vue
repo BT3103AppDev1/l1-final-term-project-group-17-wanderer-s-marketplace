@@ -1,27 +1,47 @@
 <template>
-	<div id="rating">
-		<h1>Leave Rating</h1>
-		<div class="rating-stars">
-			<span
-				v-for="star in 5"
-				:key="star"
-				@click="setRating(star)"
-				:class="{ filled: star <= selectedRating }"
-			>
-				&#9733;
-			</span>
+	<div class="page-container">
+		<h1>Leave a Rating for @{{ this.ratedUsername }}</h1>
+		<div class="rating-container">
+			<div class="left">
+				<ProductImage />
+			</div>
+			<div class="right">
+				<div class="rating-stars">
+					<span
+						v-for="star in 5"
+						:key="star"
+						@click="ratingExists ? null : setRating(star)"
+						:class="{ filled: star <= selectedRating, disabled: ratingExists }"
+					>
+						&#9733;
+					</span>
+				</div>
+				<input
+					type="text"
+					id="comment"
+					v-model="ratingComment"
+					:disabled="ratingExists"
+					placeholder="Leave a comment (optional)"
+					:style="
+						ratingExists ? { cursor: 'not-allowed' } : { cursor: 'pointer' }
+					"
+				/>
+				<button
+					id="submit"
+					type="button"
+					:disabled="ratingExists"
+					:class="{ 'submitted-button': ratingExists }"
+					@click="leaveRating"
+				>
+					{{ ratingExists ? "Submitted" : "Submit" }}
+				</button>
+			</div>
 		</div>
-		<input
-			type="text"
-			id="comment"
-			v-model="ratingComment"
-			placeholder="Leave a comment (optional)"
-		/>
-		<button id="submit" type="button" v-on:click="leaveRating">Submit</button>
 	</div>
 </template>
 
 <script>
+import ProductImage from "../components/listing_components/ProductImage.vue";
 import firebaseApp from "../firebase.js";
 import {
 	getFirestore,
@@ -29,24 +49,32 @@ import {
 	getDoc,
 	collection,
 	addDoc,
+	query,
+	where,
+	getDocs,
 } from "firebase/firestore";
 const db = getFirestore(firebaseApp);
+import { mapState } from "vuex";
 
 export default {
 	name: "LeaveRating",
+	components: { ProductImage },
 	data() {
 		return {
 			ratedUserID: "",
+			ratedUsername: "",
 			ratedByUserID: "",
 			selectedRating: 0,
 			ratingComment: "",
 			ratingType: "",
 			ratingDate: null,
-			listingUser: this.$route.params.listingUser,
-			offerUser: this.$route.params.offerUser,
+			ratingExists: false,
+			existingRating: null,
 		};
 	},
-
+	computed: {
+		...mapState(["currentListing", "user"]),
+	},
 	methods: {
 		setRating(value) {
 			this.selectedRating = this.selectedRating === value ? 0 : value;
@@ -63,40 +91,39 @@ export default {
 			});
 		},
 		determineRatingType() {
-			if (this.$store.state.user.uid === this.listingUser) {
+			const listingUser = this.currentListing.userID;
+			const offerUser = this.currentListing.acceptedOfferUserID;
+			if (this.$store.state.user.uid === listingUser) {
 				// this.ratedUserID = "sUuhpdVawzZzuOdhrCBSNjROFyE2";
-				this.ratedUserID = this.offerUser;
+				this.ratedUserID = offerUser;
 				this.ratingType = "Shopper";
-			} else if (this.$store.state.user.uid === this.offerUser) {
-				this.ratedUserID = this.listingUser;
+			} else if (this.$store.state.user.uid === offerUser) {
+				this.ratedUserID = listingUser;
 				this.ratingType = "Traveller";
 			} else {
-				this.ratedUserID = this.listingUser;
-				this.ratingType = "Traveller";
 				console.log("ERROOROROROROOR");
 			}
 		},
 		async leaveRating() {
 			this.determineRatingType();
-			const ratedUsername = await this.fetchUsername(this.ratedUserID)
 			const ratedByUsername = await this.fetchUsername(this.$root.user.uid);
 			try {
 				const docRef = await addDoc(collection(db, "Ratings"), {
 					RatedUserID: this.ratedUserID,
-					RatedUsername: ratedUsername,
 					RatedByUserID: this.$root.user.uid,
 					RatedByUsername: ratedByUsername,
 					RatingValue: this.selectedRating,
 					RatingComment: this.ratingComment,
 					RatingType: this.ratingType,
 					RatingDate: new Date().toISOString(),
+					ListingID: this.currentListing.id,
 				});
 				console.log("Document written with ID: ", docRef.id);
 				this.selectedRating = 0;
 				this.ratingComment = "";
 				this.$emit("added");
 				this.$router.push("/home");
-				alert("You have successfully left a rating for: " + ratedUsername);
+				alert("Thank you for your rating!");
 			} catch (error) {
 				console.error("Error adding document: ", error);
 			}
@@ -116,35 +143,116 @@ export default {
 				return "";
 			}
 		},
+		async checkForExistingRating() {
+			try {
+				const listingID = this.currentListing?.id; // replace with actual id property if different
+				let q = query(
+					collection(db, "Ratings"),
+					where("ListingID", "==", listingID)
+				);
+				const querySnapshot = await getDocs(q);
+				if (!querySnapshot.empty) {
+					this.existingRating = querySnapshot.docs[0];
+					this.selectedRating = this.existingRating.data().RatingValue;
+					this.ratingComment = this.existingRating.data().RatingComment;
+					this.ratingExists = true;
+					this.updateStarColors();
+				} else {
+					this.ratingExists = false;
+				}
+			} catch (error) {
+				console.error("Error getting documents: ", error);
+			}
+		},
 	},
-	mounted() {
+	async mounted() {
 		this.updateStarColors();
+		this.determineRatingType();
+		this.ratedUsername = await this.fetchUsername(this.ratedUserID);
+		await this.checkForExistingRating();
 	},
 };
 </script>
 
 <style scoped>
+.rating-container {
+	margin-top: 0%;
+	display: flex;
+	justify-content: center;
+	align-items: stretch;
+	padding: 50px;
+}
+
+.left {
+	flex: 1;
+}
+
+.right {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	position: relative;
+}
+
 .rating-stars {
-	font-size: 24px;
+	font-size: 50px;
 }
 
 .rating-stars span {
 	cursor: pointer;
+	transition: transform 0.3s ease-in-out, text-shadow 0.3s ease;
+}
+
+.rating-stars span:hover {
+	transform: translateY(-2px); /* Subtle lift effect */
+	text-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.rating-stars span.disabled {
+	cursor: not-allowed;
+}
+
+.rating-stars span.disabled:hover,
+.submitted-button:hover {
+	transform: none;
+	box-shadow: none;
+	text-shadow: none;
 }
 
 input {
 	width: 100%;
-	height: 100px;
-	margin-top: 10px;
+	flex: 1;
+	padding: 0.5rem;
+	border-radius: 10px;
+	border: 1px solid #ccc;
+	margin: 10px 50px 10px 50px;
+	background-color: #fff1e7;
 }
 
 button {
-	padding: 10px 20px;
+	padding: 12px 25px; /* Increased padding for a larger button */
+	font-size: 15px; /* Larger font size for better visibility */
 	border: none;
-	border-radius: 30px;
+	border-radius: 30px; /* Slightly reduced radius for a modern look */
 	background-color: #051e55;
 	color: #fff;
 	cursor: pointer;
-	margin-top: 10px;
+	margin-top: 20px;
+	margin-left: 10px;
+	transition: transform 0.3s ease-in-out, box-shadow 0.3s ease; /* Smooth transition for movement and shadow */
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+button:hover {
+	transform: translateY(-2px); /* Subtle lift effect */
+	box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Enhanced shadow for 3D effect */
+}
+
+.submitted-button {
+	background-color: #818589; /* Replace with the exact color from the screenshot */
+	color: #fff; /* Darker text color for contrast */
+	cursor: not-allowed;
+	box-shadow: none; /* Remove shadow to make it look truly disabled */
 }
 </style>
