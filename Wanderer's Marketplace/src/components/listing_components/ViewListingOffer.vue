@@ -249,7 +249,7 @@ export default {
 	display: flex;
 	justify-content: center;
 	padding: 20px;
-	background: #f0e6d2;
+	background: #fff1e7;
 	border-radius: 16px;
 	width: 100%;
 	box-sizing: border-box;

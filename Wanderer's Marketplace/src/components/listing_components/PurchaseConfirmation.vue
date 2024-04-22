@@ -21,7 +21,7 @@
           <div class="confirmation-text">
               I confirm that I have purchased <br> authentic products as requested.
           </div>
-          <button class="confirm-btn" @click="confirmPurchase" :disabled="!receiptImageUrl">Update as Purchased</button>   
+          <button class="confirm-btn" @click="confirmPurchase" >Update as Purchased</button>   
       </div>
   </div>
 </template>
@@ -135,21 +135,25 @@ export default {
     },
     // ... other methods
     async confirmPurchase() {
-      try {
-        // Update the offer with the image URL
-        if (this.receiptImageUrl) {
-          await this.updateOfferWithImage(this.receiptImageUrl);
+      if (!this.receiptImageUrl) {
+        alert('Please upload Proof of Purchase!');
+      } else {
+        try {
+          // Update the offer with the image URL
+          if (this.receiptImageUrl) {
+            await this.updateOfferWithImage(this.receiptImageUrl);
+          }
+          // Update the listing status to "Purchased"
+          const listingDocRef = doc(getFirestore(firebaseApp), "Listings", this.$store.state.currentListing.id);
+          await updateDoc(listingDocRef, {
+            ListingStatus: "Purchased"
+          });
+          console.log('Listing status updated to "Purchased"');
+          // Redirect to the home page
+          this.$router.push({ name: 'Home' }); // Use the correct route name for your home page
+        } catch (error) {
+          console.error("Error confirming purchase:", error);
         }
-        // Update the listing status to "Purchased"
-        const listingDocRef = doc(getFirestore(firebaseApp), "Listings", this.$store.state.currentListing.id);
-        await updateDoc(listingDocRef, {
-          ListingStatus: "Purchased"
-        });
-        console.log('Listing status updated to "Purchased"');
-        // Redirect to the home page
-        this.$router.push({ name: 'Home' }); // Use the correct route name for your home page
-      } catch (error) {
-        console.error("Error confirming purchase:", error);
       }
     },
 

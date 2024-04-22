@@ -4,7 +4,6 @@
 	</div>
 	<div class="payment-container">
 		<div class="left">
-			<!-- Assuming you have a ProductImage component as in the ViewListingOffer.vue -->
 			<ProductImage :imageSrc="productDetails.imageUrl" />
 		</div>
 		<div class="right">
@@ -229,6 +228,7 @@ export default {
 	padding: 20px;
 	border-radius: 10px;
 	overflow: visible; /* Ensure that content is not hidden */
+  margin-right: 20px;
 }
 
 .price-container {
@@ -237,7 +237,7 @@ export default {
 	font-size: 45px; /* Larger font size */
 	padding: 40px; /* Add padding for spacing */
 	border-radius: 20px; /* Add border radius for rounded corners */
-	width: auto; /* Adjust width to fit content */
+	width: 260px; /* Adjust width to fit content */
 	height: auto; /* Adjust height to fit content */
 }
 

@@ -96,9 +96,9 @@
 						this.productDetails.userID == user.uid
 					"
 					class="action-button"
-					@click="viewOffers"
+					@click="deleteListing"
 				>
-					View Offers
+					Delete Listing
 				</button>
 				<button
 					v-if="
@@ -106,9 +106,9 @@
 						this.productDetails.userID == user.uid
 					"
 					class="action-button"
-					@click="deleteListing"
+					@click="viewOffers"
 				>
-					Delete Listing
+					View Offers
 				</button>
 			</div>
 		</div>
@@ -423,6 +423,8 @@ export default {
 	justify-content: center;
 	align-items: stretch;
 	padding: 20px;
+	margin: auto;
+	width: 100%; 
 }
 
 .product-name-header {
@@ -444,18 +446,18 @@ export default {
 
 .left,
 .right {
-	flex: 1;
 	padding: 10px;
 }
 
 .accepted-offer-container {
 	background-color: #ffa500;
-	padding: 15px;
+	padding: 20px;
 	border-radius: 10px;
-	margin-top: 20px;
 	display: flex;
-	flex-direction: row;
-	align-items: center;
+	flex-direction: column; /* Stack children vertically */
+	margin-top: 20px;
+	margin-right: 60px;
+	justify-content: center;
 }
 .accepted-offer-header {
 	background-color: #ffa500;
@@ -463,6 +465,7 @@ export default {
 	align-items: center;
 	padding: 10px;
 	border-radius: 10px;
+
 }
 .accepted-offer-detail-box {
 	background-color: white;
@@ -471,12 +474,16 @@ export default {
 	display: flex;
 	align-items: center;
 	margin-left: 10px;
-	flex-shrink: 0;
+	width: auto;
+	flex-shrink: 2;
 	height: 15px;
+	justify-content: center;
+
 }
 
+
 .accepted-offer-label {
-	font-size: 16px;
+	font-size: 20px;
 	font-weight: bold;
 }
 
@@ -484,16 +491,17 @@ export default {
 	background-color: white;
 	border-radius: 10px;
 	display: flex;
-	justify-content: space-between;
+	justify-content: center;
 	padding: 10px;
 	margin-top: 10px; /* Space from label to details */
+	
 }
 
 .detail {
 	color: #333;
 	font-weight: bold;
-	margin: 0 5px;
-	font-size: 15px;
+	font-size: 16px;
+	justify-content: center;
 }
 .detail > span {
 	font-weight: normal;

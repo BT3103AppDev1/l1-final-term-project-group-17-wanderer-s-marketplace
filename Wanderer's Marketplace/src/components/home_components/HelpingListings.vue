@@ -1,7 +1,7 @@
 <template>
 	<div class="product-listing">
 		<HomeCard
-			v-for="product in products"
+			v-for="product in sortedProducts"
 			:key="product.id"
 			:product="product"
 			@cardClick="handleCardClick"
@@ -40,6 +40,19 @@ export default {
 			products: [],
 			userUID: null,
 		};
+	},
+	computed: {
+		sortedProducts() {
+		// Split the products into two arrays, one for active and one for completed listings
+		const activeProducts = this.products.filter(p => p.status !== 'Completed');
+		const completedProducts = this.products.filter(p => p.status === 'Completed');
+
+		// Sort the active products by Estimated Delivery Date from earliest to latest
+		activeProducts.sort((a, b) => new Date(a.deliveryDate) - new Date(b.deliveryDate));
+
+		// Concatenate the active listings with the completed listings at the end
+		return [...activeProducts, ...completedProducts];
+		}
 	},
 	created() {
 		const auth = getAuth();

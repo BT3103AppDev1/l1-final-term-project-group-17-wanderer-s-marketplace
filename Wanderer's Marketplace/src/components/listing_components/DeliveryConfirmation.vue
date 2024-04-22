@@ -7,7 +7,7 @@
           <div class="document-container">
             <!-- Icon or image goes here 
             <img src = "/icons/favicon_io/document icon.png" alt = "Document Icon" class = "document-icon"> -->
-            <img v-if="offer && offer.purchaseProofImage" :src="offer.purchaseProofImage" alt="Purchase Proof Image" class="purchase-proof-image">
+            <img v-if="offer && offer.PurchaseProofImage" :src="offer.PurchaseProofImage" alt="Purchase Proof Image" class="purchase-proof-image">
           </div>
         </div>
         <div class="confirmation-text">
