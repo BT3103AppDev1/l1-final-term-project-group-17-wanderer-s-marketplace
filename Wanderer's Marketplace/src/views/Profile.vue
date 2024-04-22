@@ -7,15 +7,39 @@
 			</button>
 		</div>
 		<div id="SecondDiv">
-			<div id="details">
-				<ProfilePhoto :userID="this.$root.user.uid" />
-				<div id="user-info">
-					<div id="user-joined">Joined {{ dateJoined }}</div>
-					<div id="user-telegram">Telegram @{{ telegramHandle }}</div>
+			<div id="profile-section">
+				<div
+					id="user-profile"
+					:style="{
+						display: 'flex',
+						alignItems: 'center',
+						marginBottom: '10px',
+					}"
+				>
+					<ProfilePhoto :userID="this.$root.user.uid" />
+					<div
+						id="user-info"
+						:style="{
+							display: 'flex',
+							flexDirection: 'column',
+							whiteSpace: 'nowrap',
+							textAlign: 'left',
+						}"
+					>
+						Joined {{ dateJoined }}<br />
+						Telegram @{{ telegramHandle }}
+					</div>
 				</div>
-				<div id="user-rating">
-					<div id="overall-rating">
-						{{ averageRating.toFixed(1) }} ({{ numberOfRatings }} ratings)
+				<div
+					id="user-rating"
+					:style="{
+						display: 'flex',
+						alignItems: 'center',
+					}"
+				>
+					<div id="overall-rating" :style="{ marginRight: '10px' }">
+						<h2 style="margin: 0">{{ averageRating.toFixed(1) }}</h2>
+						<p style="margin: 0">({{ numberOfRatings }} ratings)</p>
 					</div>
 					<div class="stars">
 						<!-- include method to return the correct number of filled stars based on the rating -->
@@ -24,12 +48,13 @@
 							v-for="i in 5"
 							:key="i"
 							:class="{ filled: i <= averageRating }"
+							:style="getStarStyle(i)"
 							>&#9733;</span
 						>
 					</div>
 				</div>
 			</div>
-			<div id="ratings" class="scroll">
+			<div id="ratings-section" class="scroll">
 				<div v-for="(rating, index) in ratings" :key="index">
 					<Rating
 						:ratedByUserID="rating.RatedByUserID"
@@ -103,16 +128,6 @@
 					Confirm Edits
 				</button>
 			</div>
-		</div>
-	</div>
-	<div>
-		<div id="nav-links">
-			<router-link to="/listingcompleted">
-				Temporary link to ListingCompleted
-			</router-link>
-			<router-link to="/leaverating">
-				Temporary link to LeaveRating
-			</router-link>
 		</div>
 	</div>
 </template>
@@ -199,11 +214,17 @@ export default {
 				);
 				const querySnapshot = await getDocs(userRatingsQuery);
 				let totalRatings = 0;
-				this.ratings = querySnapshot.docs.map((doc) => {
-					const data = doc.data();
-					totalRatings += data.RatingValue;
-					return data;
-				});
+				this.ratings = querySnapshot.docs
+					.map((doc) => {
+						const data = doc.data();
+						totalRatings += data.RatingValue;
+						return data;
+					})
+					.sort(
+						(a, b) =>
+							new Date(b.RatingDate).getTime() -
+							new Date(a.RatingDate).getTime()
+					);
 				this.numberOfRatings = this.ratings.length;
 				if (this.numberOfRatings > 0) {
 					this.averageRating = totalRatings / this.numberOfRatings;
@@ -312,9 +333,8 @@ export default {
 			}
 		},
 		async validateStripeUserID(accountId) {
-			console.log("accountId", accountId)
+			console.log("accountId", accountId);
 			try {
-				
 				const response = await fetch(
 					// `http://localhost:3000/check-stripe-account/${accountId}`,
 					`https://bt3103clone.vercel.app/check-stripe-account/${accountId}`,
@@ -327,11 +347,16 @@ export default {
 				const data = await response.json();
 				if (!response.ok) throw new Error(data.error);
 				this.stripeUserIDError = false;
-				console.log("stripe account validation success!")
+				console.log("stripe account validation success!");
 			} catch (error) {
 				console.error("Stripe account validation failed:", error);
 				this.stripeUserIDError = true;
 			}
+		},
+		getStarStyle(index) {
+			return {
+				color: index <= this.averageRating ? "#051e55" : "#ccc",
+			};
 		},
 	},
 	mounted() {
@@ -370,13 +395,10 @@ export default {
 	justify-content: center;
 	align-items: center;
 }
-#FirstDiv {
-	display: flex;
-	justify-content: space-between; /* This will space out the logo, username, and logout button */
-	align-items: center;
-	padding: 0 20px; /* Adjust padding as needed */
-	/* Other styles... */
-}
+/* #FirstDiv {
+	justify-content: space-between;
+	padding: 0 20px; 
+} */
 
 #Username {
 	margin-left: 9%;
@@ -385,12 +407,11 @@ export default {
 	justify-content: center; /* This will center the username text */
 	align-items: center;
 }
+
 #SecondDiv,
 #FourthDiv {
 	height: 360px;
-	display: flex;
-	justify-content: left;
-	align-items: center;
+	margin: auto;
 }
 
 h1 {
@@ -411,11 +432,20 @@ h1 {
 	margin: 5px;
 }
 
-#ratings {
+#profile-section {
 	display: flex;
-	flex-direction: row;
+	flex-direction: column;
+	align-items: center;
+}
+
+#ratings-section {
+	display: flex;
 	gap: 20px;
 	padding: 20px 0;
+}
+
+.star {
+	font-size: 30px;
 }
 
 .scroll {
