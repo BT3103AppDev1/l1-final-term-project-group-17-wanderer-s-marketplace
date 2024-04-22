@@ -1,10 +1,13 @@
 <template>
-	<div class="product-details-container">
-		<div class="left">
-			<ProductImage />
-		</div>
-		<div class="right">
-			<component :is="currentRightComponent" />
+	<div class="page-container">
+		<h1>View Offers</h1>
+		<div class="product-details-container">
+			<div class="left">
+				<ProductImage />
+			</div>
+			<div class="right">
+				<component :is="currentRightComponent" />
+			</div>
 		</div>
 	</div>
 </template>
@@ -31,13 +34,13 @@ export default {
 </script>
 
 <style scoped>
+
 .product-details-container {
+	margin-top: 0%;
 	display: flex;
 	justify-content: center;
 	align-items: stretch;
-	height: calc(100vh - 80px);
 	padding: 50px;
-	gap: 25px;
 }
 
 
@@ -61,5 +64,11 @@ export default {
 	color: #fff;
 	cursor: pointer;
 	margin-top: 10px;
+}
+
+.page-container h1 {
+margin-left: 4%;
+margin-top: 2%;
+margin-bottom: 0%;
 }
 </style>

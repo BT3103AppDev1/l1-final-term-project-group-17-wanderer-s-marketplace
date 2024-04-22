@@ -1,13 +1,16 @@
 <template>
-	<div class="product-details-container">
+	<div class="page-container">
+	  <h1 class="offer-header">Extend an Offer</h1>
+	  <div class="product-offer-container">
 		<div class="left">
-			<ProductImage />
+		  <ProductImage />
 		</div>
 		<div class="right">
-			<component :is="currentRightComponent" />
+		  <ListingInputOffer />
 		</div>
+	  </div>
 	</div>
-</template>
+  </template>
 
 <script>
 import ProductImage from "../components/listing_components/ProductImage.vue";
@@ -31,34 +34,30 @@ export default {
 </script>
 
 <style scoped>
-.product-details-container {
-	display: flex;
-	justify-content: center;
-	align-items: stretch;
-	height: calc(100vh - 80px);
-	padding: 50px;
-	gap: 25px;
+.page-container {
+margin-top: 0%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: calc(100vh - 80px);
+  padding: 50px;
 }
 
-.left {
-	flex: 0.45; /* Adjust the flex ratio to make the left side thinner */
+.offer-header {
+	margin-top: 0%;
+  width: 100%;
+  text-align: left;
+  margin-bottom: 25px; /* Adjust according to your layout */
 }
 
-.right {
-	flex: 0.55; /* Adjust the flex ratio to make the right side wider */
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	position: relative;
+.product-offer-container {
+  display: flex;
+  width: 100%; /* Adjust the width as needed */
+  gap: 25px;
 }
-
 
 .left, .right {
-	flex: 1;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	position: relative;
+  flex: 1;
 }
 
 .action-button {

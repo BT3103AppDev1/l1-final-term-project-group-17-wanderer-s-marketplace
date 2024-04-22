@@ -49,7 +49,7 @@ export default {
 				ListingID: listing_uid,
 				OfferByUserID: user_uid,
 				OfferPrice: this.offer_amt,
-				purchaseProofImage: "",
+				PurchaseProofImage: "",
 				OfferStatus: "Available", // Default status when an offer is first created
 			};
 			console.log("offerObj", offerObject);
@@ -83,7 +83,7 @@ export default {
 
 <style scoped>
 .input-offer-outer-container {
-	background: #f0e6d2; /* Beige background */
+	background: #fff1e7; /* Beige background */
 	padding: 1em;
 	border-radius: 16px;
 	display: flex;
