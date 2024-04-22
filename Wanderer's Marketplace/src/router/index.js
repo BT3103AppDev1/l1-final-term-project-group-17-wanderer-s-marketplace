@@ -70,7 +70,7 @@ const routes = [
 		component: ListingDetailAction,
 	},
 	{
-		path: "/leaverating",
+		path: "/leaverating/:listingUser/:offerUser",
 		name: "LeaveRating",
 		component: LeaveRating,
 	},
@@ -85,9 +85,9 @@ const routes = [
 		component: ListingOfferAction,
 	},
 	{
-		path: '/payment/:offerId',
-		name: 'Payment',
-		component: Payment
+		path: "/payment/:offerId",
+		name: "Payment",
+		component: Payment,
 	},
 	{
 		path: "/listingconfirmdeliveryaction",
@@ -100,12 +100,11 @@ const routes = [
 		component: ListingConfirmPurchaseAction,
 	},
 	{
-		path: '/payment-success',
-		name: 'PaymentSuccess',
+		path: "/payment-success",
+		name: "PaymentSuccess",
 		component: PaymentSuccess,
-		props: true
-	  }
-   
+		props: true,
+	},
 ];
 
 const router = createRouter({

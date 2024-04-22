@@ -4,7 +4,10 @@
 	</div>
 	<div class="product-details-container">
 		<div class="left">
-			<UploadProductImage :imageSrc="imageSrc" @update:imageSrc="updateImageSrc" />
+			<UploadProductImage
+				:imageSrc="imageSrc"
+				@update:imageSrc="updateImageSrc"
+			/>
 		</div>
 		<div class="right">
 			<ProductDetails />
@@ -76,7 +79,9 @@ export default {
 			let maxProductPrice = document.getElementById("maxProductPrice").value;
 			let deliveryFee = document.getElementById("deliveryFee").value;
 			let country = document.getElementById("country").value;
-			let estimatedDeliveryDate = document.getElementById("estimatedDeliveryDate").value;
+			let estimatedDeliveryDate = document.getElementById(
+				"estimatedDeliveryDate"
+			).value;
 
 			let currentDate = new Date();
 			let dateCreation = currentDate.toISOString().split("T")[0];
@@ -90,8 +95,20 @@ export default {
 			}
 
 			// Check for empty fields
-			if (!productName || !quantity || !colour || !size || !minProductPrice || !maxProductPrice || !deliveryFee || !country || !estimatedDeliveryDate) {
-				alert("All fields must be filled out.\nDo also ensure the following:\n-Product Name, Colour, Size and Country are texts.\n-Purchase Quantity, Min. and Max. Product Price and Delivery Fee are numbers.");
+			if (
+				!productName ||
+				!quantity ||
+				!colour ||
+				!size ||
+				!minProductPrice ||
+				!maxProductPrice ||
+				!deliveryFee ||
+				!country ||
+				!estimatedDeliveryDate
+			) {
+				alert(
+					"All fields must be filled out.\nDo also ensure the following:\n-Product Name, Colour, Size and Country are texts.\n-Purchase Quantity, Min. and Max. Product Price and Delivery Fee are numbers."
+				);
 				return; // Stop the function here
 			}
 
@@ -99,6 +116,18 @@ export default {
 			if (productName.length > 38) {
 				alert("Product Name cannot be more than 38 characters.");
 				return; // Stop the function here
+			}
+
+			// Check if minPrice > maxPrice
+			if (minProductPrice > maxProductPrice) {
+				alert("Min. Product Price cannot be higher than Max. Product Price.")
+				return;
+			}
+
+			// Preferred Date of Delivery must be in the future
+			if (estimatedDeliveryDate < dateCreation) {
+				alert("Preferred Date of Delivery must be in the future.")
+				return;
 			}
 
 			alert("Created your listing for: " + productName);
@@ -121,6 +150,7 @@ export default {
 					ListingStatus: "Available",
 					DateCreation: dateCreation,
 					TimeCreation: timeCreation,
+					AcceptedOfferUserID: "",
 				});
 				console.log(docRef);
 				document.getElementById("myform").reset();
@@ -151,12 +181,12 @@ h1 {
 	margin: 0 auto; /* Centers the container if there is a specified width */
 }
 
-.left, .right {
+.left,
+.right {
 	flex: 1; /* Both take up equal space */
 	padding: 20px; /* Provides padding within each section */
 	box-sizing: border-box; /* Includes padding in the element's total width and height */
 }
-
 
 .add-listing-button {
 	padding: 10px 20px;
@@ -173,11 +203,11 @@ h1 {
 		flex-direction: column; /* Stacks children vertically on smaller screens */
 	}
 
-	.left, .right {
+	.left,
+	.right {
 		width: calc(100% - 40px); /* Reduces the width to account for padding */
 		max-width: 600px; /* Ensure max-width is consistent */
 		margin: auto; /* Centers the containers */
 	}
 }
-
 </style>

@@ -42,14 +42,11 @@ export default {
 			ratingComment: "",
 			ratingType: "",
 			ratingDate: null,
-			listingUser: "",
-			offerUser: "",
+			listingUser: this.$route.params.listingUser,
+			offerUser: this.$route.params.offerUser,
 		};
 	},
-	props: {
-		listingUser: String,
-		offerUser: String,
-	},
+
 	methods: {
 		setRating(value) {
 			this.selectedRating = this.selectedRating === value ? 0 : value;
@@ -67,21 +64,26 @@ export default {
 		},
 		determineRatingType() {
 			if (this.$store.state.user.uid === this.listingUser) {
+				// this.ratedUserID = "sUuhpdVawzZzuOdhrCBSNjROFyE2";
 				this.ratedUserID = this.offerUser;
 				this.ratingType = "Shopper";
 			} else if (this.$store.state.user.uid === this.offerUser) {
 				this.ratedUserID = this.listingUser;
 				this.ratingType = "Traveller";
 			} else {
+				this.ratedUserID = this.listingUser;
+				this.ratingType = "Traveller";
 				console.log("ERROOROROROROOR");
 			}
 		},
 		async leaveRating() {
-			await this.determineRatingType();
+			this.determineRatingType();
+			const ratedUsername = await this.fetchUsername(this.ratedUserID)
 			const ratedByUsername = await this.fetchUsername(this.$root.user.uid);
 			try {
 				const docRef = await addDoc(collection(db, "Ratings"), {
 					RatedUserID: this.ratedUserID,
+					RatedUsername: ratedUsername,
 					RatedByUserID: this.$root.user.uid,
 					RatedByUsername: ratedByUsername,
 					RatingValue: this.selectedRating,
@@ -94,7 +96,7 @@ export default {
 				this.ratingComment = "";
 				this.$emit("added");
 				this.$router.push("/home");
-				alert("You have successfully left a rating.");
+				alert("You have successfully left a rating for: " + ratedUsername);
 			} catch (error) {
 				console.error("Error adding document: ", error);
 			}

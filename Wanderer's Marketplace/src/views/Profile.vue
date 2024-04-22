@@ -94,7 +94,7 @@
 					name="stripeUserID"
 					v-model="stripeUserID"
 					:class="{ edited: stripeUserIDChanged }"
-					@blur="validateStripeUserID"
+					@blur="validateStripeUserID(stripeUserID)"
 				/><span v-if="stripeUserIDError" class="error-message"
 					>Please provide a valid Stripe User ID.</span
 				><br />
@@ -312,7 +312,9 @@ export default {
 			}
 		},
 		async validateStripeUserID(accountId) {
+			console.log("accountId", accountId)
 			try {
+				
 				const response = await fetch(
 					`http://localhost:3000/check-stripe-account/${accountId}`,
 					{
@@ -322,7 +324,8 @@ export default {
 				);
 				const data = await response.json();
 				if (!response.ok) throw new Error(data.error);
-				this.stripeUserIDError = true;
+				this.stripeUserIDError = false;
+				console.log("stripe account validation success!")
 			} catch (error) {
 				console.error("Stripe account validation failed:", error);
 				this.stripeUserIDError = true;
