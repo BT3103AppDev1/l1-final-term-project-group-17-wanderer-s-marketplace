@@ -192,7 +192,7 @@
 			async checkStripeAccountId(accountId) {
 				try {
 				// Replace 'http://backendserver.com' with the actual domain where your Node.js backend is hosted
-				const response = await fetch(`http://localhost:3000/check-stripe-account/${accountId}`, {method: 'GET',
+				const response = await fetch(`https://bt3103clone.vercel.app/check-stripe-account/${accountId}`, {method: 'GET',
 			headers: {
 			'Content-Type': 'application/json',
 },});
@@ -212,7 +212,7 @@
 			},
 			async createStripeConnectedAccount() {
 				try {
-					const response = await fetch('http://localhost:3000/create-stripe-account', {
+					const response = await fetch('https://bt3103clone.vercel.app/create-stripe-account', {
 						method: 'POST',
 						headers: { 'Content-Type': 'application/json' },
 						body: JSON.stringify({ email: this.email })
@@ -230,7 +230,7 @@
 			},
 			async generateStripeLink(accountId) {
 				try {
-					const response = await fetch('http://localhost:3000/create-account-link', {
+					const response = await fetch('https://bt3103clone.vercel.app/create-account-link', {
 						method: 'POST',
 						headers: { 'Content-Type': 'application/json' },
 						body: JSON.stringify({ accountId: accountId })

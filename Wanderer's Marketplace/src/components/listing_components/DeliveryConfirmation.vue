@@ -98,7 +98,7 @@
           return;
         }
         try {
-          const response = await fetch('http://localhost:3000/payout-seller', {
+          const response = await fetch('https://bt3103clone.vercel.app/payout-seller', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',

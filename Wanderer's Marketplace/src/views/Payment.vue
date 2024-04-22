@@ -75,7 +75,7 @@ export default {
   methods: {
 	async createStripePrice() {
     try {
-      const response = await fetch('http://localhost:3000/create-price', {
+      const response = await fetch('https://bt3103clone.vercel.app/create-price', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -142,7 +142,7 @@ export default {
 		const priceId = await this.createStripePrice();
 		const offerId = this.$route.params.offerId;
 
-		const response = await fetch('http://localhost:3000/create-checkout-session', {
+		const response = await fetch('https://bt3103clone.vercel.app/create-checkout-session', {
 			method: 'POST',
 			headers: {
 			'Content-Type': 'application/json',
