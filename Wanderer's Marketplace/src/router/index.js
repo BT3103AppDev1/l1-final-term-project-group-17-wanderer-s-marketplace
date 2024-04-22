@@ -70,7 +70,7 @@ const routes = [
 		component: ListingDetailAction,
 	},
 	{
-		path: "/leaverating/:listingUser/:offerUser",
+		path: "/leaverating",
 		name: "LeaveRating",
 		component: LeaveRating,
 	},

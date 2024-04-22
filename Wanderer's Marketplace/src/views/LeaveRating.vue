@@ -1,6 +1,6 @@
 <template>
 	<div class="page-container">
-		<h1>Leave a Rating</h1>
+		<h1>Leave a Rating for @{{ this.ratedUsername }}</h1>
 		<div class="rating-container">
 			<div class="left">
 				<ProductImage />
@@ -10,8 +10,8 @@
 					<span
 						v-for="star in 5"
 						:key="star"
-						@click="setRating(star)"
-						:class="{ filled: star <= selectedRating }"
+						@click="ratingExists ? null : setRating(star)"
+						:class="{ filled: star <= selectedRating, disabled: ratingExists }"
 					>
 						&#9733;
 					</span>
@@ -20,10 +20,20 @@
 					type="text"
 					id="comment"
 					v-model="ratingComment"
+					:disabled="ratingExists"
 					placeholder="Leave a comment (optional)"
+					:style="
+						ratingExists ? { cursor: 'not-allowed' } : { cursor: 'pointer' }
+					"
 				/>
-				<button id="submit" type="button" v-on:click="leaveRating">
-					Submit
+				<button
+					id="submit"
+					type="button"
+					:disabled="ratingExists"
+					:class="{ 'submitted-button': ratingExists }"
+					@click="leaveRating"
+				>
+					{{ ratingExists ? "Submitted" : "Submit" }}
 				</button>
 			</div>
 		</div>
@@ -39,8 +49,12 @@ import {
 	getDoc,
 	collection,
 	addDoc,
+	query,
+	where,
+	getDocs,
 } from "firebase/firestore";
 const db = getFirestore(firebaseApp);
+import { mapState } from "vuex";
 
 export default {
 	name: "LeaveRating",
@@ -48,16 +62,19 @@ export default {
 	data() {
 		return {
 			ratedUserID: "",
+			ratedUsername: "",
 			ratedByUserID: "",
 			selectedRating: 0,
 			ratingComment: "",
 			ratingType: "",
 			ratingDate: null,
-			listingUser: this.$route.params.listingUser,
-			offerUser: this.$route.params.offerUser,
+			ratingExists: false,
+			existingRating: null,
 		};
 	},
-
+	computed: {
+		...mapState(["currentListing", "user"]),
+	},
 	methods: {
 		setRating(value) {
 			this.selectedRating = this.selectedRating === value ? 0 : value;
@@ -74,40 +91,39 @@ export default {
 			});
 		},
 		determineRatingType() {
-			if (this.$store.state.user.uid === this.listingUser) {
+			const listingUser = this.currentListing.userID;
+			const offerUser = this.currentListing.acceptedOfferUserID;
+			if (this.$store.state.user.uid === listingUser) {
 				// this.ratedUserID = "sUuhpdVawzZzuOdhrCBSNjROFyE2";
-				this.ratedUserID = this.offerUser;
+				this.ratedUserID = offerUser;
 				this.ratingType = "Shopper";
-			} else if (this.$store.state.user.uid === this.offerUser) {
-				this.ratedUserID = this.listingUser;
+			} else if (this.$store.state.user.uid === offerUser) {
+				this.ratedUserID = listingUser;
 				this.ratingType = "Traveller";
 			} else {
-				this.ratedUserID = this.listingUser;
-				this.ratingType = "Traveller";
 				console.log("ERROOROROROROOR");
 			}
 		},
 		async leaveRating() {
 			this.determineRatingType();
-			const ratedUsername = await this.fetchUsername(this.ratedUserID);
 			const ratedByUsername = await this.fetchUsername(this.$root.user.uid);
 			try {
 				const docRef = await addDoc(collection(db, "Ratings"), {
 					RatedUserID: this.ratedUserID,
-					RatedUsername: ratedUsername,
 					RatedByUserID: this.$root.user.uid,
 					RatedByUsername: ratedByUsername,
 					RatingValue: this.selectedRating,
 					RatingComment: this.ratingComment,
 					RatingType: this.ratingType,
 					RatingDate: new Date().toISOString(),
+					ListingID: this.currentListing.id,
 				});
 				console.log("Document written with ID: ", docRef.id);
 				this.selectedRating = 0;
 				this.ratingComment = "";
 				this.$emit("added");
 				this.$router.push("/home");
-				alert("You have successfully left a rating for: " + ratedUsername);
+				alert("Thank you for your rating!");
 			} catch (error) {
 				console.error("Error adding document: ", error);
 			}
@@ -127,9 +143,33 @@ export default {
 				return "";
 			}
 		},
+		async checkForExistingRating() {
+			try {
+				const listingID = this.currentListing?.id; // replace with actual id property if different
+				let q = query(
+					collection(db, "Ratings"),
+					where("ListingID", "==", listingID)
+				);
+				const querySnapshot = await getDocs(q);
+				if (!querySnapshot.empty) {
+					this.existingRating = querySnapshot.docs[0];
+					this.selectedRating = this.existingRating.data().RatingValue;
+					this.ratingComment = this.existingRating.data().RatingComment;
+					this.ratingExists = true;
+					this.updateStarColors();
+				} else {
+					this.ratingExists = false;
+				}
+			} catch (error) {
+				console.error("Error getting documents: ", error);
+			}
+		},
 	},
-	mounted() {
+	async mounted() {
 		this.updateStarColors();
+		this.determineRatingType();
+		this.ratedUsername = await this.fetchUsername(this.ratedUserID);
+		await this.checkForExistingRating();
 	},
 };
 </script>
@@ -166,7 +206,18 @@ export default {
 
 .rating-stars span:hover {
 	transform: translateY(-2px); /* Subtle lift effect */
-    text-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); 
+	text-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.rating-stars span.disabled {
+	cursor: not-allowed;
+}
+
+.rating-stars span.disabled:hover,
+.submitted-button:hover {
+	transform: none;
+	box-shadow: none;
+	text-shadow: none;
 }
 
 input {
@@ -196,5 +247,12 @@ button {
 button:hover {
 	transform: translateY(-2px); /* Subtle lift effect */
 	box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Enhanced shadow for 3D effect */
+}
+
+.submitted-button {
+	background-color: #818589; /* Replace with the exact color from the screenshot */
+	color: #fff; /* Darker text color for contrast */
+	cursor: not-allowed;
+	box-shadow: none; /* Remove shadow to make it look truly disabled */
 }
 </style>
