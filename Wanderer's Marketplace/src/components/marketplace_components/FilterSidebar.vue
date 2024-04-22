@@ -107,6 +107,7 @@ export default {
   background: #FFF1E7;
   padding: 1rem;
   border-radius: 20px;
+  margin-top: 26px;
 }
 
 .filter-item {
