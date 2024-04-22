@@ -1,27 +1,37 @@
 <template>
-	<div id="rating">
-		<h1>Leave Rating</h1>
-		<div class="rating-stars">
-			<span
-				v-for="star in 5"
-				:key="star"
-				@click="setRating(star)"
-				:class="{ filled: star <= selectedRating }"
-			>
-				&#9733;
-			</span>
+	<div class="page-container">
+		<h1>Leave a Rating</h1>
+		<div class="rating-container">
+			<div class="left">
+				<ProductImage />
+			</div>
+			<div class="right">
+				<div class="rating-stars">
+					<span
+						v-for="star in 5"
+						:key="star"
+						@click="setRating(star)"
+						:class="{ filled: star <= selectedRating }"
+					>
+						&#9733;
+					</span>
+				</div>
+				<input
+					type="text"
+					id="comment"
+					v-model="ratingComment"
+					placeholder="Leave a comment (optional)"
+				/>
+				<button id="submit" type="button" v-on:click="leaveRating">
+					Submit
+				</button>
+			</div>
 		</div>
-		<input
-			type="text"
-			id="comment"
-			v-model="ratingComment"
-			placeholder="Leave a comment (optional)"
-		/>
-		<button id="submit" type="button" v-on:click="leaveRating">Submit</button>
 	</div>
 </template>
 
 <script>
+import ProductImage from "../components/listing_components/ProductImage.vue";
 import firebaseApp from "../firebase.js";
 import {
 	getFirestore,
@@ -34,6 +44,7 @@ const db = getFirestore(firebaseApp);
 
 export default {
 	name: "LeaveRating",
+	components: { ProductImage },
 	data() {
 		return {
 			ratedUserID: "",
@@ -78,7 +89,7 @@ export default {
 		},
 		async leaveRating() {
 			this.determineRatingType();
-			const ratedUsername = await this.fetchUsername(this.ratedUserID)
+			const ratedUsername = await this.fetchUsername(this.ratedUserID);
 			const ratedByUsername = await this.fetchUsername(this.$root.user.uid);
 			try {
 				const docRef = await addDoc(collection(db, "Ratings"), {
@@ -124,8 +135,28 @@ export default {
 </script>
 
 <style scoped>
+.rating-container {
+	margin-top: 0%;
+	display: flex;
+	justify-content: center;
+	align-items: stretch;
+	padding: 50px;
+}
+
+.left {
+	flex: 1;
+}
+
+.right {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	position: relative;
+}
+
 .rating-stars {
-	font-size: 24px;
+	font-size: 50px;
 }
 
 .rating-stars span {
@@ -134,8 +165,12 @@ export default {
 
 input {
 	width: 100%;
-	height: 100px;
-	margin-top: 10px;
+	flex: 1;
+	padding: 0.5rem;
+	border-radius: 10px;
+	border: 1px solid #ccc;
+	margin: 10px 50px 10px 50px;
+	background-color: #fff1e7;
 }
 
 button {
