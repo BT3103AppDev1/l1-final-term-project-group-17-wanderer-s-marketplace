@@ -6,7 +6,7 @@
 				:styleObject="{ width: '50px', height: '50px' }"
 			/>
 			<div class="top-right">
-				<div class="username">{{ ratedByUsername }}</div>
+				<div class="username">@{{ ratedByUsername }}</div>
 				<span class="star" v-for="i in 5" :key="i" :style="getStarStyle(i)"
 					>&#9733;</span
 				>
@@ -97,26 +97,26 @@ export default {
 	padding: 1rem;
 	box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
 	text-align: left;
+	width: 300px;
+	height: auto;
+	max-height: 250px;
+	overflow-y: auto;
+	overflow-x: hidden;
 }
 
 .top {
 	display: flex;
-}
-
-.profile-photo {
-	width: 50px;
-	height: 50px;
-	border-radius: 50%;
-	border: 1px solid black;
-	object-fit: cover;
+	align-items: center;
 }
 
 .top-right {
 	display: block;
+	padding-left: 10px;
 }
 
 .username {
 	font-weight: bold;
+	word-wrap: break-word;
 }
 
 .star {
@@ -125,9 +125,12 @@ export default {
 
 .comment {
 	margin-top: 10px;
+	word-wrap: break-word; /* Break words to prevent overflow */
+	white-space: normal;
 }
 
 .rating-info {
 	font-size: xx-small;
+	margin-top: 10px;
 }
 </style>

@@ -10,11 +10,12 @@
 			<div id="profile-section">
 				<div
 					id="user-profile"
-					:style="{
-						display: 'flex',
-						alignItems: 'center',
-						marginBottom: '10px',
-					}"
+					style="
+						display: flex;
+						align-items: center;
+						margin-bottom: 10px;
+						gap: 20px;
+					"
 				>
 					<ProfilePhoto :userID="this.$root.user.uid" />
 					<div
@@ -30,13 +31,7 @@
 						Telegram @{{ telegramHandle }}
 					</div>
 				</div>
-				<div
-					id="user-rating"
-					:style="{
-						display: 'flex',
-						alignItems: 'center',
-					}"
-				>
+				<div id="user-rating" style="display: flex; align-items: center">
 					<div id="overall-rating" :style="{ marginRight: '10px' }">
 						<h2 style="margin: 0">{{ averageRating.toFixed(1) }}</h2>
 						<p style="margin: 0">({{ numberOfRatings }} ratings)</p>
@@ -343,7 +338,7 @@ export default {
 						headers: { "Content-Type": "application/json" },
 					}
 				);
-				console.log("data", response)
+				console.log("data", response);
 				const data = await response.json();
 				if (!response.ok) throw new Error(data.error);
 				this.stripeUserIDError = false;
@@ -411,7 +406,9 @@ export default {
 #SecondDiv,
 #FourthDiv {
 	height: 360px;
-	margin: auto;
+	display: flex;
+	justify-content: left;
+	align-items: center;
 }
 
 h1 {
@@ -436,24 +433,23 @@ h1 {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	margin: 20px;
 }
 
 #ratings-section {
 	display: flex;
 	gap: 20px;
-	padding: 20px 0;
-}
-
-.star {
-	font-size: 30px;
-}
-
-.scroll {
+	max-width: 100%;
 	margin: 4px, 4px;
 	padding: 4px;
 	overflow-x: auto;
 	overflow-y: hidden;
 	white-space: nowrap;
+	align-items: center;
+}
+
+.star {
+	font-size: 30px;
 }
 
 .cropper-modal {
