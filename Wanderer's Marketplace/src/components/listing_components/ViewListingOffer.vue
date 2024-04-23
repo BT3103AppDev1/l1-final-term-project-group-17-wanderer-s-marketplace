@@ -255,9 +255,7 @@ export default {
 	border-radius: 16px;
 	width: 100%;
 	box-sizing: border-box;
-  white-space: normal; /* This allows the text to wrap */
-        overflow: visible; /* This makes sure that text is not hidden */
-        word-wrap: break-word; /* This will break long words to prevent overflow */
+
 }
 
 .offers-and-details-container {
@@ -279,9 +277,9 @@ export default {
 	border-radius: 16px;
 	box-sizing: border-box;
   background-color: white;
-  white-space: normal; /* This allows the text to wrap */
-        overflow: visible; /* This makes sure that text is not hidden */
-        word-wrap: break-word; /* This will break long words to prevent overflow */
+  height: 350px;
+  margin-top: 100px;
+  margin-right: 20px;
 }
 
 .offers-list-container {
@@ -294,9 +292,7 @@ export default {
   font-size: 20px;
   font-weight: bolder;
   margin-left: 20px;
-  white-space: normal; /* This allows the text to wrap */
-        overflow: visible; /* This makes sure that text is not hidden */
-        word-wrap: break-word; /* This will break long words to prevent overflow */
+
 }
 
 .offer-card {
@@ -309,22 +305,28 @@ export default {
 	border-radius: 14px;
 	transition: background-color 0.3s;
   width: 70%;
-  white-space: normal; /* This allows the text to wrap */
-        overflow: visible; /* This makes sure that text is not hidden */
-        word-wrap: break-word; /* This will break long words to prevent overflow */
+
 }
 
 
-.offer-info, .selected-user-details {
+.offer-info {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: left;
   margin-left: 10px;
   white-space: normal; /* This allows the text to wrap */
   overflow:scroll; /* This makes sure that text is not hidden */
- word-wrap: break-word; /* This will break long words to prevent overflow */
 }
 
+.selected-user-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  margin-left: 10px;
+  white-space: normal; /* This allows the text to wrap */
+  overflow:scroll; /* This makes sure that text is not hidden */
+
+}
 
 .user-image {
 	width: 70px;
@@ -335,7 +337,7 @@ export default {
 
 .action-button {
 	padding: 10px 20px;
-	margin-top: 10px;
+	margin-top: 50px;
 	border: none;
 	border-radius: 4px;
 	cursor: pointer;
@@ -361,12 +363,11 @@ export default {
 .selected-user-info {
 	display: flex;
 	flex-direction: row;
-	align-items: center;
+	align-items: left;
 	margin-bottom: 20px;
-  margin-left: 40px;
-  white-space: normal; /* This allows the text to wrap */
-        overflow: visible; /* This makes sure that text is not hidden */
-        word-wrap: break-word; /* This will break long words to prevent overflow */
+  margin-left: 0px;
+  justify-content: left;
+
 }
 
 .selected-user-image {
@@ -378,7 +379,7 @@ export default {
 }
 
 .selected-user-name {
-	font-size: 30px;
+	font-size: 20px;
 	margin-bottom: 0px;
 }
 .telegram-label {
@@ -391,7 +392,7 @@ export default {
 .selected-user-telegram-id {
 	display: flex;
 	align-items: center;
-	font-size: 16px;
+	font-size: 14px;
 	color: #555;
 	margin-bottom: 0px;
 	margin-top: 0px;
@@ -402,17 +403,13 @@ export default {
 	margin-top: 0px;
 	font-size: 40px;
 	font-weight: bold;
-  white-space: normal; /* This allows the text to wrap */
-        overflow: visible; /* This makes sure that text is not hidden */
-        word-wrap: break-word; /* This will break long words to prevent overflow */
+
 }
 
 .selected-user-text {
 	margin-bottom: 0px;
 	margin-top: 0px;
-  white-space: normal; /* This allows the text to wrap */
-        overflow: visible; /* This makes sure that text is not hidden */
-        word-wrap: break-word; /* This will break long words to prevent overflow */
+
 }
 
 .selected-offer-amount {
@@ -433,22 +430,17 @@ export default {
 }
 
 .user-name {
-font-size: 22px;
+font-size: 18px;
 margin-bottom: 5px; 
 margin-top: 0px;
 font-weight: bolder;
-white-space: normal; /* This allows the text to wrap */
-        overflow: visible; /* This makes sure that text is not hidden */
-        word-wrap: break-word; /* This will break long words to prevent overflow */
+
 }
 
 .offer-price {
-font-size: 22px;
+font-size: 18px;
 margin-top: 5px; 
 margin-bottom: 0px;
-white-space: normal; /* This allows the text to wrap */
-        overflow: visible; /* This makes sure that text is not hidden */
-        word-wrap: break-word; /* This will break long words to prevent overflow */
 }
 
 .selected-user-telegram-id a {
@@ -473,9 +465,7 @@ white-space: normal; /* This allows the text to wrap */
     margin-left: 0px;
     font-size: 18px;
     margin-bottom: 0px;
-    white-space: normal; /* This allows the text to wrap */
-        overflow: visible; /* This makes sure that text is not hidden */
-        word-wrap: break-word; /* This will break long words to prevent overflow */
+
   }
   .offers-container {
     overflow-y: auto; /* Enable vertical scrolling */
