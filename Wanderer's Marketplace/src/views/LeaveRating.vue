@@ -16,8 +16,7 @@
 						&#9733;
 					</span>
 				</div>
-				<input
-					type="text"
+				<textarea
 					id="comment"
 					v-model="ratingComment"
 					:disabled="ratingExists"
@@ -25,7 +24,12 @@
 					:style="
 						ratingExists ? { cursor: 'not-allowed' } : { cursor: 'pointer' }
 					"
+					maxlength="300"
+					@keypress.enter.prevent
 				/>
+				<div style="text-align: right; font-size: 0.75rem">
+					{{ 300 - ratingComment.length }} characters remaining
+				</div>
 				<button
 					id="submit"
 					type="button"
@@ -220,7 +224,7 @@ export default {
 	text-shadow: none;
 }
 
-input {
+textarea {
 	width: 100%;
 	flex: 1;
 	padding: 0.5rem;

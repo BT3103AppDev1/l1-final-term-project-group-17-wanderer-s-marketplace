@@ -10,11 +10,12 @@
 			<div id="profile-section">
 				<div
 					id="user-profile"
-					:style="{
-						display: 'flex',
-						alignItems: 'center',
-						marginBottom: '10px',
-					}"
+					style="
+						display: flex;
+						align-items: center;
+						margin-bottom: 10px;
+						gap: 20px;
+					"
 				>
 					<ProfilePhoto :userID="this.$root.user.uid" />
 					<div
@@ -30,13 +31,7 @@
 						Telegram @{{ telegramHandle }}
 					</div>
 				</div>
-				<div
-					id="user-rating"
-					:style="{
-						display: 'flex',
-						alignItems: 'center',
-					}"
-				>
+				<div id="user-rating" style="display: flex; align-items: center">
 					<div id="overall-rating" :style="{ marginRight: '10px' }">
 						<h2 style="margin: 0">{{ averageRating.toFixed(1) }}</h2>
 						<p style="margin: 0">({{ numberOfRatings }} ratings)</p>
@@ -73,7 +68,6 @@
 		<div id="FourthDiv">
 			<div id="edit-profile-photo">
 				<ProfilePhoto :userID="this.$root.user.uid" />
-				<br />
 				<button @click="triggerFileInput" class="edit-photo-button">
 					Edit Profile Photo
 				</button>
@@ -85,15 +79,17 @@
 					ref="fileInput"
 					accept="image/*"
 				/>
-				<div v-if="showCropperModal" class="cropper-modal">
-					<img ref="imageElement" style="max-width: 100%" />
-					<div class="cropper-buttons">
-						<button @click="getCroppedImageAndUpload" class="upload-button">
-							Upload
-						</button>
-						<button @click="cancelCropping" class="cancel-button">
-							Cancel
-						</button>
+				<div v-if="showCropperModal" class="cropper-modal-wrapper">
+					<div v-if="showCropperModal" class="cropper-modal">
+						<img ref="imageElement" />
+						<div class="cropper-buttons">
+							<button @click="getCroppedImageAndUpload" class="upload-button">
+								Upload
+							</button>
+							<button @click="cancelCropping" class="cancel-button">
+								Cancel
+							</button>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -110,8 +106,7 @@
 					@blur="validateTelegramHandle"
 				/><span v-if="telegramHandleError" class="error-message"
 					>Please provide a valid Telegram handle.</span
-				><br />
-
+				>
 				<label for="stripeUserID">Stripe User ID</label>
 				<input
 					type="text"
@@ -122,8 +117,8 @@
 					@blur="validateStripeUserID(stripeUserID)"
 				/><span v-if="stripeUserIDError" class="error-message"
 					>Please provide a valid Stripe User ID.</span
-				><br />
-
+				>
+				<br />
 				<button @click="confirmEdits" class="edit-details-button">
 					Confirm Edits
 				</button>
@@ -258,6 +253,14 @@ export default {
 						this.cropper = new Cropper(this.$refs.imageElement, {
 							aspectRatio: 1,
 							viewMode: 1,
+							modal: false,
+							guides: true,
+							center: true,
+							highlight: true,
+							background: false,
+							autoCrop: true,
+							cropBoxMovable: true,
+							cropBoxResizable: true,
 						});
 						this.cropper.replace(e.target.result);
 					});
@@ -343,7 +346,7 @@ export default {
 						headers: { "Content-Type": "application/json" },
 					}
 				);
-				console.log("data", response)
+				console.log("data", response);
 				const data = await response.json();
 				if (!response.ok) throw new Error(data.error);
 				this.stripeUserIDError = false;
@@ -397,7 +400,7 @@ export default {
 }
 /* #FirstDiv {
 	justify-content: space-between;
-	padding: 0 20px; 
+	padding: 0 20px;
 } */
 
 #Username {
@@ -411,7 +414,9 @@ export default {
 #SecondDiv,
 #FourthDiv {
 	height: 360px;
-	margin: auto;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 h1 {
@@ -436,45 +441,58 @@ h1 {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	margin: 20px;
 }
 
 #ratings-section {
 	display: flex;
 	gap: 20px;
-	padding: 20px 0;
+	max-width: 100%;
+	margin: 4px, 4px;
+	padding: 4px;
+	overflow-x: auto;
+	overflow-y: hidden;
+	white-space: nowrap;
+	align-items: center;
 }
 
 .star {
 	font-size: 30px;
 }
 
-.scroll {
-	margin: 4px, 4px;
-	padding: 4px;
-	overflow-x: auto;
-	overflow-y: hidden;
-	white-space: nowrap;
-}
-
-.cropper-modal {
+.cropper-modal-wrapper {
 	position: fixed;
 	top: 0;
 	left: 0;
 	right: 0;
 	bottom: 0;
-	background: rgba(0, 0, 0, 0.8);
 	display: flex;
+	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 	z-index: 100;
-	padding: 50px;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.8);
+}
+
+.cropper-modal {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	z-index: 101;
+	width: auto;
+	height: 80vh;
+	background-color: rgba(0, 0, 0, 0);
+	opacity: 1;
+	margin: auto;
 }
 
 .cropper-modal img {
-	box-shadow: 0 0 10px rgba(255, 255, 255, 0.85);
-	border-radius: 4px;
-	max-height: 80vh; /* Adjust this to ensure it fits in small screens */
-	max-width: 95%;
+	max-height: 100%;
+	max-width: none;
+	object-fit: contain;
 }
 
 .edit-photo-button,
@@ -497,6 +515,7 @@ h1 {
 	color: #051e55;
 	cursor: pointer;
 	margin-top: 10px;
+	margin-left: 10px;
 }
 
 .hidden {
@@ -505,6 +524,13 @@ h1 {
 
 input {
 	color: grey;
+	width: 300px;
+	margin-bottom: 10px;
+}
+
+label {
+	display: block;
+	text-align: left;
 }
 
 .edited {
@@ -515,5 +541,12 @@ input {
 	color: red;
 	font-size: 14px;
 	margin-left: 5px;
+}
+
+#edit-profile-photo {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 20px;
 }
 </style>
