@@ -38,8 +38,6 @@ import {
 	updateDoc,
 } from "firebase/firestore";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import ProfilePhoto from "../components/profile_components/ProfilePhoto.vue";
-import Rating from "../components/profile_components/Rating.vue";
 import UserProfile from "../components/profile_components/UserProfile.vue";
 import EditDetails from "../components/profile_components/EditDetails.vue";
 import HelpingListings from "../components/home_components/HelpingListings.vue";
@@ -50,8 +48,6 @@ import { mapState } from "vuex";
 export default {
 	name: "Profile",
 	components: {
-		ProfilePhoto,
-		Rating,
 		UserProfile,
 		EditDetails,
 		HelpingListings,

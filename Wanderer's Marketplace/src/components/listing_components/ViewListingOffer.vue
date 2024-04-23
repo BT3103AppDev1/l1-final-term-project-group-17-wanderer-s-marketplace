@@ -18,10 +18,14 @@
 						}"
 						@click="selectOffer(offer)"
 					>
-						<img
+						<!-- <img
 							:src="getUserImageUrl(offer.OfferByUserID)"
 							alt="User Image"
 							class="user-image"
+						/> -->
+						<ProfilePhoto
+							:userID="offer.OfferByUserID"
+							:styleObject="{ width: '80px', height: '80px' }"
 						/>
 						<div class="offer-info">
 							<p class="user-name">{{ getUserName(offer.OfferByUserID) }}</p>
@@ -34,21 +38,32 @@
 			</div>
 			<div v-if="selectedOffer" class="selected-offer-details">
 				<div class="selected-user-info">
-					<img
+					<!-- <img
 						:src="getUserImageUrl(selectedOffer.OfferByUserID)"
 						alt="User Image"
 						class="selected-user-image"
+					/> -->
+					<ProfilePhoto
+						:userID="selectedOffer.OfferByUserID"
+						:styleObject="{ width: '80px', height: '80px' }"
+						:linkToProfile="true"
 					/>
-          <div class="selected-user-details"> 
-					<h2 class="selected-user-name">
-						{{ getUserName(selectedOffer.OfferByUserID) }}
-					</h2>
-					<p class="selected-user-telegram-id">
-						<span class="telegram-label">Telegram: </span>
-            <a :href="`https://t.me/${getUserTelegramId(selectedOffer.OfferByUserID)}`" target="_blank">{{ getUserTelegramId(selectedOffer.OfferByUserID) }}</a>
-					</p>
+					<div class="selected-user-details">
+						<h2 class="selected-user-name">
+							{{ getUserName(selectedOffer.OfferByUserID) }}
+						</h2>
+						<p class="selected-user-telegram-id">
+							<span class="telegram-label">Telegram: </span>
+							<a
+								:href="`https://t.me/${getUserTelegramId(
+									selectedOffer.OfferByUserID
+								)}`"
+								target="_blank"
+								>{{ getUserTelegramId(selectedOffer.OfferByUserID) }}</a
+							>
+						</p>
+					</div>
 				</div>
-      </div>
 				<div class="selected-offer-amount">
 					<h2 class="selected-user-text">has offered</h2>
 					<div class="offer-amount">$ {{ selectedOffer.OfferPrice }}</div>
@@ -86,9 +101,11 @@ import {
 	getDocs,
 } from "firebase/firestore";
 import { deleteDoc } from "firebase/firestore";
+import ProfilePhoto from "../profile_components/ProfilePhoto.vue";
 
 export default {
 	name: "ViewListingOffers",
+	components: { ProfilePhoto },
 	computed: {
 		...mapState(["currentListing"]),
 		listingId() {
@@ -255,7 +272,6 @@ export default {
 	border-radius: 16px;
 	width: 100%;
 	box-sizing: border-box;
-
 }
 
 .offers-and-details-container {
@@ -263,23 +279,21 @@ export default {
 	max-width: 1200px;
 	width: 100%;
 	border-radius: 16px;
-
 }
 
 .offers-list-container {
-  background-color: none;
-  width: 50%;
-
+	background-color: none;
+	width: 50%;
 }
 .selected-offer-details {
 	width: 50%;
 	padding: 20px;
 	border-radius: 16px;
 	box-sizing: border-box;
-  background-color: white;
-  height: 350px;
-  margin-top: 100px;
-  margin-right: 20px;
+	background-color: white;
+	height: 350px;
+	margin-top: 100px;
+	margin-right: 20px;
 }
 
 .offers-list-container {
@@ -289,10 +303,9 @@ export default {
 .listing-details {
 	text-align: left;
 	margin-bottom: 20px;
-  font-size: 20px;
-  font-weight: bolder;
-  margin-left: 20px;
-
+	font-size: 20px;
+	font-weight: bolder;
+	margin-left: 20px;
 }
 
 .offer-card {
@@ -304,28 +317,25 @@ export default {
 	border: 1px solid #ccc;
 	border-radius: 14px;
 	transition: background-color 0.3s;
-  width: 70%;
-
+	width: 70%;
 }
 
-
 .offer-info {
-  display: flex;
-  flex-direction: column;
-  justify-content: left;
-  margin-left: 10px;
-  white-space: normal; /* This allows the text to wrap */
-  overflow:scroll; /* This makes sure that text is not hidden */
+	display: flex;
+	flex-direction: column;
+	justify-content: left;
+	margin-left: 10px;
+	white-space: normal; /* This allows the text to wrap */
+	overflow: scroll; /* This makes sure that text is not hidden */
 }
 
 .selected-user-details {
-  display: flex;
-  flex-direction: column;
-  justify-content: left;
-  margin-left: 10px;
-  white-space: normal; /* This allows the text to wrap */
-  overflow:scroll; /* This makes sure that text is not hidden */
-
+	display: flex;
+	flex-direction: column;
+	justify-content: left;
+	margin-left: 10px;
+	white-space: normal; /* This allows the text to wrap */
+	overflow: scroll; /* This makes sure that text is not hidden */
 }
 
 .user-image {
@@ -348,16 +358,15 @@ export default {
 	background-color: #4caf50;
 	color: white;
 	margin-right: 10px;
-  border-radius: 10px;
-  width: 40%;
-
+	border-radius: 10px;
+	width: 40%;
 }
 
 .reject-button {
 	background-color: #f44336;
 	color: white;
-  border-radius: 10px;
-  width: 40%;
+	border-radius: 10px;
+	width: 40%;
 }
 
 .selected-user-info {
@@ -365,17 +374,16 @@ export default {
 	flex-direction: row;
 	align-items: left;
 	margin-bottom: 20px;
-  margin-left: 0px;
-  justify-content: left;
-
+	margin-left: 0px;
+	justify-content: left;
 }
 
 .selected-user-image {
-	width: 80px; 
+	width: 80px;
 	height: 80px;
 	border-radius: 50%;
-	border: 2px solid #ddd; 
-	margin-bottom: 0px; 
+	border: 2px solid #ddd;
+	margin-bottom: 0px;
 }
 
 .selected-user-name {
@@ -383,10 +391,9 @@ export default {
 	margin-bottom: 0px;
 }
 .telegram-label {
-	margin-right: 4px; 
+	margin-right: 4px;
 	font-weight: bold;
 	margin-bottom: 0px;
-
 }
 
 .selected-user-telegram-id {
@@ -403,13 +410,11 @@ export default {
 	margin-top: 0px;
 	font-size: 40px;
 	font-weight: bold;
-
 }
 
 .selected-user-text {
 	margin-bottom: 0px;
 	margin-top: 0px;
-
 }
 
 .selected-offer-amount {
@@ -430,48 +435,43 @@ export default {
 }
 
 .user-name {
-font-size: 18px;
-margin-bottom: 5px; 
-margin-top: 0px;
-font-weight: bolder;
-
+	font-size: 18px;
+	margin-bottom: 5px;
+	margin-top: 0px;
+	font-weight: bolder;
 }
 
 .offer-price {
-font-size: 18px;
-margin-top: 5px; 
-margin-bottom: 0px;
+	font-size: 18px;
+	margin-top: 5px;
+	margin-bottom: 0px;
 }
 
 .selected-user-telegram-id a {
-    color: #4f5151; /* Telegram's brand color, you can choose a different color if you want */
-    text-decoration: none; /* Removes the underline */
-    transition: font-weight 0.2s; /* Smooth transition for the font weight */
-    margin-left: 0px;
-    font-weight:light;
-  }
+	color: #4f5151; /* Telegram's brand color, you can choose a different color if you want */
+	text-decoration: none; /* Removes the underline */
+	transition: font-weight 0.2s; /* Smooth transition for the font weight */
+	margin-left: 0px;
+	font-weight: light;
+}
 
-  .selected-user-telegram-id a:hover,
-  .selected-user-telegram-id a:active {
-    font-weight: bolder; /* Makes the text bold on hover and when active (pressed) */
-    text-decoration: none; /* Optional: adds underline on hover */
-    margin-left: 0px;
-    margin-bottom: 0px;
+.selected-user-telegram-id a:hover,
+.selected-user-telegram-id a:active {
+	font-weight: bolder; /* Makes the text bold on hover and when active (pressed) */
+	text-decoration: none; /* Optional: adds underline on hover */
+	margin-left: 0px;
+	margin-bottom: 0px;
+}
 
-  }
-
-  .telegram-label{
-    margin-right: 0px;
-    margin-left: 0px;
-    font-size: 18px;
-    margin-bottom: 0px;
-
-  }
-  .offers-container {
-    overflow-y: auto; /* Enable vertical scrolling */
+.telegram-label {
+	margin-right: 0px;
+	margin-left: 0px;
+	font-size: 18px;
+	margin-bottom: 0px;
+}
+.offers-container {
+	overflow-y: auto; /* Enable vertical scrolling */
 	max-height: 400px;
-  
-  }
-
+}
 </style>
 3

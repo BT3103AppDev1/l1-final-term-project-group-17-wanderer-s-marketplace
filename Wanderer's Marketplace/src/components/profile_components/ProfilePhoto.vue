@@ -1,5 +1,17 @@
 <template>
-	<div :class="['profile-photo-container', containerClass]">
+	<router-link
+		:to="`/profile/${userID}`"
+		v-if="linkToProfile"
+		:class="['profile-photo-container', containerClass]"
+	>
+		<img
+			:src="profilePhoto"
+			alt="Profile Photo"
+			class="profile-photo"
+			:style="styleObject"
+		/>
+	</router-link>
+	<div v-else :class="['profile-photo-container', containerClass]">
 		<img
 			:src="profilePhoto"
 			alt="Profile Photo"
@@ -16,8 +28,9 @@ const db = getFirestore(firebaseApp);
 
 export default {
 	props: {
-		userID: String,
+		userID: { type: String, required: true },
 		styleObject: Object,
+		linkToProfile: { type: Boolean },
 	},
 	data() {
 		return {

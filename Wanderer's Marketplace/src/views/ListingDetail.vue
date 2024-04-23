@@ -32,7 +32,14 @@
 				<div class="accepted-offer-header">
 					<div class="accepted-offer-label">Accepted Offer:</div>
 					<div class="accepted-offer-detail-box">
-						<div class="detail">
+						<router-link
+							:to="`/profile/${listingUser.userID}`"
+							v-if="listingUser.userID"
+							class="detail"
+						>
+							Username: <span>{{ acceptedOfferDetails.username }}</span>
+						</router-link>
+						<div v-else class="detail">
 							Username: <span>{{ acceptedOfferDetails.username }}</span>
 						</div>
 					</div>
