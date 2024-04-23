@@ -2,127 +2,25 @@
 	<div id="container">
 		<div id="FirstDiv">
 			<h1 id="Username">@{{ username }}</h1>
-			<button class="signout-button" type="button" v-on:click="signOut">
+			<button
+				class="signout-button"
+				type="button"
+				v-on:click="signOut"
+				v-if="isCurrentUser"
+			>
 				Logout
 			</button>
 		</div>
 		<div id="SecondDiv">
-			<div id="profile-section">
-				<div
-					id="user-profile"
-					style="
-						display: flex;
-						align-items: center;
-						margin-bottom: 10px;
-						gap: 20px;
-					"
-				>
-					<ProfilePhoto :userID="this.$root.user.uid" />
-					<div
-						id="user-info"
-						:style="{
-							display: 'flex',
-							flexDirection: 'column',
-							whiteSpace: 'nowrap',
-							textAlign: 'left',
-						}"
-					>
-						Joined {{ dateJoined }}<br />
-						Telegram @{{ telegramHandle }}
-					</div>
-				</div>
-				<div id="user-rating" style="display: flex; align-items: center">
-					<div id="overall-rating" :style="{ marginRight: '10px' }">
-						<h2 style="margin: 0">{{ averageRating.toFixed(1) }}</h2>
-						<p style="margin: 0">({{ numberOfRatings }} ratings)</p>
-					</div>
-					<div class="stars">
-						<!-- include method to return the correct number of filled stars based on the rating -->
-						<span
-							class="star"
-							v-for="i in 5"
-							:key="i"
-							:class="{ filled: i <= averageRating }"
-							:style="getStarStyle(i)"
-							>&#9733;</span
-						>
-					</div>
-				</div>
-			</div>
-			<div id="ratings-section" class="scroll">
-				<div v-for="(rating, index) in ratings" :key="index">
-					<Rating
-						:ratedByUserID="rating.RatedByUserID"
-						:ratedByUsername="rating.RatedByUsername"
-						:ratingValue="rating.RatingValue"
-						:ratingComment="rating.RatingComment"
-						:ratingType="rating.RatingType"
-						:ratingDate="rating.RatingDate"
-					/>
-				</div>
-			</div>
+			<UserProfile :userID="this.userID" />
 		</div>
 		<div id="ThirdDiv">
-			<h1 id="EditDetails">Edit User Details</h1>
+			<h1 id="EditDetails" v-if="isCurrentUser">Edit User Details</h1>
+			<h1 id="OtherUserListings" v-else>@{{ username }}'s Listings</h1>
 		</div>
-		<div id="FourthDiv">
-			<div id="edit-profile-photo">
-				<ProfilePhoto :userID="this.$root.user.uid" />
-				<button @click="triggerFileInput" class="edit-photo-button">
-					Edit Profile Photo
-				</button>
-				<input
-					type="file"
-					id="inputImage"
-					@change="handleFileChange"
-					class="hidden"
-					ref="fileInput"
-					accept="image/*"
-				/>
-				<div v-if="showCropperModal" class="cropper-modal-wrapper">
-					<div v-if="showCropperModal" class="cropper-modal">
-						<img ref="imageElement" />
-						<div class="cropper-buttons">
-							<button @click="getCroppedImageAndUpload" class="upload-button">
-								Upload
-							</button>
-							<button @click="cancelCropping" class="cancel-button">
-								Cancel
-							</button>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div id="edit-text-input">
-				<label for="telegramHandle">Telegram Handle</label>
-				<input
-					type="text"
-					id="telegramHandle"
-					name="telegramHandle"
-					v-model="telegramHandle"
-					:class="{
-						edited: telegramHandleChanged,
-					}"
-					@blur="validateTelegramHandle"
-				/><span v-if="telegramHandleError" class="error-message"
-					>Please provide a valid Telegram handle.</span
-				>
-				<label for="stripeUserID">Stripe User ID</label>
-				<input
-					type="text"
-					id="stripeUserID"
-					name="stripeUserID"
-					v-model="stripeUserID"
-					:class="{ edited: stripeUserIDChanged }"
-					@blur="validateStripeUserID(stripeUserID)"
-				/><span v-if="stripeUserIDError" class="error-message"
-					>Please provide a valid Stripe User ID.</span
-				>
-				<br />
-				<button @click="confirmEdits" class="edit-details-button">
-					Confirm Edits
-				</button>
-			</div>
+		<div id="FourthDiv" class="scroll">
+			<EditDetails :userID="this.userID" v-if="isCurrentUser" />
+			<HelpingListings :userID="this.userID" v-else />
 		</div>
 	</div>
 </template>
@@ -140,23 +38,30 @@ import {
 	updateDoc,
 } from "firebase/firestore";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import ProfilePhoto from "../components/profile_components/ProfilePhoto.vue";
-import Rating from "../components/profile_components/Rating.vue";
-import Cropper from "cropperjs";
-import "cropperjs/dist/cropper.min.css";
-import flatpickr from "flatpickr";
-import "flatpickr/dist/flatpickr.css";
-import monthSelectPlugin from "flatpickr/dist/plugins/monthSelect";
+import UserProfile from "../components/profile_components/UserProfile.vue";
+import EditDetails from "../components/profile_components/EditDetails.vue";
+import HelpingListings from "../components/home_components/HelpingListings.vue";
 const db = getFirestore();
 const storage = getStorage();
+import { mapState } from "vuex";
 
 export default {
 	name: "Profile",
-	components: { ProfilePhoto, Rating },
+	components: {
+		UserProfile,
+		EditDetails,
+		HelpingListings,
+	},
+	props: {
+		userID: {
+			type: String,
+			required: true,
+		},
+	},
 	data() {
 		return {
 			username: "",
-			ratings: [],
+			/* ratings: [],
 			profilePhoto: "",
 			dateJoined: "",
 			telegramHandle: "",
@@ -173,61 +78,10 @@ export default {
 			initialTelegramHandle: "",
 			initialStripeUserID: "",
 			telegramHandleError: false,
-			stripeUserIDError: false,
+			stripeUserIDError: false, */
 		};
 	},
 	methods: {
-		async fetchUserData() {
-			const user = this.$root.user;
-			if (user) {
-				const userDocRef = doc(db, "Users", user.uid);
-				const userDocSnapshot = await getDoc(userDocRef);
-				if (userDocSnapshot.exists()) {
-					const userData = userDocSnapshot.data();
-					this.username = userData.username;
-					this.telegramHandle = userData.telegramHandle;
-					this.stripeUserID = userData.stripeUserID;
-					this.initialTelegramHandle = userData.telegramHandle;
-					this.initialStripeUserID = userData.stripeUserID;
-				} else {
-					console.error("User document does not exist for:", user.uid);
-				}
-				this.dateJoined = new Date(
-					user.metadata.creationTime
-				).toLocaleDateString("en-GB");
-				await this.fetchRatings();
-			} else {
-				console.log("No user found");
-			}
-		},
-		async fetchRatings() {
-			try {
-				const ratingsRef = collection(db, "Ratings");
-				const userRatingsQuery = query(
-					ratingsRef,
-					where("RatedUserID", "==", this.$root.user.uid)
-				);
-				const querySnapshot = await getDocs(userRatingsQuery);
-				let totalRatings = 0;
-				this.ratings = querySnapshot.docs
-					.map((doc) => {
-						const data = doc.data();
-						totalRatings += data.RatingValue;
-						return data;
-					})
-					.sort(
-						(a, b) =>
-							new Date(b.RatingDate).getTime() -
-							new Date(a.RatingDate).getTime()
-					);
-				this.numberOfRatings = this.ratings.length;
-				if (this.numberOfRatings > 0) {
-					this.averageRating = totalRatings / this.numberOfRatings;
-				}
-			} catch (error) {
-				console.error("Error fetching ratings:", error);
-			}
-		},
 		signOut() {
 			const auth = getAuth();
 			signOut(auth)
@@ -240,146 +94,37 @@ export default {
 					console.error("Error signing out:", error);
 				});
 		},
-		triggerFileInput() {
-			this.$refs.fileInput.click();
-		},
-		handleFileChange(event) {
-			const file = event.target.files[0];
-			if (file) {
-				const reader = new FileReader();
-				reader.onload = (e) => {
-					this.showCropperModal = true;
-					this.$nextTick(() => {
-						this.cropper = new Cropper(this.$refs.imageElement, {
-							aspectRatio: 1,
-							viewMode: 1,
-							modal: false,
-							guides: true,
-							center: true,
-							highlight: true,
-							background: false,
-							autoCrop: true,
-							cropBoxMovable: true,
-							cropBoxResizable: true,
-						});
-						this.cropper.replace(e.target.result);
-					});
-				};
-				reader.readAsDataURL(file);
-			}
-		},
-		getCroppedImageAndUpload() {
-			if (this.cropper) {
-				const originalFile = this.$refs.fileInput.files[0];
-				this.cropper.getCroppedCanvas().toBlob(async (blob) => {
-					const file = new File([blob], originalFile.name, {
-						type: originalFile.type,
-					});
-					await this.uploadCroppedImage(file);
-					this.showCropperModal = false;
-					this.resetFileInput();
-				}, originalFile.type);
-			}
-		},
-
-		async uploadCroppedImage(file) {
+		async fetchUsername(userID) {
+			if (!userID) return "";
+			const userDocRef = doc(db, "Users", userID);
 			try {
-				const storageRef = ref(
-					storage,
-					`profile-photos/${this.$root.user.uid}/${file.name}`
-				);
-				const uploadTask = await uploadBytes(storageRef, file);
-				const downloadURL = await getDownloadURL(uploadTask.ref);
-
-				await updateDoc(doc(db, "Users", this.$root.user.uid), {
-					profilePhoto: downloadURL,
-				});
-				console.log("File uploaded successfully:", downloadURL);
-				alert("Your profile photo has been updated successfully.");
+				const userDocSnapshot = await getDoc(userDocRef);
+				if (userDocSnapshot.exists()) {
+					const userData = userDocSnapshot.data();
+					return userData.username;
+				}
+				return "";
 			} catch (error) {
-				console.error("Error uploading file:", error);
+				console.error("Error fetching username:", error);
+				return "";
 			}
 		},
-		cancelCropping() {
-			this.showCropperModal = false;
-			this.resetFileInput();
-		},
-		resetFileInput() {
-			this.$refs.fileInput.value = ""; // Reset the file input
-		},
-		async confirmEdits() {
-			if (
-				!this.validateTelegramHandle() ||
-				!(await this.validateStripeUserID(this.stripeUserID))
-			) {
-				return;
-			}
-			try {
-				await updateDoc(doc(db, "Users", this.$root.user.uid), {
-					telegramHandle: this.telegramHandle,
-					stripeUserID: this.stripeUserID,
-				});
-				alert("Your details have been updated successfully.");
-
-				this.initialTelegramHandle = this.telegramHandle;
-				this.initialStripeUserID = this.stripeUserID;
-			} catch (error) {
-				console.error("Error updating user details:", error);
-				alert("There was an error updating your details.");
-			}
-		},
-		validateTelegramHandle() {
-			if (!this.telegramHandle || this.telegramHandle.trim() === "") {
-				this.telegramHandleError = true;
-			} else {
-				this.telegramHandleError = false;
-			}
-		},
-		async validateStripeUserID(accountId) {
-			console.log("accountId", accountId);
-			try {
-				const response = await fetch(
-					// `http://localhost:3000/check-stripe-account/${accountId}`,
-					`https://bt3103clone.vercel.app/check-stripe-account/${accountId}`,
-					{
-						method: "GET",
-						headers: { "Content-Type": "application/json" },
-					}
-				);
-				console.log("data", response);
-				const data = await response.json();
-				if (!response.ok) throw new Error(data.error);
-				this.stripeUserIDError = false;
-				console.log("stripe account validation success!");
-			} catch (error) {
-				console.error("Stripe account validation failed:", error);
-				this.stripeUserIDError = true;
-			}
-		},
-		getStarStyle(index) {
-			return {
-				color: index <= this.averageRating ? "#051e55" : "#ccc",
-			};
-		},
-	},
-	mounted() {
-		const auth = getAuth();
-		onAuthStateChanged(auth, (user) => {
-			if (user) {
-				this.$root.user = user;
-				this.fetchUserData();
-			} else {
-				console.log("No user found");
-			}
-		});
 	},
 	computed: {
-		telegramHandleChanged() {
-			return this.telegramHandle !== this.initialTelegramHandle;
+		...mapState(["currentListing", "user"]),
+		isCurrentUser() {
+			return this.user.uid === this.userID;
 		},
-		stripeUserIDChanged() {
-			return this.stripeUserID !== this.initialStripeUserID;
+	},
+	watch: {
+		async userID(newVal) {
+			if (newVal) {
+				this.username = await this.fetchUsername(newVal);
+			}
 		},
+	},
+	async mounted() {
+		this.username = await this.fetchUsername(this.userID);
 	},
 };
 </script>
@@ -437,116 +182,12 @@ h1 {
 	margin: 5px;
 }
 
-#profile-section {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	margin: 20px;
-}
-
-#ratings-section {
-	display: flex;
-	gap: 20px;
-	max-width: 100%;
+div.scroll {
 	margin: 4px, 4px;
 	padding: 4px;
+	/*width: 300px;*/
 	overflow-x: auto;
 	overflow-y: hidden;
 	white-space: nowrap;
-	align-items: center;
-}
-
-.star {
-	font-size: 30px;
-}
-
-.cropper-modal-wrapper {
-	position: fixed;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	z-index: 100;
-	width: 100%;
-	height: 100%;
-	background-color: rgba(0, 0, 0, 0.8);
-}
-
-.cropper-modal {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	z-index: 101;
-	width: auto;
-	height: 80vh;
-	background-color: rgba(0, 0, 0, 0);
-	opacity: 1;
-	margin: auto;
-}
-
-.cropper-modal img {
-	max-height: 100%;
-	max-width: none;
-	object-fit: contain;
-}
-
-.edit-photo-button,
-.upload-button,
-.edit-details-button {
-	padding: 10px 20px;
-	border: none;
-	border-radius: 30px;
-	background-color: #051e55;
-	color: #fff;
-	cursor: pointer;
-	margin-top: 10px;
-}
-
-.cancel-button {
-	padding: 10px 20px;
-	border: none;
-	border-radius: 30px;
-	background-color: #fff;
-	color: #051e55;
-	cursor: pointer;
-	margin-top: 10px;
-	margin-left: 10px;
-}
-
-.hidden {
-	display: none;
-}
-
-input {
-	color: grey;
-	width: 300px;
-	margin-bottom: 10px;
-}
-
-label {
-	display: block;
-	text-align: left;
-}
-
-.edited {
-	color: black;
-}
-
-.error-message {
-	color: red;
-	font-size: 14px;
-	margin-left: 5px;
-}
-
-#edit-profile-photo {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	padding: 20px;
 }
 </style>

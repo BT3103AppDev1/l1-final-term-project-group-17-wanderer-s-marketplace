@@ -1,5 +1,17 @@
 <template>
-	<div :class="['profile-photo-container', containerClass]">
+	<router-link
+		:to="`/profile/${userID}`"
+		v-if="linkToProfile"
+		:class="['profile-photo-container', containerClass]"
+	>
+		<img
+			:src="profilePhoto"
+			alt="Profile Photo"
+			class="profile-photo"
+			:style="styleObject"
+		/>
+	</router-link>
+	<div v-else :class="['profile-photo-container', containerClass]">
 		<img
 			:src="profilePhoto"
 			alt="Profile Photo"
@@ -13,11 +25,14 @@
 import firebaseApp from "../../firebase.js";
 import { getFirestore, doc, getDoc } from "firebase/firestore";
 const db = getFirestore(firebaseApp);
+import { store } from "../../store/store.js";
+import { watchEffect } from "vue";
 
 export default {
 	props: {
-		userID: String,
+		userID: { type: String, required: true },
 		styleObject: Object,
+		linkToProfile: { type: Boolean, default: true },
 	},
 	data() {
 		return {
@@ -44,6 +59,14 @@ export default {
 			immediate: true,
 			handler: "fetchProfilePhoto",
 		},
+	},
+	mounted() {
+		watchEffect(() => {
+			if (store.userProfileUpdated) {
+				this.fetchProfilePhoto();
+				store.userProfileUpdated = false; // Reset the flag
+			}
+		});
 	},
 };
 /* import { mapState } from "vuex";

@@ -12,8 +12,16 @@
 					class="offer-input"
 					:placeholder="`$${defaultOfferAmount}`"
 					min="0"
+					ref="offerInput"
+					@focus="handleInput"
 				/>
-				<button @click="submitOffer" class="submit-offer-button">Submit</button>
+				<button
+					@click="submitOffer"
+					class="submit-offer-button"
+					:disabled="!offer_amt && offer_amt !== 0"
+				>
+					Submit
+				</button>
 			</div>
 		</div>
 	</div>
@@ -30,13 +38,23 @@ export default {
 	name: "InputListingOffer",
 	data() {
 		return {
-			offer_amt: this.defaultOfferAmount, // Default value to match the image
+			offer_amt: "",
 		};
 	},
 	computed: {
 		...mapState(["currentListing"]),
 		defaultOfferAmount() {
 			return this.$store.state.currentListing.deliveryFee || 0;
+		},
+	},
+	watch: {
+		offer_amt(newVal, oldVal) {
+			if (!newVal && newVal !== 0) {
+				// If the new value is falsy (but not 0), set it to the defaultOfferAmount
+				this.$nextTick(() => {
+					this.offer_amt = this.defaultOfferAmount;
+				});
+			}
 		},
 	},
 	methods: {
@@ -76,6 +94,13 @@ export default {
 			return (
 				user_uid + "-" + listing_uid + "-" + dateCreation + "-" + timeCreation
 			);
+		},
+
+		handleInput(event) {
+			if (!event.target.value) {
+				// If input is empty after change, set to null
+				this.offer_amt = null;
+			}
 		},
 	},
 };

@@ -2,13 +2,20 @@
 	<div class="product-name-header">
 		<h1>{{ productDetails.name }}</h1>
 		<div class="listing-user-details">
+			<router-link
+				:to="`/profile/${listingUser.userID}`"
+				v-if="listingUser.userID"
+				class="profile-link"
+			>
+				@{{ this.listingUser.username }} </router-link
+			><span v-else> @{{ listingUser.username }} </span>
+			<p style="margin-left: 10px">|</p>
 			<a
 				:href="`tg://resolve?domain=${listingUser.telegramHandle}`"
 				target="_blank"
+				class="telegram-link"
 			>
-				@{{ this.listingUser.username }} | Telegram @{{
-					this.listingUser.telegramHandle
-				}}
+				Telegram @{{ this.listingUser.telegramHandle }}
 			</a>
 		</div>
 	</div>
@@ -25,7 +32,14 @@
 				<div class="accepted-offer-header">
 					<div class="accepted-offer-label">Accepted Offer:</div>
 					<div class="accepted-offer-detail-box">
-						<div class="detail">
+						<router-link
+							:to="`/profile/${listingUser.userID}`"
+							v-if="listingUser.userID"
+							class="detail"
+						>
+							Username: <span>{{ acceptedOfferDetails.username }}</span>
+						</router-link>
+						<div v-else class="detail">
 							Username: <span>{{ acceptedOfferDetails.username }}</span>
 						</div>
 					</div>
@@ -400,12 +414,14 @@ export default {
 .action-button.pending-offer {
 	background-color: #818589; /* Replace with the exact color from the screenshot */
 	color: #fff; /* Adjust if your button text color is different */
-	border: 1px solid #818589; /* Use the same color for a solid button look or different for border */
+	cursor: not-allowed;
+	box-shadow: none; /* Use the same color for a solid button look or different for border */
 }
 
 .action-button.pending-offer:hover {
-	background-color: #a9a9a9; /* Darker color for hover effect, adjust as needed */
-	border-color: #a9a9a9; /* Border color change on hover, adjust as needed */
+	transform: none;
+	box-shadow: none;
+	text-shadow: none;
 }
 
 .product-details-container {
@@ -494,7 +510,6 @@ export default {
 }
 
 .action-button {
-
 	padding: 12px 25px; /* Increased padding for a larger button */
 	font-size: 15px; /* Larger font size for better visibility */
 	border: none;
@@ -523,5 +538,16 @@ export default {
 
 .buttons-container {
 	margin-right: 50px;
+}
+
+.listing-user-details {
+	display: flex;
+	align-items: center;
+	font-size: 20px;
+}
+
+.listing-user-details .profile-link,
+.listing-user-details .telegram-link {
+	font-size: inherit;
 }
 </style>

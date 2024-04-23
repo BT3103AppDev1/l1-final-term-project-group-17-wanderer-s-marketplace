@@ -13,8 +13,8 @@
 			<div id="nav-links">
 				<router-link to="/home"> Home </router-link> |
 				<router-link to="/marketplace"> Marketplace </router-link> |
-				<router-link to="/profile"> Profile </router-link>
-				<router-link to="/profile"
+				<router-link :to="`/profile/${user.uid}`"> Profile </router-link>
+				<router-link :to="`/profile/${user.uid}`"
 					><ProfilePhoto
 						:userID="this.user.uid"
 						:styleObject="{ width: '50px', height: '50px' }"

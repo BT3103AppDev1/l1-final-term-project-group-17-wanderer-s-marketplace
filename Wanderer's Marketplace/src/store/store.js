@@ -80,6 +80,7 @@ import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 import { createStore } from "vuex";
 import createPersistedState from "vuex-persistedstate";
+import { reactive } from "vue";
 
 export default createStore({
 	state: {
@@ -109,4 +110,8 @@ export default createStore({
 			commit("setCurrentListing", listing);
 		},
 	},
+});
+
+export const store = reactive({
+	userProfileUpdated: false,
 });
