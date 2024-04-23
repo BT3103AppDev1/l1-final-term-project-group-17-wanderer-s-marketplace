@@ -45,9 +45,10 @@ const routes = [
 		component: Marketplace,
 	},
 	{
-		path: "/profile",
+		path: "/profile/:userID",
 		name: "Profile",
 		component: Profile,
+		props: true,
 	},
 	{
 		path: "/listingcompleted",
