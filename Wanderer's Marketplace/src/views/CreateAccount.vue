@@ -320,7 +320,7 @@ export default {
 				}
 				if (!this.isValidPassword(this.password)) {
 					throw new Error(
-						"Password should be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character."
+						"Password should be at least 8 characters long and contain at least 1 uppercase letter, 1 lowercase letter, 1 number, and 1 special character."
 					);
 				}
 				// Check if the password and confirm password match
@@ -378,6 +378,11 @@ export default {
 				}
 				this.checkStripeAccountId(this.stripeUserID);
 
+				const creationTime = userCredential.user.metadata.creationTime;
+
+				// Format creation time to date or use as is, depending on your needs
+				// For example, to convert to a Date object:
+				const dateJoined = new Date(creationTime).toLocaleDateString("en-GB");
 				// Save user details to Firestore
 				//const db = app.firestore();
 				await setDoc(doc(db, "Users", user.uid), {
@@ -391,6 +396,7 @@ export default {
 					telegramHandle: this.telegramHandle,
 					profilePhoto: this.defaultPhotoURL,
 					stripeUserID: this.stripeUserID,
+					dateJoined: dateJoined,
 				});
 				// If account creation is successful, redirect to home or login page
 				window.location.href = res;

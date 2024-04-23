@@ -18,7 +18,7 @@
 			<h1 id="EditDetails" v-if="isCurrentUser">Edit User Details</h1>
 			<h1 id="OtherUserListings" v-else>@{{ username }}'s Listings</h1>
 		</div>
-		<div id="FourthDiv">
+		<div id="FourthDiv" class="scroll">
 			<EditDetails :userID="this.userID" v-if="isCurrentUser" />
 			<HelpingListings :userID="this.userID" v-else />
 		</div>
@@ -180,5 +180,14 @@ h1 {
 	transition: all 0.5s;
 	cursor: pointer;
 	margin: 5px;
+}
+
+div.scroll {
+	margin: 4px, 4px;
+	padding: 4px;
+	/*width: 300px;*/
+	overflow-x: auto;
+	overflow-y: hidden;
+	white-space: nowrap;
 }
 </style>

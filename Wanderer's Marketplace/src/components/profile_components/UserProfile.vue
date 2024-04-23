@@ -4,7 +4,11 @@
 			id="user-profile"
 			style="display: flex; align-items: center; margin-bottom: 10px; gap: 20px"
 		>
-			<ProfilePhoto :userID="this.userID" :linkToProfile="false" :profilePhoto="profilePhoto"/>
+			<ProfilePhoto
+				:userID="this.userID"
+				:linkToProfile="false"
+				:profilePhoto="profilePhoto"
+			/>
 			<div
 				id="user-info"
 				:style="{
@@ -98,9 +102,7 @@ export default {
 				if (userDocSnapshot.exists()) {
 					const userData = userDocSnapshot.data();
 					this.telegramHandle = userData.telegramHandle;
-					this.dateJoined =
-						new Date(userData.creationTime).toLocaleDateString("en-GB") ||
-						"Not available";
+					this.dateJoined = userData.dateJoined || "Not available";
 				} else {
 					console.error("User document does not exist for:", user.uid);
 				}
