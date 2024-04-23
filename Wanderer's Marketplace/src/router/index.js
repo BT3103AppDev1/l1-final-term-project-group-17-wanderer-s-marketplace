@@ -16,7 +16,7 @@ import Payment from "@/views/Payment.vue";
 import ListingConfirmDeliveryAction from "@/views/ListingConfirmDeliveryAction.vue";
 import ListingConfirmPurchaseAction from "@/views/ListingConfirmPurchaseAction.vue";
 import PaymentSuccess from "../views/PaymentSuccess.vue";
-
+import PaymentFailure from "../views/PaymentFailure.vue";
 
 const routes = [
 	{
@@ -104,6 +104,11 @@ const routes = [
 		name: "PaymentSuccess",
 		component: PaymentSuccess,
 		props: true,
+	},
+	{
+		path: "/payment-failure",
+		name: "PaymentFailure",
+		component: PaymentFailure,
 	},
 ];
 
