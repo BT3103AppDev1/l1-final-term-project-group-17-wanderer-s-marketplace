@@ -30,13 +30,27 @@
   
   <style scoped>
   .listing-parent-container {
-    display: flex;
-    width: 100%; /* Adjust based on your layout's needs */
-    margin: auto auto; /* Centers the marketplace in the middle of the page */
+    display: flex; /* Adjust based on your layout's needs */
+   /* Centers the marketplace in the middle of the page */
     padding: 0px; /* Spacing around the marketplace */
     gap: 30px; /* Spacing between filter and listings */
-    overflow: visible;
+    overflow: scroll;
     white-space: normal;
+    display: grid;
+
+	grid-template-columns: repeat(
+		3,
+		minmax(200px, 1fr)
+	); /* This will create three columns of equal width */
+	grid-gap: 26px; /* This will create space between your cards */
+	padding: 26px;
+	/* Add responsive behavior if necessary */
+	@media (max-width: 1200px) {
+		grid-template-columns: repeat(2, 1fr); /* Two columns for smaller screens */
+	}
+	@media (max-width: 768px) {
+		grid-template-columns: 1fr; /* One column for even smaller screens */
+	}
   }
   
   /* You may need additional styles here to match the screenshot. */

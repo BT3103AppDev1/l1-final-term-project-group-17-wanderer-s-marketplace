@@ -155,7 +155,7 @@ export default {
 		3,
 		minmax(200px, 1fr)
 	); /* This will create three columns of equal width */
-	grid-gap: 26px; /* This will create space between your cards */
+	grid-gap: 80px; /* This will create space between your cards */
 	padding: 26px;
 	/* Add responsive behavior if necessary */
 	@media (max-width: 1200px) {

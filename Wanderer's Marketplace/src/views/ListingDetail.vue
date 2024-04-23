@@ -494,6 +494,7 @@ export default {
 }
 
 .action-button {
+
 	padding: 12px 25px; /* Increased padding for a larger button */
 	font-size: 15px; /* Larger font size for better visibility */
 	border: none;
@@ -518,5 +519,9 @@ export default {
 
 .telegram-detail-box:hover {
 	background-color: #e6e6e6;
+}
+
+.buttons-container {
+	margin-right: 50px;
 }
 </style>
