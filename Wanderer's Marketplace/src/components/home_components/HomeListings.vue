@@ -41,6 +41,9 @@ export default {
       const activeProducts = this.products.filter(p => p.status !== 'Completed');
       const completedProducts = this.products.filter(p => p.status === 'Completed');
 
+      // Sort the active products by Estimated Delivery Date from earliest to latest
+		  activeProducts.sort((a, b) => new Date(a.deliveryDate) - new Date(b.deliveryDate));
+
       // Concatenate the active listings with the completed listings at the end
       return [...activeProducts, ...completedProducts];
     }
