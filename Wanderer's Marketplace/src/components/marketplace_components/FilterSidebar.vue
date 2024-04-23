@@ -109,6 +109,8 @@ export default {
   border-radius: 20px;
   margin-top: 26px;
   margin-right: 50px;
+  margin-left: 50px;
+  height: max-content;
 }
 
 .filter-item {
