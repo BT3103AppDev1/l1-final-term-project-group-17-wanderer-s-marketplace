@@ -250,6 +250,35 @@
 				const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 				return emailRegex.test(email);
 			},
+			isValidPassword(password) {
+				// Check if password length is at least 8 characters
+				if (password.length < 8) {
+					return false;
+				}
+
+				// Check if password contains at least one uppercase letter
+				if (!/[A-Z]/.test(password)) {
+					return false;
+				}
+
+				// Check if password contains at least one lowercase letter
+				if (!/[a-z]/.test(password)) {
+					return false;
+				}
+
+				// Check if password contains at least one number
+				if (!/\d/.test(password)) {
+					return false;
+				}
+
+				// Check if password contains at least one special character
+				if (!/[$&+,:;=?@#|'<>.^*()%!-]/.test(password)) {
+					return false;
+				}
+
+				return true;
+			},
+
 			async signUp() {
 				event.preventDefault();
 				try {
@@ -271,6 +300,9 @@
 					// Check if the password is empty or contains only spaces
 					if (!this.password || this.password.trim() === "") {
 						throw new Error("Please provide a valid password.");
+					}
+					if (!this.isValidPassword(this.password)) {
+						throw new Error("Password should be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character.");
 					}
 					// Check if the password and confirm password match
 					if (this.password !== this.confirmPassword) {
