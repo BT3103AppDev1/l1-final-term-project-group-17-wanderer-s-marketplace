@@ -20,6 +20,7 @@
 		</div>
 		<div id="FourthDiv">
 			<EditDetails :userID="this.userID" v-if="isCurrentUser" />
+			<HelpingListings :userID="this.userID" v-else />
 		</div>
 	</div>
 </template>
@@ -41,13 +42,20 @@ import ProfilePhoto from "../components/profile_components/ProfilePhoto.vue";
 import Rating from "../components/profile_components/Rating.vue";
 import UserProfile from "../components/profile_components/UserProfile.vue";
 import EditDetails from "../components/profile_components/EditDetails.vue";
+import HelpingListings from "../components/home_components/HelpingListings.vue";
 const db = getFirestore();
 const storage = getStorage();
 import { mapState } from "vuex";
 
 export default {
 	name: "Profile",
-	components: { ProfilePhoto, Rating, UserProfile, EditDetails },
+	components: {
+		ProfilePhoto,
+		Rating,
+		UserProfile,
+		EditDetails,
+		HelpingListings,
+	},
 	props: {
 		userID: {
 			type: String,

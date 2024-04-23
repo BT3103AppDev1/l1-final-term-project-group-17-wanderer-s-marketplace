@@ -31,6 +31,10 @@ export default {
 			type: Object,
 			default: () => ({}),
 		},
+		userID: {
+			type: String,
+			required: true,
+		},
 	},
 	components: {
 		HomeCard,
@@ -43,16 +47,22 @@ export default {
 	},
 	computed: {
 		sortedProducts() {
-		// Split the products into two arrays, one for active and one for completed listings
-		const activeProducts = this.products.filter(p => p.status !== 'Completed');
-		const completedProducts = this.products.filter(p => p.status === 'Completed');
+			// Split the products into two arrays, one for active and one for completed listings
+			const activeProducts = this.products.filter(
+				(p) => p.status !== "Completed"
+			);
+			const completedProducts = this.products.filter(
+				(p) => p.status === "Completed"
+			);
 
-		// Sort the active products by Estimated Delivery Date from earliest to latest
-		activeProducts.sort((a, b) => new Date(a.deliveryDate) - new Date(b.deliveryDate));
+			// Sort the active products by Estimated Delivery Date from earliest to latest
+			activeProducts.sort(
+				(a, b) => new Date(a.deliveryDate) - new Date(b.deliveryDate)
+			);
 
-		// Concatenate the active listings with the completed listings at the end
-		return [...activeProducts, ...completedProducts];
-		}
+			// Concatenate the active listings with the completed listings at the end
+			return [...activeProducts, ...completedProducts];
+		},
 	},
 	created() {
 		const auth = getAuth();
@@ -82,7 +92,7 @@ export default {
 			try {
 				let offersQuery = query(
 					collection(db, "Offers"),
-					where("OfferByUserID", "==", this.userUID) // Filter offers by the current user's ID
+					where("OfferByUserID", "==", this.userID) // Filter offers by the current user's ID
 				);
 
 				const offersSnapshot = await getDocs(offersQuery);
@@ -142,6 +152,13 @@ export default {
 			} catch (error) {
 				console.error("Error getting documents: ", error);
 			}
+		},
+		watch: {
+			userID(newVal, oldVal) {
+				if (newVal !== oldVal) {
+					this.fetchProducts();
+				}
+			},
 		},
 	},
 };
