@@ -68,7 +68,6 @@
 		<div id="FourthDiv">
 			<div id="edit-profile-photo">
 				<ProfilePhoto :userID="this.$root.user.uid" />
-				<br />
 				<button @click="triggerFileInput" class="edit-photo-button">
 					Edit Profile Photo
 				</button>
@@ -105,8 +104,7 @@
 					@blur="validateTelegramHandle"
 				/><span v-if="telegramHandleError" class="error-message"
 					>Please provide a valid Telegram handle.</span
-				><br />
-
+				>
 				<label for="stripeUserID">Stripe User ID</label>
 				<input
 					type="text"
@@ -117,8 +115,8 @@
 					@blur="validateStripeUserID(stripeUserID)"
 				/><span v-if="stripeUserIDError" class="error-message"
 					>Please provide a valid Stripe User ID.</span
-				><br />
-
+				>
+				<br />
 				<button @click="confirmEdits" class="edit-details-button">
 					Confirm Edits
 				</button>
@@ -407,7 +405,7 @@ export default {
 #FourthDiv {
 	height: 360px;
 	display: flex;
-	justify-content: left;
+	justify-content: center;
 	align-items: center;
 }
 
@@ -501,6 +499,13 @@ h1 {
 
 input {
 	color: grey;
+	width: 300px;
+	margin-bottom: 10px;
+}
+
+label {
+	display: block;
+	text-align: left;
 }
 
 .edited {
@@ -511,5 +516,12 @@ input {
 	color: red;
 	font-size: 14px;
 	margin-left: 5px;
+}
+
+#edit-profile-photo {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 20px;
 }
 </style>
