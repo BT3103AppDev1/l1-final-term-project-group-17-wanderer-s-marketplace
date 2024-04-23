@@ -116,6 +116,13 @@ export default {
 			return this.user.uid === this.userID;
 		},
 	},
+	watch: {
+		async userID(newVal) {
+			if (newVal) {
+				this.username = await this.fetchUsername(newVal);
+			}
+		},
+	},
 	async mounted() {
 		this.username = await this.fetchUsername(this.userID);
 	},

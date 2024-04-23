@@ -46,7 +46,7 @@
 					<ProfilePhoto
 						:userID="selectedOffer.OfferByUserID"
 						:styleObject="{ width: '80px', height: '80px' }"
-						:linkToProfile="true"
+						
 					/>
 					<div class="selected-user-details">
 						<h2 class="selected-user-name">

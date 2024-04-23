@@ -1,6 +1,6 @@
 <template>
 	<div id="edit-profile-photo">
-		<ProfilePhoto :userID="userID" />
+		<ProfilePhoto :userID="userID" :linkToProfile="false" />
 		<button @click="triggerFileInput" class="edit-photo-button">
 			Edit Profile Photo
 		</button>
@@ -65,6 +65,7 @@ import { getFirestore, doc, updateDoc, getDoc } from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 const db = getFirestore();
 const storage = getStorage();
+import { store } from "../../store/store.js";
 
 export default {
 	components: { ProfilePhoto },
@@ -158,7 +159,7 @@ export default {
 				await updateDoc(doc(db, "Users", this.userID), {
 					profilePhoto: downloadURL,
 				});
-				this.profilePhoto = downloadURL;
+				store.userProfileUpdated = true;
 				console.log("File uploaded successfully:", downloadURL);
 				alert("Your profile photo has been updated successfully.");
 			} catch (error) {
@@ -183,10 +184,10 @@ export default {
 					telegramHandle: this.telegramHandle,
 					stripeUserID: this.stripeUserID,
 				});
-				alert("Your details have been updated successfully.");
-
 				this.initialTelegramHandle = this.telegramHandle;
 				this.initialStripeUserID = this.stripeUserID;
+				store.userProfileUpdated = true;
+				alert("Your details have been updated successfully.");
 			} catch (error) {
 				console.error("Error updating user details:", error);
 				alert("There was an error updating your details.");

@@ -4,7 +4,6 @@
 			<ProfilePhoto
 				:userID="ratedByUserID"
 				:styleObject="{ width: '50px', height: '50px' }"
-				:linkToProfile="true"
 			/>
 			<div class="top-right">
 				<div class="username">@{{ ratedByUsername }}</div>

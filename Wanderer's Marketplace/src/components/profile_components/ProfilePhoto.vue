@@ -25,12 +25,14 @@
 import firebaseApp from "../../firebase.js";
 import { getFirestore, doc, getDoc } from "firebase/firestore";
 const db = getFirestore(firebaseApp);
+import { store } from "../../store/store.js";
+import { watchEffect } from "vue";
 
 export default {
 	props: {
 		userID: { type: String, required: true },
 		styleObject: Object,
-		linkToProfile: { type: Boolean },
+		linkToProfile: { type: Boolean, default: true },
 	},
 	data() {
 		return {
@@ -57,6 +59,14 @@ export default {
 			immediate: true,
 			handler: "fetchProfilePhoto",
 		},
+	},
+	mounted() {
+		watchEffect(() => {
+			if (store.userProfileUpdated) {
+				this.fetchProfilePhoto();
+				store.userProfileUpdated = false; // Reset the flag
+			}
+		});
 	},
 };
 /* import { mapState } from "vuex";

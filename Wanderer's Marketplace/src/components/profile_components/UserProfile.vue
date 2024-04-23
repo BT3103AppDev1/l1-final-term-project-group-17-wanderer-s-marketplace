@@ -4,7 +4,7 @@
 			id="user-profile"
 			style="display: flex; align-items: center; margin-bottom: 10px; gap: 20px"
 		>
-			<ProfilePhoto :userID="this.userID" />
+			<ProfilePhoto :userID="this.userID" :linkToProfile="false" :profilePhoto="profilePhoto"/>
 			<div
 				id="user-info"
 				:style="{
@@ -19,7 +19,10 @@
 				Telegram @{{ telegramHandle }}
 			</div>
 		</div>
-		<div id="user-rating" style="display: flex; align-items: center; white-space: nowrap">
+		<div
+			id="user-rating"
+			style="display: flex; align-items: center; white-space: nowrap"
+		>
 			<div id="overall-rating" :style="{ marginRight: '10px' }">
 				<h2 style="margin: 0">{{ averageRating.toFixed(1) }}</h2>
 				<p style="margin: 0">({{ numberOfRatings }} ratings)</p>
@@ -63,6 +66,8 @@ import {
 	getDocs,
 } from "firebase/firestore";
 const db = getFirestore();
+import { store } from "../../store/store.js";
+import { watchEffect } from "vue";
 
 export default {
 	components: { ProfilePhoto, Rating },
@@ -146,6 +151,17 @@ export default {
 	},
 	mounted() {
 		this.fetchData();
+		watchEffect(() => {
+			if (store.userProfileUpdated) {
+				this.fetchUserDetails();
+				store.userProfileUpdated = false; // Reset the flag
+			}
+		});
+	},
+	computed: {
+		profilePhoto() {
+			return store.profilePhoto;
+		},
 	},
 };
 </script>
