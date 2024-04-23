@@ -119,7 +119,7 @@ export default {
 			}
 
 			// Check if minPrice > maxPrice
-			if (minProductPrice > maxProductPrice) {
+			if (parseInt(minProductPrice) > parseInt(maxProductPrice)) {
 				alert("Min. Product Price cannot be higher than Max. Product Price.")
 				return;
 			}
