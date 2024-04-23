@@ -414,12 +414,14 @@ export default {
 .action-button.pending-offer {
 	background-color: #818589; /* Replace with the exact color from the screenshot */
 	color: #fff; /* Adjust if your button text color is different */
-	border: 1px solid #818589; /* Use the same color for a solid button look or different for border */
+	cursor: not-allowed;
+	box-shadow: none; /* Use the same color for a solid button look or different for border */
 }
 
 .action-button.pending-offer:hover {
-	background-color: #a9a9a9; /* Darker color for hover effect, adjust as needed */
-	border-color: #a9a9a9; /* Border color change on hover, adjust as needed */
+	transform: none;
+	box-shadow: none;
+	text-shadow: none;
 }
 
 .product-details-container {
