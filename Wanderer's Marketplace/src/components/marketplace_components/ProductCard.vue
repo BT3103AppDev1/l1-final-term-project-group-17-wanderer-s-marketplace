@@ -5,7 +5,7 @@
       <h3 class="product-name">{{ product.name }}</h3>
       <p class="product-price">$ {{ product.deliveryFee }}</p>
       <!-- Added location and date information -->
-      <p class="product-location-date">{{ product.country }} | {{ product.date }}</p>
+      <p class="product-location-date">{{ product.date }} | {{ product.country }}</p>
     </div>
   </div>
 </template>
@@ -31,38 +31,49 @@ export default {
 
 <style scoped>
 .product-card {
-  display: flex;
-  flex-direction: column;
-  min-height: 150px;
-  border: 1px solid #e1e1e1;
-  border-radius: 8px;
-  overflow: hidden;
-  background: #fff;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
+        display: flex;
+        flex-direction: column;
+        height: max-content;
+        border: 1px solid #e1e1e1;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        width: 250px;
+        
+    }
 
-.product-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-}
+    .product-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    }
 
-.product-image {
-  width: 100%;
-  object-fit: cover;
-  height: 200px;
-}
+    .product-image {
+        width: 100%;
+        object-fit: cover;
+        height: 200px;
+    }
 
-.product-info {
-  padding: 16px;
-  text-align: center;
-}
+    .product-info {
+        display: flex;
+        flex-direction: column;
+        justify-content: center; /* This will vertically center the items */
+        align-items: center; /* This will horizontally center the items */
+        padding: 8px 8px 12px 8px; /* Reduced padding */
+        text-align: center;
+        background-color: #fff1e7;
+         /* You may need to adjust this depending on the content */
+    }
 
-.product-name {
-  font-size: 1rem;
-  color: #333;
-  margin-bottom: 8px;
-}
+    .product-name {
+        font-size: 1rem;
+        color: #333;
+        margin: 0;
+        padding: 0 8px;
+        white-space: normal; /* This allows the text to wrap */
+        overflow: visible; /* This makes sure that text is not hidden */
+        word-wrap: break-word; /* This will break long words to prevent overflow */
+    }
 
 .product-price {
   font-size: 0.8rem;
@@ -73,5 +84,6 @@ export default {
 .product-location-date {
   font-size: 0.8rem;
   color: #888;
+  margin-top: 0px;
 }
 </style>

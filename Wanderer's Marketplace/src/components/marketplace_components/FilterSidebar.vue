@@ -108,6 +108,7 @@ export default {
   padding: 1rem;
   border-radius: 20px;
   margin-top: 26px;
+  margin-right: 50px;
 }
 
 .filter-item {
