@@ -97,6 +97,11 @@ export default {
 						// Add other product details you want to display...
 					};
 				});
+				this.products.sort(
+					(a, b) =>
+						new Date(b.date).getTime() -
+						new Date(a.date).getTime()
+				);
 				this.products = [...this.allProducts];
 				console.log(this.products);
 				console.log("showing products");
