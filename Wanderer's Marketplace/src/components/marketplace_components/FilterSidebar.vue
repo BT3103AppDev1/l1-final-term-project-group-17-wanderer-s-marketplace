@@ -20,7 +20,7 @@
         <button
           class="filter-option"
           :class="{ 'active': sort === 'Oldest' }"
-          @click="sort = 'Oldest'">Newest Delivery</button>
+          @click="sort = 'Oldest'">Earliest Delivery</button>
       </div>
     </div>
 
