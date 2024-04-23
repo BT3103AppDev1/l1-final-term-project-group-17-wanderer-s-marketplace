@@ -30,7 +30,7 @@
         <option disabled value="">Country of Purchase</option>
  
       </select> -->
-      <label class="filter-label">Country</label>
+      <label class="filter-label">Country of Purchase</label>
       <input type="text" v-model="country" placeholder="Country of Purchase" class="search-input" />
     </div>
 

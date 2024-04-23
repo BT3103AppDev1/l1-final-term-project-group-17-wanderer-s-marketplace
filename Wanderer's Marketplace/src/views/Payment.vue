@@ -224,11 +224,13 @@ export default {
 	flex-direction: column; /* Stack children vertically */
 	align-items: center;
 	justify-content: center; /* Center children vertically */
-	background-color: #f0e6d2;
+	background-color: #fff1e7;
 	padding: 20px;
 	border-radius: 10px;
 	overflow: visible; /* Ensure that content is not hidden */
   margin-right: 20px;
+  margin-top: 20px;
+  height:67%;
 }
 
 .price-container {
@@ -237,7 +239,7 @@ export default {
 	font-size: 45px; /* Larger font size */
 	padding: 40px; /* Add padding for spacing */
 	border-radius: 20px; /* Add border radius for rounded corners */
-	width: 260px; /* Adjust width to fit content */
+	width: 350px; /* Adjust width to fit content */
 	height: auto; /* Adjust height to fit content */
 }
 

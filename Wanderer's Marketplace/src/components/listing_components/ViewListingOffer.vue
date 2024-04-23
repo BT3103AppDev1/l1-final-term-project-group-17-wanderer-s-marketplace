@@ -39,14 +39,16 @@
 						alt="User Image"
 						class="selected-user-image"
 					/>
+          <div class="selected-user-details"> 
 					<h2 class="selected-user-name">
 						{{ getUserName(selectedOffer.OfferByUserID) }}
 					</h2>
 					<p class="selected-user-telegram-id">
-						<span class="telegram-label">Telegram: </span
-						>{{ getUserTelegramId(selectedOffer.OfferByUserID) }}
+						<span class="telegram-label">Telegram: </span>
+            <a :href="`https://t.me/${getUserTelegramId(selectedOffer.OfferByUserID)}`" target="_blank">{{ getUserTelegramId(selectedOffer.OfferByUserID) }}</a>
 					</p>
 				</div>
+      </div>
 				<div class="selected-offer-amount">
 					<h2 class="selected-user-text">has offered</h2>
 					<div class="offer-amount">$ {{ selectedOffer.OfferPrice }}</div>
@@ -259,17 +261,20 @@ export default {
 	display: flex;
 	max-width: 1200px;
 	width: 100%;
-	background: white;
 	border-radius: 16px;
-	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.offers-list-container,
+.offers-list-container {
+  background-color: none;
+  width: 50%;
+
+}
 .selected-offer-details {
 	width: 50%;
 	padding: 20px;
 	border-radius: 16px;
 	box-sizing: border-box;
+  background-color: white;
 }
 
 .offers-list-container {
@@ -277,8 +282,11 @@ export default {
 }
 
 .listing-details {
-	text-align: center;
+	text-align: left;
 	margin-bottom: 20px;
+  font-size: 20px;
+  font-weight: bolder;
+  margin-left: 20px;
 }
 
 .offer-card {
@@ -290,14 +298,17 @@ export default {
 	border: 1px solid #ccc;
 	border-radius: 14px;
 	transition: background-color 0.3s;
-	width: 80%;
+  width: 70%;
 }
 
-.offer-info {
-	margin-left: 10px;
-	font-size: 20px;
-	font-weight: bold;
+
+.offer-info, .selected-user-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 10px;
 }
+
 
 .user-image {
 	width: 70px;
@@ -319,34 +330,40 @@ export default {
 	background-color: #4caf50;
 	color: white;
 	margin-right: 10px;
+  border-radius: 10px;
+  width: 40%;
+
 }
 
 .reject-button {
 	background-color: #f44336;
 	color: white;
+  border-radius: 10px;
+  width: 40%;
 }
 
 .selected-user-info {
 	display: flex;
-	flex-direction: column;
+	flex-direction: row;
 	align-items: center;
 	margin-bottom: 20px;
+  margin-left: 40px;
 }
 
 .selected-user-image {
-	width: 80px; /* Set the desired width */
-	height: 80px; /* Set the desired height */
-	border-radius: 50%; /* Make it round */
-	border: 2px solid #ddd; /* Optional: add a border */
-	margin-bottom: 0px; /* Space below the image */
+	width: 80px; 
+	height: 80px;
+	border-radius: 50%;
+	border: 2px solid #ddd; 
+	margin-bottom: 0px; 
 }
 
 .selected-user-name {
-	font-size: 30px; /* Set the desired font size */
-	margin-bottom: 0px; /* Space below the name */
+	font-size: 30px;
+	margin-bottom: 0px;
 }
 .telegram-label {
-	margin-right: 4px; /* Adjust space between label and ID */
+	margin-right: 4px; 
 	font-weight: bold;
 	margin-bottom: 0px;
 }
@@ -378,7 +395,7 @@ export default {
 }
 
 .offer-card.selected {
-	background-color: #007bff;
+	background-color: #051e55;
 	color: white;
 }
 
@@ -388,4 +405,42 @@ export default {
 	color: #c1271f;
 	font-weight: bold;
 }
+
+.user-name {
+font-size: 22px;
+margin-bottom: 5px; 
+margin-top: 0px;
+font-weight: bolder;
+}
+
+.offer-price {
+font-size: 22px;
+margin-top: 5px; 
+margin-bottom: 0px;
+}
+
+.selected-user-telegram-id a {
+    color: #4f5151; /* Telegram's brand color, you can choose a different color if you want */
+    text-decoration: none; /* Removes the underline */
+    transition: font-weight 0.2s; /* Smooth transition for the font weight */
+    margin-left: 0px;
+    font-weight:light;
+  }
+
+  .selected-user-telegram-id a:hover,
+  .selected-user-telegram-id a:active {
+    font-weight: bolder; /* Makes the text bold on hover and when active (pressed) */
+    text-decoration: none; /* Optional: adds underline on hover */
+    margin-left: 0px;
+    margin-bottom: 0px;
+
+  }
+
+  .telegram-label{
+    margin-right: 0px;
+    margin-left: 0px;
+    font-size: 18px;
+    margin-bottom: 0px;
+  }
 </style>
+3
