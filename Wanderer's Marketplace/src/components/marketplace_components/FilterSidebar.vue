@@ -165,6 +165,7 @@ input[type="number"] {
 
 .delivery-fee-inputs {
   display: flex;
+  width: 108%;
   gap: 0.5rem;
 }
 
