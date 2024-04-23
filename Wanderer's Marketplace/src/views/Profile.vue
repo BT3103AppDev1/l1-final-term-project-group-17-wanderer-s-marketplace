@@ -79,15 +79,17 @@
 					ref="fileInput"
 					accept="image/*"
 				/>
-				<div v-if="showCropperModal" class="cropper-modal">
-					<img ref="imageElement" style="max-width: 100%" />
-					<div class="cropper-buttons">
-						<button @click="getCroppedImageAndUpload" class="upload-button">
-							Upload
-						</button>
-						<button @click="cancelCropping" class="cancel-button">
-							Cancel
-						</button>
+				<div v-if="showCropperModal" class="cropper-modal-wrapper">
+					<div v-if="showCropperModal" class="cropper-modal">
+						<img ref="imageElement" />
+						<div class="cropper-buttons">
+							<button @click="getCroppedImageAndUpload" class="upload-button">
+								Upload
+							</button>
+							<button @click="cancelCropping" class="cancel-button">
+								Cancel
+							</button>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -251,6 +253,14 @@ export default {
 						this.cropper = new Cropper(this.$refs.imageElement, {
 							aspectRatio: 1,
 							viewMode: 1,
+							modal: false,
+							guides: true,
+							center: true,
+							highlight: true,
+							background: false,
+							autoCrop: true,
+							cropBoxMovable: true,
+							cropBoxResizable: true,
 						});
 						this.cropper.replace(e.target.result);
 					});
@@ -390,7 +400,7 @@ export default {
 }
 /* #FirstDiv {
 	justify-content: space-between;
-	padding: 0 20px; 
+	padding: 0 20px;
 } */
 
 #Username {
@@ -450,25 +460,39 @@ h1 {
 	font-size: 30px;
 }
 
-.cropper-modal {
+.cropper-modal-wrapper {
 	position: fixed;
 	top: 0;
 	left: 0;
 	right: 0;
 	bottom: 0;
-	background: rgba(0, 0, 0, 0.8);
 	display: flex;
+	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 	z-index: 100;
-	padding: 50px;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.8);
+}
+
+.cropper-modal {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	z-index: 101;
+	width: auto;
+	height: 80vh;
+	background-color: rgba(0, 0, 0, 0);
+	opacity: 1;
+	margin: auto;
 }
 
 .cropper-modal img {
-	box-shadow: 0 0 10px rgba(255, 255, 255, 0.85);
-	border-radius: 4px;
-	max-height: 80vh; /* Adjust this to ensure it fits in small screens */
-	max-width: 95%;
+	max-height: 100%;
+	max-width: none;
+	object-fit: contain;
 }
 
 .edit-photo-button,
@@ -491,6 +515,7 @@ h1 {
 	color: #051e55;
 	cursor: pointer;
 	margin-top: 10px;
+	margin-left: 10px;
 }
 
 .hidden {
