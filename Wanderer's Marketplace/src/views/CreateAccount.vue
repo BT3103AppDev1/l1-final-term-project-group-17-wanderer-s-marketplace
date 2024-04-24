@@ -368,7 +368,7 @@ export default {
 
 				// Show alert after verification email is sent
 				alert(
-					"Verification email sent! Please check your inbox and verify your email before logging in."
+					"You will now be redirected to connect your Stripe Account. Thereafter, please check your inbox and verify your email before logging in."
 				);
 				const accountId = await this.createStripeConnectedAccount();
 				this.stripeUserID = accountId;
