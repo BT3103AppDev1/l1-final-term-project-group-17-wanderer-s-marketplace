@@ -35,6 +35,7 @@ export default {
 	border-radius: 20px;
 	padding: 1rem;
 	box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+	margin-top: 0px;
 }
 
 .title {
@@ -44,15 +45,15 @@ export default {
 }
 
 .image-container {
-	width: 100%;
+	width: auto;
 	height: auto;
 	border-radius: 10px;
 	overflow: hidden;
 }
 
 .image-container img {
-	width: 60%;
-	height: auto;
+	width: auto;
+	height: 322px;
 	border-radius: 10px;
 }
 </style>

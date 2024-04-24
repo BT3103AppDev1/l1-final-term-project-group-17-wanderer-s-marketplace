@@ -439,7 +439,7 @@ export default {
 	align-items: stretch;
 	padding: 20px;
 	margin: auto;
-	width: 100%;
+	width:auto;
 }
 
 .product-name-header {
@@ -459,27 +459,22 @@ export default {
 	color: inherit;
 }
 
-.left,
+.left {
+}
 .right {
 	padding: 10px;
 }
 
-.accepted-offer-container {
-	background-color: #ffa500;
-	padding: 20px;
-	border-radius: 10px;
-	display: flex;
-	flex-direction: column; /* Stack children vertically */
-	margin-top: 20px;
-	margin-right: 60px;
-	justify-content: center;
-}
+
 .accepted-offer-header {
 	background-color: #ffa500;
 	display: flex;
 	align-items: center;
 	padding: 10px;
-	border-radius: 10px;
+	border-radius: 15px;
+	margin-top: 20px;
+	height: 50px;
+	width: 91%;
 }
 .accepted-offer-detail-box {
 	background-color: white;
@@ -490,13 +485,14 @@ export default {
 	margin-left: 10px;
 	width: auto;
 	flex-shrink: 2;
-	height: 15px;
+	height:20px;
 	justify-content: center;
 }
 
 .accepted-offer-label {
-	font-size: 20px;
+	font-size: 16px;
 	font-weight: bold;
+	margin-left: 20px;
 }
 
 .accepted-offer-details {
@@ -506,12 +502,13 @@ export default {
 	justify-content: center;
 	padding: 10px;
 	margin-top: 10px; /* Space from label to details */
+	width: max-content;
 }
 
 .detail {
 	color: #333;
 	font-weight: bold;
-	font-size: 16px;
+	font-size: 14px;
 	justify-content: center;
 }
 .detail > span {

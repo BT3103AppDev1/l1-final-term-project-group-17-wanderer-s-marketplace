@@ -239,6 +239,7 @@ export default {
 	padding: 1rem;
 	box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
 	width: 90%;
+    margin-top: 1%;
 }
 
 .title {
