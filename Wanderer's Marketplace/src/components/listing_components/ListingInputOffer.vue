@@ -44,7 +44,10 @@ export default {
 	computed: {
 		...mapState(["currentListing"]),
 		defaultOfferAmount() {
-			return this.$store.state.currentListing.deliveryFee || 0;
+			let deliveryFee = Number(this.$store.state.currentListing.deliveryFee);
+			let minPrice = Number(this.$store.state.currentListing.minPrice);
+			let total = deliveryFee + minPrice;
+			return total || 0;
 		},
 	},
 	watch: {
@@ -126,6 +129,9 @@ export default {
 	max-width: 400px; /* Limit the width to match your design */
 	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: add some shadow */
 	width: 100%; /* Make the inner container take full width */
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
 .offer-heading,

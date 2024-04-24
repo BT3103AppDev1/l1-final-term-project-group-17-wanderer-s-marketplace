@@ -46,7 +46,6 @@
 					<ProfilePhoto
 						:userID="selectedOffer.OfferByUserID"
 						:styleObject="{ width: '80px', height: '80px' }"
-						
 					/>
 					<div class="selected-user-details">
 						<h2 class="selected-user-name">
@@ -150,8 +149,9 @@ export default {
 					name: "Payment",
 					params: { offerId: this.selectedOffer.OfferID }, // Ensure the offer ID is correctly passed here
 				});
-        alert(`Please proceed to make your payment for the 
-Accepted Offer: $${offer.OfferPrice} to confirm the offer`);
+				alert(
+					`Accepted Offer: $${offer.OfferPrice}\nPlease proceed to make your payment to confirm the offer.`
+				);
 			} catch (error) {
 				console.error("Error accepting offer:", error);
 			}
@@ -280,8 +280,7 @@ Accepted Offer: $${offer.OfferPrice} to confirm the offer`);
 	max-width: 1200px;
 	width: 100%;
 	border-radius: 16px;
-  height: 370px;
-
+	height: 370px;
 }
 
 .offers-list-container {
@@ -309,7 +308,6 @@ Accepted Offer: $${offer.OfferPrice} to confirm the offer`);
 	font-size: 20px;
 	font-weight: bolder;
 	margin-left: 20px;
-
 }
 
 .offer-card {
@@ -322,7 +320,7 @@ Accepted Offer: $${offer.OfferPrice} to confirm the offer`);
 	border-radius: 14px;
 	transition: background-color 0.3s;
 	width: 70%;
-  height: 70px;
+	height: 70px;
 }
 
 .offer-info {
@@ -348,7 +346,7 @@ Accepted Offer: $${offer.OfferPrice} to confirm the offer`);
 	height: 60px;
 	border-radius: 50%;
 	margin-right: 10px;
-  margin-bottom: 0px;
+	margin-bottom: 0px;
 }
 
 .action-button {
@@ -390,7 +388,7 @@ Accepted Offer: $${offer.OfferPrice} to confirm the offer`);
 	border-radius: 50%;
 	border: 2px solid #ddd;
 	margin-bottom: 0px;
-  margin-bottom: 0px;
+	margin-bottom: 0px;
 }
 
 .selected-user-name {
@@ -432,7 +430,6 @@ Accepted Offer: $${offer.OfferPrice} to confirm the offer`);
 .offer-card.selected {
 	background-color: #051e55;
 	color: white;
-  
 }
 
 .no-offers-message {
@@ -480,8 +477,6 @@ Accepted Offer: $${offer.OfferPrice} to confirm the offer`);
 .offers-container {
 	overflow-y: auto; /* Enable vertical scrolling */
 	max-height: 300px;
-
-  
 }
 </style>
 3
