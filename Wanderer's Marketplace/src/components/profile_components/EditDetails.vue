@@ -34,10 +34,7 @@
 			:class="{
 				edited: telegramHandleChanged,
 			}"
-			@blur="validateTelegramHandle"
-		/><span v-if="telegramHandleError" class="error-message"
-			>Please provide a valid Telegram handle.</span
-		>
+		/>
 		<label for="stripeUserID">Stripe User ID</label>
 		<input
 			type="text"
@@ -45,10 +42,7 @@
 			name="stripeUserID"
 			v-model="stripeUserID"
 			:class="{ edited: stripeUserIDChanged }"
-			@blur="validateStripeUserID(stripeUserID)"
-		/><span v-if="stripeUserIDError" class="error-message"
-			>Please provide a valid Stripe User ID.</span
-		>
+		/>
 		<br />
 		<button @click="confirmEdits" class="edit-details-button">
 			Confirm Edits
@@ -177,6 +171,11 @@ export default {
 			this.validateTelegramHandle();
 			await this.validateStripeUserID(this.stripeUserID);
 			if (this.telegramHandleError || this.stripeUserIDError) {
+				alert(
+					"Please provide a valid Telegram handle and a valid Stripe User ID."
+				);
+				this.telegramHandle = this.initialTelegramHandle;
+				this.stripeUserID = this.initialStripeUserID;
 				return;
 			}
 			try {

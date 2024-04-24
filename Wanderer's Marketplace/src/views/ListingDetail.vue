@@ -297,7 +297,7 @@ export default {
 			deleteObject(imageRef).then(() => {
 				console.log("Image successfully deleted");
 			});
-			alert("Listing successfully deleted!");
+			alert("Listing successfully deleted.");
 			this.$router.push({ name: "Home" }); // Navigate to Home after deletion
 		},
 
@@ -306,7 +306,7 @@ export default {
 			const listingId = this.productDetails.id; // Make sure this is the correct ID
 
 			if (!listingId) {
-				alert("No valid listing ID found!");
+				alert("No valid listing ID found.");
 				return;
 			}
 

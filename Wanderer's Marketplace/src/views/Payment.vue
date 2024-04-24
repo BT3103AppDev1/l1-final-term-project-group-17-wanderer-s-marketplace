@@ -169,7 +169,7 @@ export default {
 		const offerDocRef = doc(getFirestore(firebaseApp), "Offers", offerId);
 		getDoc(offerDocRef).then((offerDoc) => {
 		if (!offerDoc.exists()) {
-			console.error("No such offer found!");
+			console.error("No such offer found.");
 			return;
 		}
 

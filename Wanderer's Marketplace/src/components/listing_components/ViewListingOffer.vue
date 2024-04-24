@@ -128,7 +128,7 @@ export default {
 	methods: {
 		async acceptOffer(offer) {
 			if (!this.selectedOffer) {
-				alert("No offer has been selected!");
+				alert("No offer has been selected.");
 				return;
 			}
 			const listingDocRef = doc(
@@ -165,7 +165,7 @@ Accepted Offer: $${offer.OfferPrice} to confirm the offer`);
 			try {
 				await deleteDoc(offerDocRef); // Delete the offer document
 				// You might want to also remove the offer from the list or show a message
-				alert(`Rejected Offer $${offer.OfferPrice}`); // Show an alert message
+				alert(`Rejected Offer: $${offer.OfferPrice}`); // Show an alert message
 				// Remove the offer from the offers array
 				this.offers = this.offers.filter((o) => o.id !== offer.id);
 				this.$router.push("/home");

@@ -136,7 +136,7 @@ export default {
     // ... other methods
     async confirmPurchase() {
       if (!this.receiptImageUrl) {
-        alert('Please upload Proof of Purchase!');
+        alert('Please upload Proof of Purchase.');
       } else {
         try {
           // Update the offer with the image URL

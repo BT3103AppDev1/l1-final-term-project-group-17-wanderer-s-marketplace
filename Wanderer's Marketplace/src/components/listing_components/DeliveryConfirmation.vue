@@ -125,7 +125,7 @@
           await updateDoc(listingDocRef, {
             ListingStatus : "Completed"
           });
-          alert('Confirmed Offer', this.listingId);
+          alert('Confirmed Offer: ', this.listingId);
           this.$emit('confirmedDelivery', this.listing);
           this.$router.push('/home');
         } catch (error) {
