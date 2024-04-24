@@ -11,7 +11,7 @@
 			><span v-else> @{{ listingUser.username }} </span>
 			<p style="margin-left: 10px">|</p>
 			<a
-				:href="`tg://resolve?domain=${listingUser.telegramHandle}`"
+				:href="`https://t.me/${listingUser.telegramHandle}`"
 				target="_blank"
 				class="telegram-link"
 			>
@@ -45,7 +45,7 @@
 					</div>
 					<div class="accepted-offer-detail-box telegram-detail-box">
 						<a
-							:href="`tg://resolve?domain=${acceptedOfferDetails.telegram}`"
+							:href="`https://t.me/${acceptedOfferDetails.telegram}`"
 							class="detail"
 							target="_blank"
 							>Telegram: <span>{{ acceptedOfferDetails.telegram }}</span></a

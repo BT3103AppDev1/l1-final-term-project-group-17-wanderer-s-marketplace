@@ -22,7 +22,7 @@
 					Joined {{ dateJoined }}
 				</p>
 				<a
-					:href="`tg://resolve?domain=${telegramHandle}`"
+					:href="`https://t.me/${telegramHandle}`"
 					target="_blank"
 					class="telegram-link"
 					style="
