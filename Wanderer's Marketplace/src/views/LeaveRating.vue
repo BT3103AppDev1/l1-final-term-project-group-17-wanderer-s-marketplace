@@ -97,6 +97,8 @@ export default {
 		determineRatingType() {
 			const listingUser = this.currentListing.userID;
 			const offerUser = this.currentListing.acceptedOfferUserID;
+			console.log(",", this.currentListing);
+			console.log(this.user.uid);
 			if (this.user.uid === listingUser) {
 				this.ratedUserID = offerUser;
 				this.ratingType = "Shopper";
