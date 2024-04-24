@@ -97,11 +97,10 @@ export default {
 		determineRatingType() {
 			const listingUser = this.currentListing.userID;
 			const offerUser = this.currentListing.acceptedOfferUserID;
-			if (this.$store.state.user.uid === listingUser) {
-				// this.ratedUserID = "sUuhpdVawzZzuOdhrCBSNjROFyE2";
+			if (this.user.uid === listingUser) {
 				this.ratedUserID = offerUser;
 				this.ratingType = "Shopper";
-			} else if (this.$store.state.user.uid === offerUser) {
+			} else if (this.user.uid === offerUser) {
 				this.ratedUserID = listingUser;
 				this.ratingType = "Traveller";
 			} else {
@@ -150,9 +149,11 @@ export default {
 		async checkForExistingRating() {
 			try {
 				const listingID = this.currentListing?.id; // replace with actual id property if different
+				const ratedByUserID = this.$root.user.uid;
 				let q = query(
 					collection(db, "Ratings"),
-					where("ListingID", "==", listingID)
+					where("ListingID", "==", listingID),
+					where("RatedByUserID", "==", ratedByUserID)
 				);
 				const querySnapshot = await getDocs(q);
 				if (!querySnapshot.empty) {
@@ -174,6 +175,7 @@ export default {
 		this.determineRatingType();
 		this.ratedUsername = await this.fetchUsername(this.ratedUserID);
 		await this.checkForExistingRating();
+		console.log(this.user);
 	},
 };
 </script>
