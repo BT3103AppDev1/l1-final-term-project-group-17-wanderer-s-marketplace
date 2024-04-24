@@ -295,9 +295,9 @@ export default {
 
 			const imageRef = storageRef(storage, this.productDetails.imageUrl);
 			deleteObject(imageRef).then(() => {
-				console.log("Image successfully deleted");
+				console.log("Image deleted successfully");
 			});
-			alert("Listing successfully deleted.");
+			alert("Listing deleted successfully.");
 			this.$router.push({ name: "Home" }); // Navigate to Home after deletion
 		},
 
@@ -313,7 +313,7 @@ export default {
 			const docRef = doc(db, "Listings", listingId);
 			deleteDoc(docRef)
 				.then(() => {
-					console.log("Listing successfully deleted");
+					console.log("Listing deleted successfully");
 				})
 				.catch((error) => {
 					console.error("Failed to delete the listing:", error);

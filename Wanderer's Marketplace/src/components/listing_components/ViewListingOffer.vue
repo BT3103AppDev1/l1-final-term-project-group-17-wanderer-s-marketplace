@@ -2,12 +2,11 @@
 	<div class="view-offers-page-container">
 		<div class="offers-and-details-container">
 			<!-- Display message when there are no offers -->
-			<div v-if="offers.length === 0" class="no-offers-message">
-				No offers extended yet.
-			</div>
+			<div v-if="loading" class="title">Loading offers...</div>
+			<div v-else-if="offers.length === 0" class="title">No offers yet.</div>
 			<div v-else class="offers-list-container">
 				<div class="listing-details">
-					<h2>Offers</h2>
+					<div class="title">Offers</div>
 					<h2 class="listing-title">{{ listing.title }}</h2>
 					<p class="listing-status">{{ listing.status }}</p>
 				</div>
@@ -120,6 +119,7 @@ export default {
 			offers: [],
 			selectedOffer: null,
 			users: {}, // Initialize as an object
+			loading: true,
 		};
 	},
 	created() {
@@ -183,9 +183,11 @@ export default {
 		},
 		async fetchData() {
 			if (this.listingId) {
+				this.loading = true;
 				await this.fetchListing();
 				await this.fetchOffers();
 				await this.fetchUsers();
+				this.loading = false;
 			} else {
 				console.error("No listing ID provided");
 			}
@@ -292,7 +294,7 @@ export default {
 	width: 45%;
 }
 .selected-offer-details {
-	width: 60%;
+	width: 55%;
 	padding: 20px;
 	border-radius: 16px;
 	box-sizing: border-box;
@@ -306,12 +308,11 @@ export default {
 	margin-right: 0px; /* Adjust space between offers and details */
 }
 
-.listing-details {
+.title {
+	font-size: 1.2rem;
+	font-weight: bold;
+	margin-bottom: 1rem;
 	text-align: left;
-	margin-bottom: 20px;
-	font-size: 20px;
-	font-weight: bolder;
-	margin-left: 20px;
 }
 
 .offer-card {
@@ -458,14 +459,6 @@ export default {
 	height: 70px;
 	justify-content: center;
 	box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
-}
-
-.no-offers-message {
-	text-align: center;
-	font-size: 35px;
-	color: #c1271f;
-	font-weight: bold;
-	margin: 10px;
 }
 
 .user-name {
