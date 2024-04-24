@@ -154,6 +154,7 @@ export default {
 					profilePhoto: downloadURL,
 				});
 				store.userProfileUpdated = true;
+				this.$store.dispatch("notifyProfilePhotoUpdated");
 				console.log("File uploaded successfully:", downloadURL);
 				alert("Your profile photo has been updated successfully.");
 			} catch (error) {

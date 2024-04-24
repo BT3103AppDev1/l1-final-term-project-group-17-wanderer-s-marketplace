@@ -27,6 +27,7 @@ import { getFirestore, doc, getDoc } from "firebase/firestore";
 const db = getFirestore(firebaseApp);
 import { store } from "../../store/store.js";
 import { watchEffect } from "vue";
+import { mapState } from "vuex";
 
 export default {
 	props: {
@@ -38,6 +39,9 @@ export default {
 		return {
 			profilePhoto: "",
 		};
+	},
+	computed: {
+		...mapState(["profilePhotoUpdated"]),
 	},
 	methods: {
 		async fetchProfilePhoto() {
@@ -55,18 +59,17 @@ export default {
 		},
 	},
 	watch: {
-		userID: {
-			immediate: true,
-			handler: "fetchProfilePhoto",
+		userID() {
+			this.fetchProfilePhoto();
+		},
+		profilePhotoUpdated(newValue) {
+			if (newValue) {
+				this.fetchProfilePhoto();
+			}
 		},
 	},
 	mounted() {
-		watchEffect(() => {
-			if (store.userProfileUpdated) {
-				this.fetchProfilePhoto();
-				store.userProfileUpdated = false; // Reset the flag
-			}
-		});
+		this.fetchProfilePhoto();
 	},
 };
 /* import { mapState } from "vuex";

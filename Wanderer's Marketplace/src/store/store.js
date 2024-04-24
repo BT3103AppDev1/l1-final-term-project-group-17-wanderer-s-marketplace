@@ -86,6 +86,7 @@ export default createStore({
 	state: {
 		user: null, // This will hold the logged-in user state
 		currentListing: null, // Initialize currentListing
+		profilePhotoUpdated: false,
 	},
 	plugins: [
 		createPersistedState({
@@ -101,6 +102,9 @@ export default createStore({
 		setCurrentListing(state, listing) {
 			state.currentListing = listing;
 		},
+		setProfilePhotoUpdated(state, status) {
+			state.profilePhotoUpdated = status;
+		},
 	},
 	actions: {
 		fetchUser({ commit }, user) {
@@ -108,6 +112,13 @@ export default createStore({
 		},
 		setCurrentListing({ commit }, listing) {
 			commit("setCurrentListing", listing);
+		},
+		notifyProfilePhotoUpdated({ commit }) {
+			commit("setProfilePhotoUpdated", true);
+			// Reset after a brief delay to allow components to react
+			setTimeout(() => {
+				commit("setProfilePhotoUpdated", false);
+			}, 100);
 		},
 	},
 });

@@ -7,7 +7,6 @@
 			<ProfilePhoto
 				:userID="this.userID"
 				:linkToProfile="false"
-				:profilePhoto="profilePhoto"
 			/>
 			<div
 				id="user-info"
