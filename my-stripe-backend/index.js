@@ -10,7 +10,8 @@ const app = express();
 
 const corsOptions = {
   origin: [
-    'http://localhost:5173',   // Your local dev environment
+    'http://localhost:5173',
+    'https://wanderer-s-marketplace.web.app/'   // Your local dev environment
     // You can add more domains here
   ],
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
@@ -57,8 +58,8 @@ app.post('/create-checkout-session', async (req, res) => {
           quantity: 1,
         }],
         mode: 'payment',
-        success_url: `http://localhost:5173/payment-success?session_id={CHECKOUT_SESSION_ID}&offerId=${offerId}`,  // Replace with your success URL
-        cancel_url: 'http://localhost:5173/payment-failure',    // Replace with your cancel URL
+        success_url: `https://wanderer-s-marketplace.web.app/payment-success?session_id={CHECKOUT_SESSION_ID}&offerId=${offerId}`,  // Replace with your success URL
+        cancel_url: 'https://wanderer-s-marketplace.web.app/payment-failure',    // Replace with your cancel URL
       });
   
       res.json({ sessionId: session.id });
@@ -150,8 +151,8 @@ app.post('/create-account-link', async (req, res) => {
     try {
       const accountLink = await stripe.accountLinks.create({
         account: accountId,
-        refresh_url: "http://localhost:5173/home", // The URL to redirect the user if they are disconnected. 
-        return_url: "http://localhost:5173/",   // The URL to redirect the user after they have completed the onboarding process.
+        refresh_url: "https://wanderer-s-marketplace.web.app/home", // The URL to redirect the user if they are disconnected. 
+        return_url: "https://wanderer-s-marketplace.web.app/",   // The URL to redirect the user after they have completed the onboarding process.
         type: 'account_onboarding',
       });
       
