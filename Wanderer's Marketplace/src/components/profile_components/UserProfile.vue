@@ -11,16 +11,30 @@
 			/>
 			<div
 				id="user-info"
-				:style="{
-					display: 'flex',
-					flexDirection: 'column',
-					whiteSpace: 'nowrap',
-					textAlign: 'left',
-					fontWeight: 'bold',
-				}"
+				style="
+					display: flex;
+					flex-direction: column;
+					white-space: nowrap;
+					text-align: center;
+				"
 			>
-				Joined {{ dateJoined }}<br />
-				Telegram @{{ telegramHandle }}
+				<p style="margin: 0; font-weight: bold; font-size: 1em; color: #000000">
+					Joined {{ dateJoined }}
+				</p>
+				<a
+					:href="`tg://resolve?domain=${telegramHandle}`"
+					target="_blank"
+					class="telegram-link"
+					style="
+						margin: 0;
+						font-weight: bold;
+						font-size: 1em;
+						color: #000000;
+						text-decoration: none;
+					"
+				>
+					Telegram @{{ telegramHandle }}
+				</a>
 			</div>
 		</div>
 		<div
