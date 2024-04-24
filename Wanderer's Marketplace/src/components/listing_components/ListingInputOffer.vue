@@ -76,7 +76,7 @@ export default {
 				// Use Firestore addDoc to add the offerObject to the "offers" collection
 				await setDoc(doc(db, "Offers", offerObject.OfferID), offerObject);
 				console.log("Offer submitted:", offerObject);
-
+				alert(`Extended Offer $${this.offer_amt}`);
 				// Emit an event in case the parent component needs to react to the offer submission
 				this.$emit("offerSubmitted", offerObject);
 
