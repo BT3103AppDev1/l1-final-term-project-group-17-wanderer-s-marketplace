@@ -378,11 +378,9 @@ export default {
 				}
 				this.checkStripeAccountId(this.stripeUserID);
 
-				const creationTime = userCredential.user.metadata.creationTime;
-
 				// Format creation time to date or use as is, depending on your needs
 				// For example, to convert to a Date object:
-				const dateJoined = new Date(creationTime).toLocaleDateString("en-GB");
+				const dateJoined = new Date().toLocaleDateString("en-GB");
 				// Save user details to Firestore
 				//const db = app.firestore();
 				await setDoc(doc(db, "Users", user.uid), {
