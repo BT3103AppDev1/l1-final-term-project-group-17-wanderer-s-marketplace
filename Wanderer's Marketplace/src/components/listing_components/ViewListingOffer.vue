@@ -25,7 +25,7 @@
 						/> -->
 						<ProfilePhoto
 							:userID="offer.OfferByUserID"
-							:styleObject="{ width: '80px', height: '80px' }"
+							:styleObject="{ width: '60px', height: '60px' }"
 						/>
 						<div class="offer-info">
 							<p class="user-name">{{ getUserName(offer.OfferByUserID) }}</p>
@@ -279,6 +279,8 @@ export default {
 	max-width: 1200px;
 	width: 100%;
 	border-radius: 16px;
+  height: 370px;
+
 }
 
 .offers-list-container {
@@ -292,7 +294,7 @@ export default {
 	box-sizing: border-box;
 	background-color: white;
 	height: 350px;
-	margin-top: 100px;
+	margin-top: 30px;
 	margin-right: 20px;
 }
 
@@ -306,6 +308,7 @@ export default {
 	font-size: 20px;
 	font-weight: bolder;
 	margin-left: 20px;
+
 }
 
 .offer-card {
@@ -318,6 +321,7 @@ export default {
 	border-radius: 14px;
 	transition: background-color 0.3s;
 	width: 70%;
+  height: 70px;
 }
 
 .offer-info {
@@ -339,10 +343,11 @@ export default {
 }
 
 .user-image {
-	width: 70px;
-	height: 70px;
+	width: 60px;
+	height: 60px;
 	border-radius: 50%;
 	margin-right: 10px;
+  margin-bottom: 0px;
 }
 
 .action-button {
@@ -384,6 +389,7 @@ export default {
 	border-radius: 50%;
 	border: 2px solid #ddd;
 	margin-bottom: 0px;
+  margin-bottom: 0px;
 }
 
 .selected-user-name {
@@ -425,6 +431,7 @@ export default {
 .offer-card.selected {
 	background-color: #051e55;
 	color: white;
+  
 }
 
 .no-offers-message {
@@ -436,7 +443,7 @@ export default {
 
 .user-name {
 	font-size: 18px;
-	margin-bottom: 5px;
+	margin-bottom: 0px;
 	margin-top: 0px;
 	font-weight: bolder;
 }
@@ -471,7 +478,9 @@ export default {
 }
 .offers-container {
 	overflow-y: auto; /* Enable vertical scrolling */
-	max-height: 400px;
+	max-height: 300px;
+
+  
 }
 </style>
 3
