@@ -230,7 +230,7 @@ export default {
 	overflow: visible; /* Ensure that content is not hidden */
   margin-right: 20px;
   margin-top: 20px;
-  height:67%;
+  height:55.5%;
 }
 
 .price-container {
@@ -252,5 +252,9 @@ export default {
 	border-radius: 5px; /* Add border radius for rounded button */
 	cursor: pointer; /* Add pointer cursor on hover */
 	width: 100%; /* Button width to fill container */
+}
+
+.product-name-header {
+  margin-left: 40px;
 }
 </style>

@@ -146,11 +146,12 @@ export default {
 				//     ListingStatus: "Accepted"
 				//   });
 				console.log(offer.OfferID);
-				alert(`Accepted Offer $${offer.OfferPrice}`);
 				this.$router.push({
 					name: "Payment",
 					params: { offerId: this.selectedOffer.OfferID }, // Ensure the offer ID is correctly passed here
 				});
+        alert(`Please proceed to make your payment for the 
+Accepted Offer: $${offer.OfferPrice} to confirm the offer`);
 			} catch (error) {
 				console.error("Error accepting offer:", error);
 			}
