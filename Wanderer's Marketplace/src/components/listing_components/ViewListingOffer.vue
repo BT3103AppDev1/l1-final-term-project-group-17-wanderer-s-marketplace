@@ -138,7 +138,7 @@ export default {
 			);
 			try {
 				await updateDoc(listingDocRef, {
-					acceptedOfferUserID: offer.OfferByUserID,
+					AcceptedOfferUserID: offer.OfferByUserID,
 				});
 				// const listingDocRef = doc(getFirestore(firebaseApp), "Listings", this.listingId);
 				// try {
