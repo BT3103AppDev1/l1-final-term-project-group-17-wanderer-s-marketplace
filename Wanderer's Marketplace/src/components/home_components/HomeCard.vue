@@ -52,7 +52,7 @@
         transition: transform 0.3s ease, box-shadow 0.3s ease;
         width: 200px;
         overflow: visible;
-    white-space: normal;
+        white-space: normal;
     }
 
     .product-card:hover {
@@ -64,6 +64,8 @@
         width: 100%;
         object-fit: cover;
         height: 200px;
+        border-top-left-radius: 8px; /* Match parent's radius */
+        border-top-right-radius: 8px; /* Match parent's radius */
     }
 
     .product-info {
@@ -75,6 +77,8 @@
         text-align: center;
         background-color: #fff1e7;
         height: 82px; /* You may need to adjust this depending on the content */
+        border-bottom-left-radius: 8px; /* Match parent's radius */
+        border-bottom-right-radius: 8px; /* Match parent's radius */
     }
 
     .product-name {

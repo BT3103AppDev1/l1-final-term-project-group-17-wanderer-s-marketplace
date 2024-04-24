@@ -113,8 +113,8 @@ export default {
 			}
 
 			// Check if product name is longer than 30 characters
-			if (productName.length > 38) {
-				alert("Product Name cannot be more than 38 characters.");
+			if (productName.length > 20) {
+				alert("Product Name cannot be more than 20 characters.");
 				return; // Stop the function here
 			}
 
