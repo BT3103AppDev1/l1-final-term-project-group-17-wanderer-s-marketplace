@@ -40,6 +40,7 @@ export default {
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         transition: transform 0.3s ease, box-shadow 0.3s ease;
         width: 250px;
+        background-color: white;
         
     }
 
@@ -62,6 +63,7 @@ export default {
         padding: 8px 8px 12px 8px; /* Reduced padding */
         text-align: center;
         background-color: #fff1e7;
+        height: 120px;
          /* You may need to adjust this depending on the content */
     }
 
