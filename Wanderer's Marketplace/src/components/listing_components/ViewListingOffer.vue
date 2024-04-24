@@ -1,7 +1,11 @@
 <template>
 	<div class="view-offers-page-container">
 		<div class="offers-and-details-container">
-			<div class="offers-list-container">
+			<!-- Display message when there are no offers -->
+			<div v-if="offers.length === 0" class="no-offers-message">
+				No offers extended yet.
+			</div>
+			<div v-else class="offers-list-container">
 				<div class="listing-details">
 					<h2>Offers</h2>
 					<h2 class="listing-title">{{ listing.title }}</h2>
@@ -33,8 +37,6 @@
 						</div>
 					</div>
 				</div>
-				<!-- Display message when there are no offers -->
-				<div v-else class="no-offers-message">No offers listed yet.</div>
 			</div>
 			<div v-if="selectedOffer" class="selected-offer-details">
 				<div class="selected-user-info">
@@ -270,9 +272,10 @@ export default {
 	justify-content: center;
 	padding: 20px;
 	background: #fff1e7;
-	border-radius: 16px;
+	border-radius: 20px;
 	width: 100%;
 	box-sizing: border-box;
+	box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
 }
 
 .offers-and-details-container {
@@ -281,21 +284,22 @@ export default {
 	width: 100%;
 	border-radius: 16px;
 	height: 370px;
+	padding-bottom: 20px;
 }
 
 .offers-list-container {
 	background-color: none;
-	width: 50%;
+	width: 45%;
 }
 .selected-offer-details {
-	width: 50%;
+	width: 60%;
 	padding: 20px;
 	border-radius: 16px;
 	box-sizing: border-box;
 	background-color: white;
 	height: 350px;
-	margin-top: 30px;
-	margin-right: 20px;
+	margin-top: auto;
+	box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
 }
 
 .offers-list-container {
@@ -316,11 +320,12 @@ export default {
 	padding: 10px;
 	margin-bottom: 10px;
 	background: white;
-	border: 1px solid #ccc;
-	border-radius: 14px;
+	border-radius: 16px;
 	transition: background-color 0.3s;
-	width: 70%;
+	width: 85%;
 	height: 70px;
+	box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+	justify-content: center;
 }
 
 .offer-info {
@@ -360,17 +365,30 @@ export default {
 
 .accept-button {
 	background-color: #4caf50;
-	color: white;
 	margin-right: 10px;
-	border-radius: 10px;
-	width: 40%;
 }
 
 .reject-button {
 	background-color: #f44336;
-	color: white;
-	border-radius: 10px;
+}
+
+.action-button {
+	padding: 12px 25px; /* Increased padding for a larger button */
+	font-size: 15px; /* Larger font size for better visibility */
+	border: none;
+	border-radius: 30px; /* Slightly reduced radius for a modern look */
+	color: #fff;
+	cursor: pointer;
+	margin-top: 20px;
+	margin-left: 10px;
+	transition: transform 0.3s ease-in-out, box-shadow 0.3s ease; /* Smooth transition for movement and shadow */
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 	width: 40%;
+}
+
+.action-button:hover {
+	transform: translateY(-2px); /* Subtle lift effect */
+	box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Enhanced shadow for 3D effect */
 }
 
 .selected-user-info {
@@ -428,8 +446,18 @@ export default {
 }
 
 .offer-card.selected {
-	background-color: #051e55;
 	color: white;
+	display: flex;
+	align-items: center;
+	padding: 10px;
+	margin-bottom: 10px;
+	background: #051e55;
+	border-radius: 16px;
+	transition: background-color 0.3s;
+	width: 85%;
+	height: 70px;
+	justify-content: center;
+	box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
 }
 
 .no-offers-message {
@@ -437,6 +465,7 @@ export default {
 	font-size: 35px;
 	color: #c1271f;
 	font-weight: bold;
+	margin: 10px;
 }
 
 .user-name {
@@ -479,4 +508,3 @@ export default {
 	max-height: 300px;
 }
 </style>
-3
