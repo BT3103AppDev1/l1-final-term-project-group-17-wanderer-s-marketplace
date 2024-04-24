@@ -150,6 +150,7 @@ export default {
           });
           console.log('Listing status updated to "Purchased"');
           // Redirect to the home page
+          alert(`Purchase Confirmed!`);
           this.$router.push({ name: 'Home' }); // Use the correct route name for your home page
         } catch (error) {
           console.error("Error confirming purchase:", error);
