@@ -92,7 +92,7 @@
         }
         
         // Retrieve the seller's Stripe account ID
-        const sellerStripeAccountId = userDocSnap.data().stripeUserId;
+        const sellerStripeAccountId = userDocSnap.data().stripeUserID;
         if (!sellerStripeAccountId) {
           console.error("Seller's Stripe account ID not found!");
           return;
