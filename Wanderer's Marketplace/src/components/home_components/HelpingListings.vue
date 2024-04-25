@@ -92,7 +92,8 @@ export default {
 			try {
 				let offersQuery = query(
 					collection(db, "Offers"),
-					where("OfferByUserID", "==", this.userID) // Filter offers by the current user's ID
+					where("OfferByUserID", "==", this.userID), // Filter offers by the current user's ID
+					where("OfferStatus", "==", "Accepted")
 				);
 
 				const offersSnapshot = await getDocs(offersQuery);
