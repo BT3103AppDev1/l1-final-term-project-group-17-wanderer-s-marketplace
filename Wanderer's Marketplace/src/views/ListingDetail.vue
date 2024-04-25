@@ -76,7 +76,7 @@
 				<button
 					v-if="
 						productDetails.listingStatus === 'Accepted' &&
-						this.productDetails.userID != user.uid
+						acceptedOfferDetails.userID == user.uid
 					"
 					class="action-button"
 					@click="confirmPurchase"
@@ -94,7 +94,9 @@
 					Confirm Delivery
 				</button>
 				<button
-					v-if="productDetails.listingStatus === 'Completed'"
+					v-if="productDetails.listingStatus === 'Completed' &&
+						(this.productDetails.userID == user.uid || acceptedOfferDetails.userID == user.uid)
+					"
 					class="action-button"
 					@click="leaveRating"
 				>
