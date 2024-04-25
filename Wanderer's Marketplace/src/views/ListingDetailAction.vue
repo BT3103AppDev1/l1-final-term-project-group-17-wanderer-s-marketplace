@@ -6,7 +6,7 @@
 		</div>
 		<div class="product-offer-container">
 			<div class="left">
-				<ProductImage />
+				<ProductImageName />
 			</div>
 			<div class="right">
 				<ListingInputOffer />
@@ -16,14 +16,14 @@
 </template>
 
 <script>
-import ProductImage from "../components/listing_components/ProductImage.vue";
+import ProductImageName from "../components/listing_components/ProductImageName.vue";
 import ListingInputOffer from "../components/listing_components/ListingInputOffer.vue";
 // Import other components as needed
 
 export default {
 	name: "ListingDetailAction",
 	components: {
-		ProductImage,
+		ProductImageName,
 		ListingInputOffer,
 		// Include other components you may need
 	},
