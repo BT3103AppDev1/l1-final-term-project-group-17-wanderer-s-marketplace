@@ -1,7 +1,7 @@
 <template>
 	<div class="confirmation-card">
 		<div class="confirmation-header">
-			<b>Confirmation of <br />Delivery</b>
+			<b>Confirmation of Delivery</b>
 		</div>
 		<div class="confirmation-body">
 			<div class="proof-purchase">
@@ -196,20 +196,26 @@ export default {
 	border-radius: 20px;
 	padding: 1rem;
 	box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
-	min-height: 150px;
+	display: flex;
 	flex-direction: column;
+	align-items: center;
+	height: 65vh;
+	justify-content: center;
 }
+
 .proof-purchase {
 	background-color: #fff1e7;
 	padding: 1rem;
 	border-radius: 10px;
 	height: auto;
-	color: black;
+	margin: 20px;
 }
 .purchase-proof-image {
+	max-width: 150px; /* Adjust as needed to match the size of the left image */
+	max-height: 150px; /* Adjust as needed to maintain aspect ratio */
+	border-radius: 5px;
 	margin-top: 10px;
-	max-width: 400px;
-	max-height: 400px;
+	object-fit: contain;
 }
 
 .confirm-btn {
@@ -220,7 +226,7 @@ export default {
 	background-color: #051e55;
 	color: #fff;
 	cursor: pointer;
-	margin-top: 20px;
+	margin: 10px;
 	transition: transform 0.3s ease-in-out, box-shadow 0.3s ease; /* Smooth transition for movement and shadow */
 	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
@@ -231,12 +237,15 @@ export default {
 }
 
 .confirmation-header {
-	color: black;
-	margin-bottom: 10%;
-	font-size: large;
+	margin-top: 10px;
+	font-size: 1.5rem;
 }
+
 .confirmation-text {
-	margin-top: 10%;
-	color: black;
+	margin-bottom: 10px;
+}
+
+.proof-text {
+	font-size: 1rem;
 }
 </style>

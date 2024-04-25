@@ -542,6 +542,13 @@ export default {
 	box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Enhanced shadow for 3D effect */
 }
 
+.buttons-container {
+	display: flex;
+	justify-content: center;
+	gap: 5%;
+	width: 100%;
+}
+
 .listing-user-details {
 	display: flex;
 	align-items: center;
