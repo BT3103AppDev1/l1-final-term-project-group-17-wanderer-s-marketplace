@@ -4,22 +4,31 @@
 		<div class="image-container">
 			<img :src="currentListing.imageUrl" alt="Product Image" />
 		</div>
+		<p :class="statusClass">{{ this.currentListing.listingStatus }}</p>
 	</div>
 </template>
 
 <script>
-    import { mapState } from 'vuex';
-
+import { mapState } from "vuex";
 
 export default {
 	name: "ProductImage",
 	computed: {
-        ...mapState(['currentListing']),
-        listingId() {
-        // Ensure that the ID is correctly retrieved from your Vuex state
-        return this.currentListing?.id;
-        },
-    },
+		...mapState(["currentListing"]),
+		listingId() {
+			// Ensure that the ID is correctly retrieved from your Vuex state
+			return this.currentListing?.id;
+		},
+		statusClass() {
+			return {
+				"product-status": true, // Always apply this class
+				"status-available": this.currentListing.listingStatus === "Available", // Apply this class if status is 'available'
+				"status-accepted": this.currentListing.listingStatus === "Accepted", // Apply this class if status is 'accepted'
+				"status-purchased": this.currentListing.listingStatus === "Purchased", // Apply this class if status is 'purchased'
+				"status-completed": this.currentListing.listingStatus === "Completed", // Apply this class if status is 'completed'
+			};
+		},
+	},
 	props: {
 		imageSrc: {
 			type: String,
@@ -55,5 +64,28 @@ export default {
 	width: auto;
 	height: 322px;
 	border-radius: 10px;
+}
+
+.product-status {
+	font-size: 0.8rem;
+	font-weight: bold;
+	/* Remove color property from here */
+}
+
+/* Define color classes based on status */
+.status-available {
+	color: darkblue;
+}
+
+.status-accepted {
+	color: #fc6a03;
+}
+
+.status-purchased {
+	color: red;
+}
+
+.status-completed {
+	color: green;
 }
 </style>
