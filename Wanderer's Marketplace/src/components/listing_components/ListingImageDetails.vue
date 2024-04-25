@@ -1,7 +1,8 @@
 <template>
   <div class = "listing-image-details">
     <div class = "listing-name">{{ currentListing.name }}</div>
-    <div class="offer-price">${{ offerPrice }}</div>
+    <div v-if="currentListing.listingStatus === 'Available'" class="offer-quantity">Qty: {{ currentListing.quantity }}</div>
+    <div v-else class="offer-price">Offer Price: ${{ offerPrice }}</div>
     <div class="image-container">
 			<img :src="currentListing.imageUrl" alt="Product Image" />
 		</div>
@@ -71,7 +72,7 @@ export default {
 .listing-name {
 	font-size: 1.2rem;
 	font-weight: bold;
-	margin-bottom: 1rem;
+	margin-bottom: 10px;
   text-align: left;
   margin-left: 10%;
   color: black;
@@ -79,7 +80,16 @@ export default {
 }
 .offer-price {
 	font-size: 1.5rem;
-	font-weight: bold;
+	font-weight: bolder;
+	margin-bottom: 1rem;
+  text-align: left;
+  margin-left: 10%;
+  color: black;
+}
+
+.offer-quantity {
+	font-size: 1.5rem;
+	font-weight: bolder;
 	margin-bottom: 1rem;
   text-align: left;
   margin-left: 10%;

@@ -1,14 +1,11 @@
 <template>
-  <div class="product-name-header">
-		<h1>{{ productDetails.name }}</h1>
-	</div>
 	<div class="payment-container">
 		<div class="left">
-			<ProductImage :imageSrc="productDetails.imageUrl" />
+			<ListingImageDetails :imageSrc = "productDetails.imageUrl" />
 		</div>
 		<div class="right">
 			<div class="price-container">
-				<h2>${{ offerPrice }}</h2>
+				<h2 class="offer-price">${{ offerPrice }}</h2>
 				<button class="pay-button" @click="processPayment">Pay</button>
 			</div>
 		</div>
@@ -18,6 +15,7 @@
 <script>
 import ProductImage from "../components/listing_components/ProductImage.vue";
 import ProductDetailsViewing from "../components/listing_components/ProductDetailsViewing.vue";
+import ListingImageDetails from "../components/listing_components/ListingImageDetails.vue";
 import firebaseApp from '@/firebase.js';
 import { getFirestore, doc, updateDoc, deleteDoc, getDoc } from 'firebase/firestore';
 const db = getFirestore(firebaseApp);
@@ -29,7 +27,7 @@ import { StripeCheckout } from '@vue-stripe/vue-stripe';
 
 export default {
   name: "Payment",
-  components: { ProductImage, ProductDetailsViewing, StripeCheckout },
+  components: { ProductImage, ProductDetailsViewing, StripeCheckout, ListingImageDetails },
   props: {
   },
   data() {
@@ -204,43 +202,48 @@ export default {
 	justify-content: center;
 	align-items: flex-start;
 	height: calc(100vh - 80px);
-	padding-left: 50px;
-	padding-top: 10px;
-	gap: 30px;
+	padding-left: 0px;
+	padding-top: 20px;
+	gap: 100px;
 }
 
-.left, .right {
-  flex: 1; /* This will allow both children to share the space equally */
-  padding: 20px;
-}
 
 .left {
-	flex: 1;
+  flex: 0 1 40%; /* Do not grow, can shrink, and basis of 40% */
 	/* Your styles for left container */
 }
 
 .right {
 	display: flex;
-	flex-direction: column; /* Stack children vertically */
-	align-items: center;
 	justify-content: center; /* Center children vertically */
 	background-color: #fff1e7;
-	padding: 20px;
-	border-radius: 10px;
-	overflow: visible; /* Ensure that content is not hidden */
+	border-radius: 20px;
+  overflow: visible;
+  flex: 0 1 20%; /* Do not grow, can shrink, and basis of 40% */
   margin-right: 20px;
   margin-top: 20px;
-  height:55.5%;
+  height: 67%;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+  position: relative; /* Needed for absolute positioning of children */
+
 }
 
 .price-container {
+  position: absolute;
 	background-color: #1c1e86; /* Blue background color */
 	color: white; /* White text color */
 	font-size: 45px; /* Larger font size */
-	padding: 40px; /* Add padding for spacing */
-	border-radius: 20px; /* Add border radius for rounded corners */
-	width: 350px; /* Adjust width to fit content */
-	height: auto; /* Adjust height to fit content */
+  display: flex; /* Use flexbox to align children */
+  flex-direction: column; /* Stack children vertically */
+  align-items: center; 
+  border-top-left-radius: 20px;	
+  border-top-right-radius: 20px;	
+  top: 0;
+	width: 100%; /* Adjust width to fit content */
+	height: 70%; /* Adjust height to fit content */
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+  justify-items: center;
+
 }
 
 .pay-button {
@@ -253,7 +256,8 @@ export default {
 	cursor: pointer;
 	transition: transform 0.3s ease-in-out, box-shadow 0.3s ease; /* Smooth transition for movement and shadow */
 	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-	width: 100%;
+	width: 80%;
+  margin-top: 40%;
 }
 
 .pay-button:hover {
@@ -261,7 +265,7 @@ export default {
 	box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Enhanced shadow for 3D effect */
 }
 
-.product-name-header {
-  margin-left: 40px;
+.offer-price {
+  margin-top: 35%;
 }
 </style>
