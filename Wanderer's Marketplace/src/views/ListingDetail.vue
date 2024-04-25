@@ -81,7 +81,7 @@
 					class="action-button"
 					@click="confirmPurchase"
 				>
-					Update as Purchased
+					Mark as Purchased
 				</button>
 				<button
 					v-if="

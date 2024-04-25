@@ -67,7 +67,7 @@ export default {
 			const listing_uid = this.$store.state.currentListing.id;
 
 			const offerObject = {
-				OfferID: this.generateOfferID(user_uid, listing_uid), // Assuming you have a method to generate a unique OfferID
+				OfferID: this.generateOfferID(user_uid, listing_uid), 
 				ListingID: listing_uid,
 				OfferByUserID: user_uid,
 				OfferPrice: this.offer_amt,
