@@ -36,7 +36,7 @@
 							:to="`/profile/${acceptedOfferDetails.userID}`"
 							class="detail"
 						>
-							Username: <span>{{ acceptedOfferDetails.username }}</span>
+							Username:<br> <span>{{ acceptedOfferDetails.username }}</span>
 						</router-link>
 					</div>
 					<div class="accepted-offer-detail-box">
@@ -44,12 +44,12 @@
 							:href="`https://t.me/${acceptedOfferDetails.telegram}`"
 							class="detail"
 							target="_blank"
-							>Telegram: <span>{{ acceptedOfferDetails.telegram }}</span></a
+							>Telegram:<br> <span>{{ acceptedOfferDetails.telegram }}</span></a
 						>
 					</div>
 					<div class="accepted-offer-detail-box">
 						<div class="detail">
-							Offer Price: <span>${{ acceptedOfferDetails.offerPrice }}</span>
+							Offer Price:<br> <span>${{ acceptedOfferDetails.offerPrice }}</span>
 						</div>
 					</div>
 				</div>
@@ -453,25 +453,27 @@ export default {
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	gap: 2%;
 	border-radius: 15px;
 	margin-top: 20px;
 	height: 50px;
 	width: 100%;
 	box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
-	padding-inline: 20px;
+	padding-inline: 17px;
 	padding-block: 5px;
 }
 .accepted-offer-detail-box {
 	background-color: white;
 	border-radius: 10px;
-	padding: 10px;
+	padding: 14px;
 	display: flex;
 	align-items: center;
 	margin-left: 10px;
-	width: auto;
+	width: 15%;
 	flex-shrink: 2;
 	height: 20px;
 	justify-content: center;
+	padding-inline: 4%;
 }
 
 .accepted-offer-label {
@@ -492,7 +494,7 @@ export default {
 .detail {
 	color: #333;
 	font-weight: bold;
-	font-size: 14px;
+	font-size: 15px;
 	justify-content: center;
 }
 .detail > span {
