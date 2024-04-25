@@ -209,7 +209,7 @@ export default {
 				offerPrice: this.acceptedOffer.OfferPrice,
 				userID: this.offerUser.userID,
 			};
-			
+
 		},
 		isCurrentUserTheLister() {
 			console.log("Current user:", this.user.uid);
@@ -309,7 +309,8 @@ export default {
 					const offersRef = collection(db, "Offers");
 					const q = query(
 						offersRef,
-						where("ListingID", "==", this.productDetails.id)
+						where("ListingID", "==", this.productDetails.id),
+						where("OfferStatus", "==", "Accepted")
 					);
 					console.log("products user id", this.productDetails.userID);
 

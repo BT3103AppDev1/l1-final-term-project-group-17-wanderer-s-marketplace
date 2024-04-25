@@ -138,7 +138,7 @@ export default {
 				console.log(offer.OfferID);
 				this.$router.push({
 					name: "Payment",
-					params: { offerId: this.selectedOffer.OfferID }, 
+					params: { offerId: offer.OfferID }, 
 				});
 				const username = this.getUserName(offer.OfferByUserID);
 				alert(
