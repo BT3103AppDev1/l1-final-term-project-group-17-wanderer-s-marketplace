@@ -20,7 +20,7 @@
 		</div>
 		<div id="FourthDiv" class="scroll">
 			<EditDetails :userID="this.userID" v-if="isCurrentUser" />
-			<HelpingListings :userID="this.userID" v-else />
+			<HomeListings :userID="this.userID" v-else />
 		</div>
 	</div>
 </template>
@@ -40,7 +40,7 @@ import {
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import UserProfile from "../components/profile_components/UserProfile.vue";
 import EditDetails from "../components/profile_components/EditDetails.vue";
-import HelpingListings from "../components/home_components/HelpingListings.vue";
+import HomeListings from "../components/home_components/HomeListings.vue";
 const db = getFirestore();
 const storage = getStorage();
 import { mapState } from "vuex";
@@ -50,7 +50,7 @@ export default {
 	components: {
 		UserProfile,
 		EditDetails,
-		HelpingListings,
+		HomeListings,
 	},
 	props: {
 		userID: {

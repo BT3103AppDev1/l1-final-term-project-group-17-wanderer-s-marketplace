@@ -27,7 +27,7 @@ export default {
 		</div>
 
 		<div id="SecondDiv" class="scroll">
-			<HomeListings />
+			<HomeListings :userID="this.user.uid"/>
 		</div>
 
 		<div id="ThirdDiv">
