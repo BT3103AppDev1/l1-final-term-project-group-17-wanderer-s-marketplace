@@ -34,14 +34,10 @@
 					<div class="accepted-offer-detail-box">
 						<router-link
 							:to="`/profile/${acceptedOfferDetails.userID}`"
-							v-if="acceptedOfferDetails.userID"
 							class="detail"
 						>
 							Username: <span>{{ acceptedOfferDetails.username }}</span>
 						</router-link>
-						<div v-else class="detail">
-							Username: <span>{{ acceptedOfferDetails.username }}</span>
-						</div>
 					</div>
 					<div class="accepted-offer-detail-box">
 						<a
@@ -85,7 +81,7 @@
 					class="action-button"
 					@click="confirmPurchase"
 				>
-					Update as Purchased
+					Mark as Purchased
 				</button>
 				<button
 					v-if="
@@ -213,23 +209,7 @@ export default {
 				offerPrice: this.acceptedOffer.OfferPrice,
 				userID: this.offerUser.userID,
 			};
-			/* if (this.user.uid === this.productDetails.userID) {
-				console.log("abccc", this.offerUser.username);
-				return {
-					username: this.offerUser.username,
-					telegram: this.offerUser.telegramHandle,
-					offerPrice: this.acceptedOffer.OfferPrice,
-					userID: this.offerUser.userID,
-				};
-			} else {
-				console.log("nnvvs", this.listingUser.username);
-				return {
-					username: this.listingUser.username,
-					telegram: this.listingUser.telegramHandle,
-					offerPrice: this.acceptedOffer.OfferPrice,
-					userID: this.listingUser.userID,
-				};
-			} */
+			
 		},
 		isCurrentUserTheLister() {
 			console.log("Current user:", this.user.uid);
@@ -472,6 +452,7 @@ export default {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	width: 100%;
 }
 
 .accepted-offer-header {
@@ -479,12 +460,13 @@ export default {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	padding: 10px;
 	border-radius: 15px;
 	margin-top: 20px;
 	height: 50px;
 	width: 100%;
 	box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+	padding-inline: 20px;
+	padding-block: 5px;
 }
 .accepted-offer-detail-box {
 	background-color: white;

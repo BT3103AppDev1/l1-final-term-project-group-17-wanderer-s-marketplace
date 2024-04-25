@@ -2,6 +2,7 @@
 	<div class="view-offers-page-container">
 		<div class="offers-and-details-container">
 			<!-- Display message when there are no offers -->
+
 			<div v-if="loading" class="title">Loading offers...</div>
 			<div v-else-if="offers.length === 0" class="title">No offers yet.</div>
 			<div v-else class="offers-list-container">
@@ -11,6 +12,7 @@
 					<p class="listing-status">{{ listing.status }}</p>
 				</div>
 				<!-- Check if offers array has elements -->
+
 				<div v-if="offers.length > 0" class="offers-container">
 					<div
 						v-for="offer in offers"
@@ -33,6 +35,8 @@
 					</div>
 				</div>
 			</div>
+			<!-- Display for selected offer from list of offers -->
+
 			<div v-if="selectedOffer" class="selected-offer-details">
 				<div class="selected-user-info">
 					<ProfilePhoto
@@ -100,7 +104,6 @@ export default {
 	computed: {
 		...mapState(["currentListing"]),
 		listingId() {
-			// Ensure that the ID is correctly retrieved from your Vuex state
 			return this.currentListing?.id;
 		},
 	},
@@ -114,7 +117,6 @@ export default {
 		};
 	},
 	created() {
-		// Use the computed property here
 		this.fetchData();
 	},
 	methods: {
@@ -147,7 +149,6 @@ export default {
 			}
 		},
 		async rejectOffer(offer) {
-			// Assuming offer.id is the ID of the offer document
 			const offerDocRef = doc(getFirestore(firebaseApp), "Offers", offer.id);
 			try {
 				await deleteDoc(offerDocRef); // Delete the offer document
@@ -245,7 +246,6 @@ export default {
 		getUserImageUrl(userId) {
 			return this.users[userId]?.profilePhoto || "default-profile.jpg";
 		},
-		// acceptOffer and rejectOffer methods remain the same
 	},
 };
 </script>
