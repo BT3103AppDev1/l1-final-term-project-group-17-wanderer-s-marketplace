@@ -450,6 +450,7 @@ export default {
 .selected-user-text {
 	margin-bottom: 0px;
 	margin-top: 0px;
+	color: #555;
 }
 
 .selected-offer-amount {

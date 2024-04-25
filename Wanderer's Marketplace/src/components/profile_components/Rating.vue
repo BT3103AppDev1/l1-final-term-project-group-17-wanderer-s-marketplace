@@ -26,10 +26,6 @@ import ProfilePhoto from "../profile_components/ProfilePhoto.vue";
 export default {
 	components: { ProfilePhoto },
 	props: {
-		/* profilePhoto: {
-			type: String,
-			required: true,
-		},*/
 		ratedByUserID: {
 			type: String,
 			required: true,

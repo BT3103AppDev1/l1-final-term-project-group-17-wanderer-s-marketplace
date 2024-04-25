@@ -46,7 +46,8 @@ export default {
 		defaultOfferAmount() {
 			let deliveryFee = Number(this.$store.state.currentListing.deliveryFee);
 			let minPrice = Number(this.$store.state.currentListing.minPrice);
-			let total = deliveryFee + minPrice;
+			let quantity = Number(this.$store.state.currentListing.quantity);
+			let total = deliveryFee + minPrice * quantity;
 			return total || 0;
 		},
 	},
