@@ -30,7 +30,6 @@ export default {
 	},
 	data() {
 		return {
-			// ...other data properties
 			hasPendingOffer: false, // This will track whether a pending offer exists
 		};
 	},
@@ -39,7 +38,6 @@ export default {
 		productDetails() {
 			// Use the currentListing from Vuex as the product details
 			// or return a default object structure if currentListing is null/undefined
-			//console.log("currlisting", this.currentListing)
 			return (
 				this.currentListing || {
 					name: "Loading...",
