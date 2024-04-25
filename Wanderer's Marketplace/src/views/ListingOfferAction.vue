@@ -22,14 +22,13 @@ export default {
 	components: {
 		ProductImage,
 		ViewListingOffer,
-		// Include other components you may need
 	},
 	data() {
 		return {
-			currentRightComponent: 'ViewListingOffer', // This can be changed based on the state
+			currentRightComponent: 'ViewListingOffer', 
 		};
 	},
-	// You can include methods, computed properties, or watchers to change the currentRightComponent based on the state
+	
 };
 </script>
 
@@ -40,7 +39,7 @@ export default {
 	display: flex;
 	justify-content: center;
 	align-items: stretch;
-	padding: 50px;
+	padding: 30px;
 }
 
 
@@ -70,5 +69,9 @@ export default {
 margin-left: 4%;
 margin-top: 2%;
 margin-bottom: 0%;
+}
+
+.page-container  {
+margin-top: 3.5%;
 }
 </style>
