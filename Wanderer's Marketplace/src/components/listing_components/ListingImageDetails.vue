@@ -78,7 +78,7 @@ export default {
 	border-radius: 20px;
 	padding: 1rem;
 	box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
-	height: 550px;
+	height: 65vh;
 }
 
 .listing-name {
@@ -116,9 +116,10 @@ export default {
 }
 
 .image-container img {
-	width: 60%;
+	width: auto;
 	height: auto;
-	max-height: 400px;
+	max-width: 40vh;
+	max-height: 50vh;
 	border-radius: 10px;
 }
 </style>

@@ -203,7 +203,7 @@ export default {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	height: 550px;
+	height: 65vh;
 	justify-content: center;
 }
 
