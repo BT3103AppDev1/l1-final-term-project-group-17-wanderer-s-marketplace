@@ -13,7 +13,6 @@
 							class="upload-icon"
 						/>
 					</label>
-					<!-- Hidden file input, triggered by label click -->
 					<input
 						type="file"
 						id="file-upload"
@@ -21,10 +20,6 @@
 						accept="image/*"
 						hidden
 					/>
-					<!-- Icon or image goes here 
-                  <img v-if="!receiptImageUrl" src="/icons/favicon_io/document icon.png"  alt="Document Icon" class="document-icon">
-                  -->
-					<!-- Display uploaded image if available -->
 					<img
 						v-if="receiptImageUrl"
 						:src="receiptImageUrl"
@@ -58,14 +53,11 @@ export default {
 	computed: {
 		...mapState(["currentListing"]),
 		listingId() {
-			// Ensure that the ID is correctly retrieved from your Vuex state
 			return this.currentListing?.id;
 		},
 	},
-	// ... other options
 	data() {
 		return {
-			// ... other data properties
 			receiptImageUrl: null,
 			offer: null, // Placeholder for the current offer object
 		};
@@ -91,15 +83,20 @@ export default {
 			console.log("Image has loaded!");
 		},
 		async getOffer() {
+      /*
+      get offer from firestone db where offer is for current Listing and is offered
+      by the current User
+      set the state of offer as current Offer
+      */
 			const auth = getAuth();
 			const user = auth.currentUser;
 
 			if (user) {
 				const db = getFirestore(firebaseApp);
-				const offersRef = collection(db, "Offers"); //check
+				const offersRef = collection(db, "Offers");
 				const q = query(
 					offersRef,
-					where("ListingID", "==", this.$store.state.currentListing.id), //check
+					where("ListingID", "==", this.$store.state.currentListing.id),
 					where("OfferByUserID", "==", user.uid)
 				);
 
@@ -123,15 +120,17 @@ export default {
 				console.error("User is not authenticated");
 			}
 		},
-		// ... other methods
 		handleFileChange(event) {
+      /*
+      uploade user's receipt in the firebase storage database
+      */
 			const file = event.target.files[0];
 			if (file && this.offer) {
 				const storage = getStorage();
 				const storageRef = ref(
 					storage,
 					`receipts/${this.offer.OfferID}/${file.name}`
-				); //check
+				); 
 				uploadBytes(storageRef, file)
 					.then((snapshot) => {
 						getDownloadURL(snapshot.ref).then((downloadURL) => {
@@ -156,7 +155,6 @@ export default {
 					PurchaseProofImage: imageUrl,
 				});
 				this.$emit("confirmedPurchase", this.listing);
-				// this.$router.push('/home');
 				console.log("Offer updated with image URL", this.receiptImageUrl);
 			} catch (error) {
 				console.error("Error updating offer with image:", error);
