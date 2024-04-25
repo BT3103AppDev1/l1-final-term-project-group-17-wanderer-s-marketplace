@@ -18,7 +18,11 @@
 			<h1 id="EditDetails" v-if="isCurrentUser">Edit User Details</h1>
 			<h1 id="OtherUserListings" v-else>@{{ username }}'s Listings</h1>
 		</div>
-		<div id="FourthDiv" class="scroll">
+		<div
+			id="FourthDiv"
+			class="scroll"
+			:style="{ justifyContent: justifyContentStyle }"
+		>
 			<EditDetails :userID="this.userID" v-if="isCurrentUser" />
 			<HomeListings :userID="this.userID" v-else />
 		</div>
@@ -115,6 +119,9 @@ export default {
 		isCurrentUser() {
 			return this.user.uid === this.userID;
 		},
+		justifyContentStyle() {
+			return this.isCurrentUser ? "center" : "left";
+		},
 	},
 	watch: {
 		async userID(newVal) {
@@ -166,7 +173,6 @@ export default {
 #FourthDiv {
 	height: 360px;
 	display: flex;
-	justify-content: left;
 	align-items: center;
 }
 
