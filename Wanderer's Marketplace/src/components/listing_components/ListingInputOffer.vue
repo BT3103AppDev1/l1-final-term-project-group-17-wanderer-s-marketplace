@@ -3,7 +3,7 @@
 		<div class="input-offer-inner-container">
 			<h2 class="offer-heading">Input your offer</h2>
 			<p class="offer-description">
-				This offer includes the product price and delivery fee.
+				This offer includes the total product <br> price and delivery fee.
 			</p>
 			<div class="offer-input-wrapper">
 				<input
