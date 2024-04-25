@@ -207,12 +207,6 @@ export default {
 	justify-content: center;
 }
 
-.document-container {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	margin-top: 10px;
-}
 .proof-purchase {
 	background-color: #fff1e7;
 	padding: 1rem;
