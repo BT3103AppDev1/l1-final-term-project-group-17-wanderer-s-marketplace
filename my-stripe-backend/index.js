@@ -27,11 +27,11 @@ app.use(bodyParser.json());
 
 // Create a new price for a product in stripe
 app.post('/create-price', async (req, res) => {
-  const { amount, currency } = req.body;
+  const { amount, currency, listingName } = req.body;
 
   try {
     // Create a new product for the price
-    const product = await stripe.products.create({ name: 'Dynamic Product' });
+    const product = await stripe.products.create({ name: listingName });
 
     // Create a new price with the given amount and currency for the created product
     const price = await stripe.prices.create({
