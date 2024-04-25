@@ -198,6 +198,24 @@ h1 {
 	margin-top: 10px;
 }
 
+.add-listing-button {
+	padding: 12px 25px; /* Increased padding for a larger button */
+	font-size: 15px; /* Larger font size for better visibility */
+	border: none;
+	border-radius: 30px; 
+	background-color: #051e55;
+	color: #fff;
+	cursor: pointer;
+	margin-top: 20px;
+	transition: transform 0.3s ease-in-out, box-shadow 0.3s ease; /* Smooth transition for movement and shadow */
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.add-listing-button:hover {
+	transform: translateY(-2px); /* Subtle lift effect */
+	box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Enhanced shadow for 3D effect */
+}
+
 @media (max-width: 768px) {
 	.product-details-container {
 		flex-direction: column; /* Stacks children vertically on smaller screens */

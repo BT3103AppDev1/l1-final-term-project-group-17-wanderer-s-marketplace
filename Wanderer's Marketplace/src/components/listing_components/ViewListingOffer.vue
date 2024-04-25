@@ -138,8 +138,9 @@ export default {
 					name: "Payment",
 					params: { offerId: this.selectedOffer.OfferID }, 
 				});
+				const username = this.getUserName(offer.OfferByUserID);
 				alert(
-					`Accepted Offer: $${offer.OfferPrice}\nPlease proceed to make your payment to confirm the offer.`
+					`Accepted Offer from ${username}: $${offer.OfferPrice}\nPlease proceed to make your payment to confirm the offer.`
 				);
 			} catch (error) {
 				console.error("Error accepting offer:", error);
@@ -150,7 +151,8 @@ export default {
 			const offerDocRef = doc(getFirestore(firebaseApp), "Offers", offer.id);
 			try {
 				await deleteDoc(offerDocRef); // Delete the offer document
-				alert(`Rejected Offer: $${offer.OfferPrice}`); // Show an alert message
+				const username = this.getUserName(offer.OfferByUserID);
+				alert(`Rejected Offer from ${username}: $${offer.OfferPrice}`); // Show an alert message
 				// Remove the offer from the offers array
 				this.offers = this.offers.filter((o) => o.id !== offer.id);
 				this.$router.push("/home");

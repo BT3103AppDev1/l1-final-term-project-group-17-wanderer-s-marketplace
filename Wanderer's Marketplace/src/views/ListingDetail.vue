@@ -535,6 +535,7 @@ export default {
 	margin-top: 20px;
 	transition: transform 0.3s ease-in-out, box-shadow 0.3s ease; /* Smooth transition for movement and shadow */
 	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+	margin-inline: 5px;
 }
 
 .action-button:hover {

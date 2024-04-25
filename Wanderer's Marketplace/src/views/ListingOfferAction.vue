@@ -16,9 +16,9 @@
 </template>
 
 <script>
+// Import components to be used 
 import ProductImage from "../components/listing_components/ProductImage.vue";
 import ViewListingOffer from "../components/listing_components/ViewListingOffer.vue";
-// Import other components as needed
 
 export default {
 	name: "ListingOfferAction",

@@ -209,7 +209,7 @@ export default {
 							console.log(
 								`Offer ${offerId} accepted and listing ${listingId} updated to Accepted.`
 							);
-							alert(`Payment successful and offer accepted!`);
+							// alert(`Payment successful and offer accepted!`);
 							// Here you would probably also want to navigate to a success page or update the state
 						})
 						.catch((error) => {
@@ -250,6 +250,7 @@ export default {
 	justify-content: center;
 	overflow: visible;
 	position: relative;
+  width: 55vh;
 }
 
 .price-inner-container {
@@ -270,8 +271,8 @@ export default {
 }
 
 .pay-button {
-	padding: 12px 25px; /* Increased padding for a larger button */
-	font-size: 15px; /* Larger font size for better visibility */
+	padding: 12px 5px; /* Increased padding for a larger button */
+	font-size: 20px; /* Larger font size for better visibility */
 	border: none;
 	border-radius: 30px; /* Slightly reduced radius for a modern look */
 	background-color: green;
@@ -280,7 +281,7 @@ export default {
 	transition: transform 0.3s ease-in-out, box-shadow 0.3s ease; /* Smooth transition for movement and shadow */
 	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 	width: 80%;
-	margin: 32%;
+  margin-top: 35%;
 }
 
 .pay-button:hover {
