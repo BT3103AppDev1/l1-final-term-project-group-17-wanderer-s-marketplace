@@ -1,6 +1,9 @@
 <template>
 	<div class="page-container">
-		<h1>View Offers</h1>
+		<div class="offer-header">
+			<h1>View Offers</h1>
+			<p>hidden</p>
+		</div>
 		<div class="product-details-container">
 			<div class="left">
 				<ProductImage />
@@ -25,34 +28,30 @@ export default {
 	},
 	data() {
 		return {
-			currentRightComponent: 'ViewListingOffer', 
+			currentRightComponent: "ViewListingOffer",
 		};
 	},
-	
 };
 </script>
 
 <style scoped>
-
 .product-details-container {
-	margin-top: 0%;
 	display: flex;
 	justify-content: center;
 	align-items: stretch;
-	padding: 30px;
+	padding: 20px 50px 50px 50px;
+	margin: auto;
+	width: auto;
+	gap: 5%;
 }
 
-
-.left {
-	flex: 1;
-}
-
+.left,
 .right {
-	flex: 1;
+	padding: 10px;
+	max-width: 50%;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	position: relative;
 }
 
 .action-button {
@@ -65,13 +64,20 @@ export default {
 	margin-top: 10px;
 }
 
-.page-container h1 {
-margin-left: 4%;
-margin-top: 2%;
-margin-bottom: 0%;
+.offer-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	text-align: center;
+	padding: 20px 50px 0px 50px;
 }
 
-.page-container  {
-margin-top: 3.5%;
+.offer-header h1 {
+	margin: 0;
+}
+
+.offer-header p {
+	font-size: 20px;
+	color: #b3e3eb;
 }
 </style>
