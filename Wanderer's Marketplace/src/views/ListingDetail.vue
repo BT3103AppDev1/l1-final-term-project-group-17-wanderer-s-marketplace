@@ -202,7 +202,6 @@ export default {
 					offerPrice: "Loading...",
 				};
 			}
-			console.log("abccc", this.offerUser.username);
 			return {
 				username: this.offerUser.username,
 				telegram: this.offerUser.telegramHandle,
@@ -212,6 +211,7 @@ export default {
 
 		},
 		isCurrentUserTheLister() {
+			//checks whether the current listing is created by the current user
 			console.log("Current user:", this.user.uid);
 			console.log("Listing user:", this.productDetails.userID);
 			return (
@@ -232,6 +232,7 @@ export default {
 					action: () => {}, // An empty function so the button does nothing when clicked
 				};
 			}
+			//change button according to state of listings
 			const stateConfigs = {
 				Completed: {
 					label: "Leave Rating",
@@ -249,7 +250,6 @@ export default {
 					label: "Confirm Delivery",
 					action: this.confirmDelivery,
 				},
-				// Add other states and configurations as needed
 			};
 			return stateConfigs[this.currentListing?.listingStatus] || {};
 		},
@@ -282,6 +282,7 @@ export default {
 		},
 
 		deleteListing() {
+			//delete the current listing
 			const db = getFirestore(firebaseApp);
 			const listingId = this.productDetails.id; // Make sure this is the correct ID
 
@@ -303,6 +304,7 @@ export default {
 		},
 
 		async fetchAcceptedOffer() {
+			//get the offer object which is for the current Listing which is accepted
 			console.log("productdetailsnifonv:", this.productDetails);
 			if (this.productDetails.listingStatus === "Accepted") {
 				try {
@@ -317,7 +319,6 @@ export default {
 					const querySnapshot = await getDocs(q);
 					if (!querySnapshot.empty) {
 						this.acceptedOffer = querySnapshot.docs[0].data();
-						console.log("acceptedOffer133", this.acceptedOffer);
 						const offerUserID = this.acceptedOffer.OfferByUserID;
 						await this.fetchOfferUser(offerUserID);
 						await this.fetchUserDetails(this.productDetails.userID);
@@ -366,30 +367,20 @@ export default {
 				this.listingUser = null;
 			}
 		},
-		// You can define other actions for different states here
 		async checkForExistingOffer() {
 			try {
-				const listingID = this.currentListing?.id; // replace with actual id property if different
-				const userID = this.user?.uid; // replace with actual current user id property
+				const listingID = this.currentListing?.id;
+				const userID = this.user?.uid; 
 				let q = query(
 					collection(db, "Offers"),
 					where("ListingID", "==", listingID)
 				);
 				q = query(q, where("OfferByUserID", "==", userID));
-				// .where('OfferStatus', '==', 'Pending') //add check that offer is not of rejected
 
 				const querySnapshot = await getDocs(q);
+				//check whether there is already an offer made for this listing made by this user, if so this listing will be shown as "pending offer"
 				this.hasPendingOffer = !querySnapshot.empty;
-				// this.offer = querySnapshot.docs.map(doc => {
-				// const data = doc.data();
-				// return {
-				// 	OfferID: data.OfferID,
-				// 	ListingID: data.ListingID,
-				// 	OfferByUserID: data.OfferByUserID,
-				// 	OfferPrice: data.OfferPrice,
-				// 	OfferStatus: data.OfferStatus
-				// };
-				// })
+	
 				console.log(this.offer);
 				console.log("showing offer");
 			} catch (error) {
@@ -402,10 +393,10 @@ export default {
 
 <style scoped>
 .action-button.pending-offer {
-	background-color: #818589; /* Replace with the exact color from the screenshot */
-	color: #fff; /* Adjust if your button text color is different */
+	background-color: #818589; 
+	color: #fff; 
 	cursor: not-allowed;
-	box-shadow: none; /* Use the same color for a solid button look or different for border */
+	box-shadow: none; 
 }
 
 .action-button.pending-offer:hover {
