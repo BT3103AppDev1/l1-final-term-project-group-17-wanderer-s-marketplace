@@ -533,7 +533,6 @@ export default {
 	color: #fff;
 	cursor: pointer;
 	margin-top: 20px;
-	margin-left: 10px;
 	transition: transform 0.3s ease-in-out, box-shadow 0.3s ease; /* Smooth transition for movement and shadow */
 	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
@@ -541,10 +540,6 @@ export default {
 .action-button:hover {
 	transform: translateY(-2px); /* Subtle lift effect */
 	box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Enhanced shadow for 3D effect */
-}
-
-.buttons-container {
-	margin-right: 50px;
 }
 
 .listing-user-details {
