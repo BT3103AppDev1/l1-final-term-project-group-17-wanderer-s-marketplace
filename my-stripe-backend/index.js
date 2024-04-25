@@ -11,7 +11,7 @@ const app = express();
 const corsOptions = {
   origin: [
     'http://localhost:5173',
-    'https://wanderer-s-marketplace.web.app/'   // Your local dev environment
+    'https://wanderer-s-marketplace.web.app'   // Your local dev environment
     // You can add more domains here
   ],
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
@@ -25,7 +25,7 @@ app.use(bodyParser.json());
 
 // Enable CORS for your frontend domain
 
-// Create a new price for a product
+// Create a new price for a product in stripe
 app.post('/create-price', async (req, res) => {
   const { amount, currency } = req.body;
 
@@ -47,6 +47,7 @@ app.post('/create-price', async (req, res) => {
   }
 });
 
+//creates a stripe checkout session which returns a sessionId that will be used to be redirected to a checkout page
 app.post('/create-checkout-session', async (req, res) => {
     try {
       const { priceId, offerId } = req.body;   // Assume a price ID is passed from the client
@@ -59,7 +60,7 @@ app.post('/create-checkout-session', async (req, res) => {
         }],
         mode: 'payment',
         success_url: `https://wanderer-s-marketplace.web.app/payment-success?session_id={CHECKOUT_SESSION_ID}&offerId=${offerId}`,  // Replace with your success URL
-        cancel_url: 'https://wanderer-s-marketplace.web.app/payment-failure',    // Replace with your cancel URL
+        cancel_url: 'https://wanderer-s-marketplace.web.app/payment-failure', 
       });
   
       res.json({ sessionId: session.id });
@@ -69,15 +70,16 @@ app.post('/create-checkout-session', async (req, res) => {
     }
   });
 
+
+  //this endpoint performs a stripe transfer by paying out the traveller after the shopper receives their purchase
   app.post('/payout-seller', async (req, res) => {
-    const { offerPrice, sellerStripeAccountId } = req.body;  // Replace with actual variable names
+    const { offerPrice, sellerStripeAccountId } = req.body;
   
     try {
       const transfer = await stripe.transfers.create({
         amount: offerPrice * 100,
         currency: 'sgd',
         destination: sellerStripeAccountId,
-        // Optionally add: transfer_group, description, and other metadata
       });
   
       res.json({ success: true, transferId: transfer.id });
@@ -87,6 +89,7 @@ app.post('/create-checkout-session', async (req, res) => {
     }
   });
 
+  //this endpoint creates a stripe connected account
   app.post('/create-stripe-account', async (req, res) => {
     const { email } = req.body;
 
@@ -105,22 +108,14 @@ app.post('/create-checkout-session', async (req, res) => {
               product_description: 'College, Uni, Professional Schools', // This is an assumption. You may need to change the field according to Stripe's expected structure
             //   industry:'College, Uni, Professional Schools'
             },
-            // tos_acceptance: {
-            //     date: null,
-            //     ip: null,
-            //     user_agent: null
-            // },
             company: {
-              // Add other company details that Stripe requires
             },
             individual: {
-              // Add individual representative's details that Stripe requires
             },
             capabilities: {
                 card_payments: { requested: true },
                 transfers: { requested: true },
             },
-            // Additional settings can be added here as needed, such as business type or tos acceptance
         });
 
         return res.json({ accountId: account.id });
@@ -129,6 +124,8 @@ app.post('/create-checkout-session', async (req, res) => {
         return res.status(500).json({ error: error.message });
     }
 });
+
+//this endpoint checks that the stripeAccountId of a user is a valid userId
 app.get('/check-stripe-account/:accountId', async (req, res) => {
     const accountId = req.params.accountId;
     
@@ -140,6 +137,7 @@ app.get('/check-stripe-account/:accountId', async (req, res) => {
     }
   });
 
+//this endpoint generates a stripe connected account verification link for user to verify their info
 app.post('/create-account-link', async (req, res) => {
     const { accountId, refreshUrl, returnUrl } = req.body;
   
