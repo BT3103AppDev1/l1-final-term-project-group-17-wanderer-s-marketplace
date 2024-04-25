@@ -21,7 +21,7 @@ export default {
 		},
 		statusClass() {
 			return {
-				"product-status": true, // Always apply this class
+				"product-status": true, 
 				"status-available": this.currentListing.listingStatus === "Available", // Apply this class if status is 'available'
 				"status-accepted": this.currentListing.listingStatus === "Accepted", // Apply this class if status is 'accepted'
 				"status-purchased": this.currentListing.listingStatus === "Purchased", // Apply this class if status is 'purchased'
@@ -73,7 +73,6 @@ export default {
 .product-status {
 	font-size: 1rem;
 	font-weight: bold;
-	/* Remove color property from here */
 }
 
 /* Define color classes based on status */
