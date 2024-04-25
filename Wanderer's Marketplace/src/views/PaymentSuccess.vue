@@ -32,6 +32,10 @@ export default {
 	},
 	methods: {
 		async updateListingStatus(offerId) {
+			/*
+			This function updates the listing status to accepted after the shopper have paid the agreed offer amount 
+			to the Wanderer's Marketplace escrow account
+			*/
 			const db = getFirestore();
 			const offerDocRef = doc(db, "Offers", offerId);
 

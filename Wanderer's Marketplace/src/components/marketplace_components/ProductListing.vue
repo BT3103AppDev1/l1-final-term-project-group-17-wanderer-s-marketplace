@@ -57,10 +57,11 @@ export default {
 			console.log("product", product);
 		},
 		async fetchAllProducts(filters) {
+			/*
+			This function fetches all listings 
+			except the ones that were created by the current user
+			*/
 			try {
-				// const { search, category, country, maxPrice, minDeliveryFee, maxDeliveryFee, sort } = filters;
-				console.log("filters");
-				console.log(filters);
 				let q = query(
 					collection(db, "Listings"),
 					where("ListingStatus", "==", "Available")
@@ -97,6 +98,7 @@ export default {
 						// Add other product details you want to display...
 					};
 				});
+				//sort the products by time of creation with those created more recently sorted first by default
 				this.products.sort(
 					(a, b) =>
 						new Date(b.date).getTime() -
@@ -117,12 +119,11 @@ export default {
 					(filters.search === "" ||
 						product.name
 							.toLowerCase()
-							.includes(filters.search.toLowerCase())) &&
-					//  (filters.category === null|| product.Category === filters.category) &&
+							.includes(filters.search.toLowerCase())) && //filter by listing name by substring
 					(filters.country === "" ||
 						product.country
 							.toLowerCase()
-							.includes(filters.country.toLowerCase())) &&
+							.includes(filters.country.toLowerCase())) && //filter by country by substring
 					(filters.maxPrice === "" ||
 						parseFloat(product.maxPrice) <= parseFloat(filters.maxPrice)) &&
 					(filters.minDeliveryFee === "" ||
@@ -135,13 +136,13 @@ export default {
 			});
 			this.allProducts = temp;
 
-			if (filters.sort === "Newest") {
+			if (filters.sort === "Newest") { //sort listing by earliest expected delivery date
 				this.products.sort(
 					(a, b) =>
 						new Date(b.deliveryDate).getTime() -
 						new Date(a.deliveryDate).getTime()
 				);
-			} else if (filters.sort === "Oldest") {
+			} else if (filters.sort === "Oldest") { //sort listing by latest expected delivery date
 				this.products.sort(
 					(a, b) =>
 						new Date(a.deliveryDate).getTime() -
