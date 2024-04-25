@@ -36,7 +36,7 @@
 							:to="`/profile/${acceptedOfferDetails.userID}`"
 							class="detail"
 						>
-							Username: <br> <span>{{ acceptedOfferDetails.username }}</span>
+							Username:<br> <span>{{ acceptedOfferDetails.username }}</span>
 						</router-link>
 					</div>
 					<div class="accepted-offer-detail-box">
@@ -469,7 +469,7 @@ export default {
 	display: flex;
 	align-items: center;
 	margin-left: 10px;
-	width: auto;
+	width: 15%;
 	flex-shrink: 2;
 	height: 20px;
 	justify-content: center;
@@ -477,7 +477,7 @@ export default {
 }
 
 .accepted-offer-label {
-	font-size: 18px;
+	font-size: 16px;
 	font-weight: bold;
 }
 
@@ -494,7 +494,7 @@ export default {
 .detail {
 	color: #333;
 	font-weight: bold;
-	font-size: 16px;
+	font-size: 15px;
 	justify-content: center;
 }
 .detail > span {
