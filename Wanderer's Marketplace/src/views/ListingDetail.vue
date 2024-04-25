@@ -465,14 +465,15 @@ export default {
 }
 
 .accepted-offer-header {
-	background-color: #ffa500;
+	background-color: #fc6a03;
 	display: flex;
 	align-items: center;
 	padding: 10px;
 	border-radius: 15px;
 	margin-top: 20px;
 	height: 50px;
-	width: 91%;
+	width: 92%;
+	box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
 }
 .accepted-offer-detail-box {
 	background-color: white;
@@ -490,7 +491,6 @@ export default {
 .accepted-offer-label {
 	font-size: 16px;
 	font-weight: bold;
-	margin-left: 20px;
 }
 
 .accepted-offer-details {

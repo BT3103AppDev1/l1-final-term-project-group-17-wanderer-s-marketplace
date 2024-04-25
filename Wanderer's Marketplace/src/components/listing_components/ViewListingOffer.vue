@@ -365,12 +365,12 @@ export default {
 }
 
 .accept-button {
-	background-color: #4caf50;
+	background-color: green;
 	margin-right: 10px;
 }
 
 .reject-button {
-	background-color: #f44336;
+	background-color: red;
 }
 
 .action-button {

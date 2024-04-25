@@ -61,13 +61,4 @@ export default {
 	flex: 1;
 }
 
-.action-button {
-	padding: 10px 20px;
-	border: none;
-	border-radius: 30px;
-	background-color: #4caf50; /* A green color to match the Submit button in the image */
-	color: #fff;
-	cursor: pointer;
-	margin-top: 10px;
-}
 </style>

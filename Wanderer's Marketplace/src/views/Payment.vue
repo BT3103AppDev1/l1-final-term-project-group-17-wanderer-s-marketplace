@@ -274,7 +274,7 @@ export default {
 	font-size: 15px; /* Larger font size for better visibility */
 	border: none;
 	border-radius: 30px; /* Slightly reduced radius for a modern look */
-	background-color: #4caf50;
+	background-color: green;
 	color: #fff;
 	cursor: pointer;
 	transition: transform 0.3s ease-in-out, box-shadow 0.3s ease; /* Smooth transition for movement and shadow */

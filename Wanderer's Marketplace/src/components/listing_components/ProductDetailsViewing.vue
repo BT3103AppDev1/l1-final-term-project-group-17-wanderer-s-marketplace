@@ -1,5 +1,5 @@
 <template>
-    <div class="product-details">
+	<div class="product-details">
 		<form id="myform">
 			<div class="title">Product Details</div>
 			<div class="product-name">
@@ -11,7 +11,7 @@
 						id="productName"
 						placeholder="Product Name"
 						required=""
-                        readonly
+						readonly
 					/>
 				</div>
 			</div>
@@ -24,22 +24,42 @@
 						id="quantity"
 						placeholder="Quantity"
 						required=""
-                        readonly
+						readonly
 					/>
 				</div>
 				<div class="colour">
 					<div class="header">Colour</div>
-					<input type="text" v-model="productDetails.color" placeholder="Colour" id="colour" readonly />
+					<input
+						type="text"
+						v-model="productDetails.color"
+						placeholder="Colour"
+						id="colour"
+						readonly
+					/>
 				</div>
 				<div class="size">
 					<div class="header">Size</div>
-					<input type="text" v-model="productDetails.size" placeholder="Size" id="size" readonly />
+					<input
+						type="text"
+						v-model="productDetails.size"
+						placeholder="Size"
+						id="size"
+						readonly
+					/>
 				</div>
 			</div>
-			<div class="purchase-currency-minProductPrice-maxProductPrice grouped-items three-items">
+			<div
+				class="purchase-currency-minProductPrice-maxProductPrice grouped-items three-items"
+			>
 				<div class="purchase-currency">
 					<div class="header">Purchase Currency</div>
-					<input type="text" v-model="productDetails.currency" placeholder="Currency" id="currency" readonly />
+					<input
+						type="text"
+						v-model="productDetails.currency"
+						placeholder="Currency"
+						id="currency"
+						readonly
+					/>
 				</div>
 				<div class="minProductPrice">
 					<div class="header">Min. Product Price</div>
@@ -50,7 +70,7 @@
 						id="minProductPrice"
 						placeholder="Min. Product Price"
 						required=""
-                        readonly
+						readonly
 					/>
 				</div>
 				<div class="maxProductPrice">
@@ -62,7 +82,7 @@
 						id="maxProductPrice"
 						placeholder="Max. Product Price"
 						required=""
-                        readonly
+						readonly
 					/>
 				</div>
 			</div>
@@ -76,12 +96,19 @@
 						id="deliveryFee"
 						placeholder="Delivery Fee"
 						required=""
-                        readonly
+						readonly
 					/>
 				</div>
 				<div class="country-purchase">
 					<div class="header">Country of Purchase</div>
-					<input type="text" v-model="productDetails.country" placeholder="Country" required="" id="country" readonly />
+					<input
+						type="text"
+						v-model="productDetails.country"
+						placeholder="Country"
+						required=""
+						id="country"
+						readonly
+					/>
 				</div>
 			</div>
 			<div class="estimated-delivery-date">
@@ -92,7 +119,7 @@
 					id="estimatedDeliveryDate"
 					placeholder="Estimated Delivery Date"
 					required=""
-                    readonly
+					readonly
 				/>
 			</div>
 		</form>
@@ -101,22 +128,22 @@
 
 <script>
 export default {
-    props: {
-        productDetails: {
-            type: Object,
-            default: () => ({
-                name: "",
-                quantity: null,
-                colour: "",
-                size: "",
-                currency: "",
-                minPrice: null,
-                maxPrice: null,
-                deliveryDate: "",
-                country: "",
-            }),
-        },
-    },
+	props: {
+		productDetails: {
+			type: Object,
+			default: () => ({
+				name: "",
+				quantity: null,
+				colour: "",
+				size: "",
+				currency: "",
+				minPrice: null,
+				maxPrice: null,
+				deliveryDate: "",
+				country: "",
+			}),
+		},
+	},
 };
 </script>
 
@@ -127,7 +154,7 @@ export default {
 	padding: 1rem;
 	box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
 	width: 90%;
-    margin-top: 1%;
+	margin-top: 1%;
 }
 
 .title {
@@ -154,61 +181,71 @@ input {
 	border: 1px solid #ccc;
 }
 
-.product-name, 
-.purchase-quantity, 
-.colour, 
-.size, 
-.purchase-currency, 
-.minProductPrice, 
-.maxProductPrice, 
-.delivery-fee, 
-.country-purchase, 
+.product-name,
+.purchase-quantity,
+.colour,
+.size,
+.purchase-currency,
+.minProductPrice,
+.maxProductPrice,
+.delivery-fee,
+.country-purchase,
 .estimated-delivery-date {
-  display: flex;
-  flex-direction: column; /* Stack flex children vertically */
-  margin-bottom: 1rem; /* Add some space between each section */
+	display: flex;
+	flex-direction: column; /* Stack flex children vertically */
+	margin-bottom: 1rem; /* Add some space between each section */
 }
 
-.purchase-quantity, .colour, .size,
-.purchase-currency, .minProductPrice, .maxProductPrice,
-.delivery-fee, .country-purchase {
-  flex-grow: 1;
-  flex-basis: 0; /* Override any width/min-width properties */
-  max-width: 100%; /* They can grow up to 100% of their parent container */
+.purchase-quantity,
+.colour,
+.size,
+.purchase-currency,
+.minProductPrice,
+.maxProductPrice,
+.delivery-fee,
+.country-purchase {
+	flex-grow: 1;
+	flex-basis: 0; /* Override any width/min-width properties */
+	max-width: 100%; /* They can grow up to 100% of their parent container */
 }
 
 .purchase-quantity-colour-size,
-.purchase-currency-minProductPrice-maxProductPrice, 
+.purchase-currency-minProductPrice-maxProductPrice,
 .delivery-fee-country-purchase {
-  display: flex;
-  justify-content: space-between; /* Space out children evenly */
-  gap: 0.5rem; /* Reduce the gap between items */
+	display: flex;
+	justify-content: space-between; /* Space out children evenly */
+	gap: 0.5rem; /* Reduce the gap between items */
 }
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
-  .purchase-quantity-colour-size,
-  .purchase-currency-minProductPrice-maxProductPrice, 
-  .delivery-fee-country-purchase {
-    flex-direction: column; /* Stack children vertically on smaller screens */
-    gap: 0.5rem;
-  }
+	.purchase-quantity-colour-size,
+	.purchase-currency-minProductPrice-maxProductPrice,
+	.delivery-fee-country-purchase {
+		flex-direction: column; /* Stack children vertically on smaller screens */
+		gap: 0.5rem;
+	}
 
-  .purchase-quantity, .colour, .size,
-  .purchase-currency, .minProductPrice, .maxProductPrice,
-  .delivery-fee, .country-purchase {
-    max-width: none; /* Remove max-width constraint */
-    flex-basis: auto; /* Reset flex-basis to default */
-  }
+	.purchase-quantity,
+	.colour,
+	.size,
+	.purchase-currency,
+	.minProductPrice,
+	.maxProductPrice,
+	.delivery-fee,
+	.country-purchase {
+		max-width: none; /* Remove max-width constraint */
+		flex-basis: auto; /* Reset flex-basis to default */
+	}
 }
 
 /* Adjust flex container to wrap items when necessary */
 .grouped-items {
-  flex-wrap: wrap; /* Allow items to wrap */
+	flex-wrap: wrap; /* Allow items to wrap */
 }
 
 /* Specify a minimum width for flex items to prevent them from becoming too narrow */
 .grouped-items > div {
-  min-width: 120px; /* Adjust minimum width as needed */
+	min-width: 120px; /* Adjust minimum width as needed */
 }
 </style>

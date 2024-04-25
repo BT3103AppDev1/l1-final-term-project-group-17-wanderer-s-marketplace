@@ -60,7 +60,7 @@ export default {
 	padding: 10px 20px;
 	border: none;
 	border-radius: 30px;
-	background-color: #4CAF50; /* A green color to match the Submit button in the image */
+	background-color: green; /* A green color to match the Submit button in the image */
 	color: #fff;
 	cursor: pointer;
 	margin-top: 10px;
