@@ -85,7 +85,7 @@
 					class="action-button"
 					@click="confirmPurchase"
 				>
-					Mark as Purchased
+					Update as Purchased
 				</button>
 				<button
 					v-if="
@@ -439,7 +439,7 @@ export default {
 	align-items: stretch;
 	padding: 20px;
 	margin: auto;
-	width:auto;
+	width: auto;
 }
 
 .product-name-header {
@@ -465,7 +465,6 @@ export default {
 	padding: 10px;
 }
 
-
 .accepted-offer-header {
 	background-color: #ffa500;
 	display: flex;
@@ -485,7 +484,7 @@ export default {
 	margin-left: 10px;
 	width: auto;
 	flex-shrink: 2;
-	height:20px;
+	height: 20px;
 	justify-content: center;
 }
 

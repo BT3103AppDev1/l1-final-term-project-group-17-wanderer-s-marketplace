@@ -381,7 +381,6 @@ export default {
 	color: #fff;
 	cursor: pointer;
 	margin-top: 20px;
-	margin-left: 10px;
 	transition: transform 0.3s ease-in-out, box-shadow 0.3s ease; /* Smooth transition for movement and shadow */
 	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 	width: 40%;
