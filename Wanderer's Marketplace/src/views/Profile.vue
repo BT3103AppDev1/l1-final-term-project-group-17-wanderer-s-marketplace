@@ -156,11 +156,17 @@ export default {
 	align-items: center;
 }
 
-#SecondDiv,
-#FourthDiv {
+#SecondDiv {
 	height: 360px;
 	display: flex;
 	justify-content: center;
+	align-items: center;
+}
+
+#FourthDiv {
+	height: 360px;
+	display: flex;
+	justify-content: left;
 	align-items: center;
 }
 
