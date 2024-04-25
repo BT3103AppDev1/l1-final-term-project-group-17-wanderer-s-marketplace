@@ -6,7 +6,7 @@
 		</div>
 		<div class="product-details-container">
 			<div class="left">
-				<ProductImage />
+				<ProductImageName />
 			</div>
 			<div class="right">
 				<component :is="currentRightComponent" />
@@ -17,13 +17,13 @@
 
 <script>
 // Import components to be used 
-import ProductImage from "../components/listing_components/ProductImage.vue";
+import ProductImageName from "../components/listing_components/ProductImageName.vue";
 import ViewListingOffer from "../components/listing_components/ViewListingOffer.vue";
 
 export default {
 	name: "ListingOfferAction",
 	components: {
-		ProductImage,
+		ProductImageName,
 		ViewListingOffer,
 	},
 	data() {
