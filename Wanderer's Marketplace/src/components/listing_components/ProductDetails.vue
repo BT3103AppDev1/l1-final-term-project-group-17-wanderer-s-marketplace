@@ -27,14 +27,21 @@
 				</div>
 				<div class="colour">
 					<div class="header">Colour</div>
-					<input type="text" v-model="colour" placeholder="Colour" id="colour"/>
+					<input
+						type="text"
+						v-model="colour"
+						placeholder="Colour"
+						id="colour"
+					/>
 				</div>
 				<div class="size">
 					<div class="header">Size</div>
-					<input type="text" v-model="size" placeholder="Size" id="size"/>
+					<input type="text" v-model="size" placeholder="Size" id="size" />
 				</div>
 			</div>
-			<div class="purchase-currency-minProductPrice-maxProductPrice grouped-items three-items">
+			<div
+				class="purchase-currency-minProductPrice-maxProductPrice grouped-items three-items"
+			>
 				<div class="purchase-currency">
 					<div class="header">Purchase Currency</div>
 					<input type="text" id="currency" value="SGD" disabled />
@@ -76,7 +83,13 @@
 				</div>
 				<div class="country-purchase">
 					<div class="header">Country of Purchase</div>
-					<input type="text" v-model="country" placeholder="Country" required="" id="country" />
+					<input
+						type="text"
+						v-model="country"
+						placeholder="Country"
+						required=""
+						id="country"
+					/>
 				</div>
 			</div>
 			<div class="estimated-delivery-date">
@@ -121,7 +134,7 @@ export default {
 }
 
 .title {
-	font-size: 1.2rem;
+	font-size: 1.5rem;
 	font-weight: bold;
 	margin-bottom: 1rem;
 	text-align: left;
@@ -144,61 +157,71 @@ input {
 	border: 1px solid #ccc;
 }
 
-.product-name, 
-.purchase-quantity, 
-.colour, 
-.size, 
-.purchase-currency, 
-.minProductPrice, 
-.maxProductPrice, 
-.delivery-fee, 
-.country-purchase, 
+.product-name,
+.purchase-quantity,
+.colour,
+.size,
+.purchase-currency,
+.minProductPrice,
+.maxProductPrice,
+.delivery-fee,
+.country-purchase,
 .estimated-delivery-date {
-  display: flex;
-  flex-direction: column; /* Stack flex children vertically */
-  margin-bottom: 1rem; /* Add some space between each section */
+	display: flex;
+	flex-direction: column; /* Stack flex children vertically */
+	margin-bottom: 1rem; /* Add some space between each section */
 }
 
-.purchase-quantity, .colour, .size,
-.purchase-currency, .minProductPrice, .maxProductPrice,
-.delivery-fee, .country-purchase {
-  flex-grow: 1;
-  flex-basis: 0; /* Override any width/min-width properties */
-  max-width: 100%; /* They can grow up to 100% of their parent container */
+.purchase-quantity,
+.colour,
+.size,
+.purchase-currency,
+.minProductPrice,
+.maxProductPrice,
+.delivery-fee,
+.country-purchase {
+	flex-grow: 1;
+	flex-basis: 0; /* Override any width/min-width properties */
+	max-width: 100%; /* They can grow up to 100% of their parent container */
 }
 
 .purchase-quantity-colour-size,
-.purchase-currency-minProductPrice-maxProductPrice, 
+.purchase-currency-minProductPrice-maxProductPrice,
 .delivery-fee-country-purchase {
-  display: flex;
-  justify-content: space-between; /* Space out children evenly */
-  gap: 0.5rem; /* Reduce the gap between items */
+	display: flex;
+	justify-content: space-between; /* Space out children evenly */
+	gap: 0.5rem; /* Reduce the gap between items */
 }
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
-  .purchase-quantity-colour-size,
-  .purchase-currency-minProductPrice-maxProductPrice, 
-  .delivery-fee-country-purchase {
-    flex-direction: column; /* Stack children vertically on smaller screens */
-    gap: 0.5rem;
-  }
+	.purchase-quantity-colour-size,
+	.purchase-currency-minProductPrice-maxProductPrice,
+	.delivery-fee-country-purchase {
+		flex-direction: column; /* Stack children vertically on smaller screens */
+		gap: 0.5rem;
+	}
 
-  .purchase-quantity, .colour, .size,
-  .purchase-currency, .minProductPrice, .maxProductPrice,
-  .delivery-fee, .country-purchase {
-    max-width: none; /* Remove max-width constraint */
-    flex-basis: auto; /* Reset flex-basis to default */
-  }
+	.purchase-quantity,
+	.colour,
+	.size,
+	.purchase-currency,
+	.minProductPrice,
+	.maxProductPrice,
+	.delivery-fee,
+	.country-purchase {
+		max-width: none; /* Remove max-width constraint */
+		flex-basis: auto; /* Reset flex-basis to default */
+	}
 }
 
 /* Adjust flex container to wrap items when necessary */
 .grouped-items {
-  flex-wrap: wrap; /* Allow items to wrap */
+	flex-wrap: wrap; /* Allow items to wrap */
 }
 
 /* Specify a minimum width for flex items to prevent them from becoming too narrow */
 .grouped-items > div {
-  min-width: 120px; /* Adjust minimum width as needed */
+	min-width: 120px; /* Adjust minimum width as needed */
 }
 </style>

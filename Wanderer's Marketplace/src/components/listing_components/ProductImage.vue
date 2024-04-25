@@ -50,7 +50,7 @@ export default {
 }
 
 .title {
-	font-size: 1.2rem;
+	font-size: 1.5rem;
 	font-weight: bold;
 	margin-bottom: 1rem;
 }
@@ -69,7 +69,7 @@ export default {
 }
 
 .product-status {
-	font-size: 0.8rem;
+	font-size: 1rem;
 	font-weight: bold;
 	/* Remove color property from here */
 }

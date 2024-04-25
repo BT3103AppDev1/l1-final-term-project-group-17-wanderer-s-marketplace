@@ -1,6 +1,9 @@
 <template>
 	<div class="page-container">
-		<h1 class="offer-header">Extend an Offer</h1>
+		<div class="offer-header">
+			<h1>Extend an Offer</h1>
+			<p>hidden</p>
+		</div>
 		<div class="product-offer-container">
 			<div class="left">
 				<ProductImage />
@@ -34,31 +37,39 @@ export default {
 </script>
 
 <style scoped>
-.page-container {
-	margin-top: 0%;
+.offer-header {
 	display: flex;
-	flex-direction: column;
+	justify-content: space-between;
 	align-items: center;
-	height: calc(100vh - 80px);
-	padding: 50px;
+	text-align: center;
+	padding: 20px 50px 0px 50px;
 }
 
-.offer-header {
-	margin-top: 0%;
-	width: 100%;
-	text-align: left;
-	margin-bottom: 25px; /* Adjust according to your layout */
+.offer-header h1 {
+	margin: 0;
+}
+
+.offer-header p {
+	font-size: 20px;
+	color: #b3e3eb;
 }
 
 .product-offer-container {
 	display: flex;
-	width: 100%; /* Adjust the width as needed */
-	gap: 25px;
+	justify-content: center;
+	align-items: stretch;
+	padding: 20px 50px 50px 50px;
+	margin: auto;
+	width: auto;
+	gap: 5%;
 }
 
 .left,
 .right {
-	flex: 1;
+	padding: 10px;
+	max-width: 50%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
-
 </style>

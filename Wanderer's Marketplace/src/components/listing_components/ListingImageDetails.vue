@@ -82,7 +82,7 @@ export default {
 }
 
 .listing-name {
-	font-size: 1.2rem;
+	font-size: 1.5rem;
 	font-weight: bold;
 	margin-bottom: 10px;
 	text-align: left;

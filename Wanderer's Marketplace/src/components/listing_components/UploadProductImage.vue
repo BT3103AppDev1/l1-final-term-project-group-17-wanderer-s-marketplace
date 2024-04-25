@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 export default {
 	name: "UploadProductImage",
@@ -26,19 +26,21 @@ export default {
 			if (file) {
 				// Upload the file to Firebase Storage
 				const storage = getStorage();
-				const storageRef = ref(storage, 'product-images/' + file.name);
-				uploadBytes(storageRef, file).then((snapshot) => {
-					console.log('Uploaded a blob or file!');
-					// Get the download URL
-					getDownloadURL(snapshot.ref).then((downloadURL) => {
-						console.log('File available at', downloadURL);
-						// Emit the download URL
-						this.$emit("update:imageSrc", downloadURL);
+				const storageRef = ref(storage, "product-images/" + file.name);
+				uploadBytes(storageRef, file)
+					.then((snapshot) => {
+						console.log("Uploaded a blob or file!");
+						// Get the download URL
+						getDownloadURL(snapshot.ref).then((downloadURL) => {
+							console.log("File available at", downloadURL);
+							// Emit the download URL
+							this.$emit("update:imageSrc", downloadURL);
+						});
+					})
+					.catch((error) => {
+						console.error("Upload failed", error);
+						// Handle any errors
 					});
-				}).catch((error) => {
-					console.error("Upload failed", error);
-					// Handle any errors
-				});
 			}
 		},
 	},
@@ -54,7 +56,7 @@ export default {
 }
 
 .title {
-	font-size: 1.2rem;
+	font-size: 1.5rem;
 	font-weight: bold;
 	margin-bottom: 1rem;
 }

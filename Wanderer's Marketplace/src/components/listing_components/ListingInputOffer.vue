@@ -113,13 +113,12 @@ export default {
 .input-offer-outer-container {
 	background: #fff1e7; /* Beige background */
 	padding: 1em;
-	border-radius: 16px;
+	border-radius: 20px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	height: 100%; /* Make the outer container fill the height */
 	width: 100%;
-	margin-left: auto;
 	box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -138,6 +137,14 @@ export default {
 .offer-heading,
 .offer-description {
 	text-align: center;
+}
+
+.offer-heading {
+	font-size: 1.5rem;
+}
+
+.offer-description {
+	font-size: 1rem;
 }
 
 .offer-input-wrapper {
