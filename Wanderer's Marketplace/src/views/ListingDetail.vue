@@ -43,7 +43,7 @@
 							Username: <span>{{ acceptedOfferDetails.username }}</span>
 						</div>
 					</div>
-					<div class="accepted-offer-detail-box telegram-detail-box">
+					<div class="accepted-offer-detail-box">
 						<a
 							:href="`https://t.me/${acceptedOfferDetails.telegram}`"
 							class="detail"
@@ -437,9 +437,10 @@ export default {
 	display: flex;
 	justify-content: center;
 	align-items: stretch;
-	padding: 20px;
+	padding: 20px 50px 50px 50px;
 	margin: auto;
 	width: auto;
+	gap: 5%;
 }
 
 .product-name-header {
@@ -447,7 +448,6 @@ export default {
 	justify-content: space-between;
 	align-items: center;
 	text-align: center;
-	margin-top: 20px;
 	padding: 20px 50px 0px 50px;
 }
 
@@ -462,17 +462,28 @@ export default {
 .left,
 .right {
 	padding: 10px;
+	max-width: 50%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.accepted-offer-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
 .accepted-offer-header {
-	background-color: #fc6a03;
+	background-color: #ffa500;
 	display: flex;
 	align-items: center;
+	justify-content: center;
 	padding: 10px;
 	border-radius: 15px;
 	margin-top: 20px;
 	height: 50px;
-	width: 92%;
+	width: 100%;
 	box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
 }
 .accepted-offer-detail-box {
@@ -530,14 +541,6 @@ export default {
 .action-button:hover {
 	transform: translateY(-2px); /* Subtle lift effect */
 	box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Enhanced shadow for 3D effect */
-}
-
-.telegram-detail-box {
-	transition: background-color 0.3s ease;
-}
-
-.telegram-detail-box:hover {
-	background-color: #e6e6e6;
 }
 
 .buttons-container {
