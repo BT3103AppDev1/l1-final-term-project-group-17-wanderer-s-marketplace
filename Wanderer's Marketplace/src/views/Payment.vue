@@ -100,6 +100,7 @@ export default {
 						body: JSON.stringify({
 							amount: this.offerPrice, // Assume offerPrice is a dollar amount
 							currency: "sgd", // or any other currency
+							listingName: this.currentListing.name,
 						}),
 					}
 				);

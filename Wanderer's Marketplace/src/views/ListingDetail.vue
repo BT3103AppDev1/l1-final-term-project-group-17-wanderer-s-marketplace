@@ -95,7 +95,7 @@
 				</button>
 				<button
 					v-if="productDetails.listingStatus === 'Completed' &&
-						(this.productDetails.userID == user.uid || acceptedOfferDetails.userID == user.uid)
+						(this.productDetails.userID == user.uid || this.productDetails.acceptedOfferUserID == user.uid)
 					"
 					class="action-button"
 					@click="leaveRating"
@@ -307,7 +307,6 @@ export default {
 
 		async fetchAcceptedOffer() {
 			//get the offer object which is for the current Listing which is accepted
-			console.log("productdetailsnifonv:", this.productDetails);
 			if (this.productDetails.listingStatus === "Accepted") {
 				try {
 					const offersRef = collection(db, "Offers");
