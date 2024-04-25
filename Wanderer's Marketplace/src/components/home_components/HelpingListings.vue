@@ -153,12 +153,12 @@ export default {
 				console.error("Error getting documents: ", error);
 			}
 		},
-		watch: {
-			userID(newVal, oldVal) {
-				if (newVal !== oldVal) {
-					this.fetchProducts();
-				}
-			},
+	},
+	watch: {
+		userID(newVal, oldVal) {
+			if (newVal !== oldVal) {
+				this.fetchProducts();
+			}
 		},
 	},
 };
