@@ -112,7 +112,6 @@ export default {
 <style scoped>
 .input-offer-outer-container {
 	background: #fff1e7; /* Beige background */
-	padding: 1em;
 	border-radius: 16px;
 	display: flex;
 	justify-content: center;

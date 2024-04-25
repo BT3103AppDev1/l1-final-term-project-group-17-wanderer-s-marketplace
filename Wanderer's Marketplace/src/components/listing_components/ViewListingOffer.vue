@@ -21,14 +21,10 @@
 						}"
 						@click="selectOffer(offer)"
 					>
-						<!-- <img
-							:src="getUserImageUrl(offer.OfferByUserID)"
-							alt="User Image"
-							class="user-image"
-						/> -->
 						<ProfilePhoto
 							:userID="offer.OfferByUserID"
 							:styleObject="{ width: '60px', height: '60px' }"
+							:class="profilepicsmall"
 						/>
 						<div class="offer-info">
 							<p class="user-name">{{ getUserName(offer.OfferByUserID) }}</p>
@@ -39,11 +35,6 @@
 			</div>
 			<div v-if="selectedOffer" class="selected-offer-details">
 				<div class="selected-user-info">
-					<!-- <img
-						:src="getUserImageUrl(selectedOffer.OfferByUserID)"
-						alt="User Image"
-						class="selected-user-image"
-					/> -->
 					<ProfilePhoto
 						:userID="selectedOffer.OfferByUserID"
 						:styleObject="{ width: '80px', height: '80px' }"
@@ -141,15 +132,11 @@ export default {
 				await updateDoc(listingDocRef, {
 					AcceptedOfferUserID: offer.OfferByUserID,
 				});
-				// const listingDocRef = doc(getFirestore(firebaseApp), "Listings", this.listingId);
-				// try {
-				//   await updateDoc(listingDocRef, {
-				//     ListingStatus: "Accepted"
-				//   });
+
 				console.log(offer.OfferID);
 				this.$router.push({
 					name: "Payment",
-					params: { offerId: this.selectedOffer.OfferID }, // Ensure the offer ID is correctly passed here
+					params: { offerId: this.selectedOffer.OfferID }, 
 				});
 				alert(
 					`Accepted Offer: $${offer.OfferPrice}\nPlease proceed to make your payment to confirm the offer.`
@@ -157,16 +144,12 @@ export default {
 			} catch (error) {
 				console.error("Error accepting offer:", error);
 			}
-			// } catch (error) {
-			//   console.error("Error updating listing status:", error);
-			// }
 		},
 		async rejectOffer(offer) {
 			// Assuming offer.id is the ID of the offer document
 			const offerDocRef = doc(getFirestore(firebaseApp), "Offers", offer.id);
 			try {
 				await deleteDoc(offerDocRef); // Delete the offer document
-				// You might want to also remove the offer from the list or show a message
 				alert(`Rejected Offer: $${offer.OfferPrice}`); // Show an alert message
 				// Remove the offer from the offers array
 				this.offers = this.offers.filter((o) => o.id !== offer.id);
@@ -251,16 +234,13 @@ export default {
 			}
 		},
 		getUserTelegramId(userId) {
-			// Retrieve the Telegram ID from the user's details
 			return this.users[userId]?.telegramHandle || "No Telegram ID";
 		},
 
 		getUserName(userId) {
-			// Revised to use object notation
 			return this.users[userId]?.username;
 		},
 		getUserImageUrl(userId) {
-			// Revised to use object notation
 			return this.users[userId]?.profilePhoto || "default-profile.jpg";
 		},
 		// acceptOffer and rejectOffer methods remain the same
@@ -278,6 +258,7 @@ export default {
 	width: 100%;
 	box-sizing: border-box;
 	box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+	height: 100%;
 }
 
 .offers-and-details-container {
@@ -305,7 +286,7 @@ export default {
 }
 
 .offers-list-container {
-	margin-right: 0px; /* Adjust space between offers and details */
+	margin-right: 0px; 
 }
 
 .title {
@@ -322,20 +303,49 @@ export default {
 	margin-bottom: 10px;
 	background: white;
 	border-radius: 16px;
-	transition: background-color 0.3s;
 	width: 85%;
 	height: 70px;
 	box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
-	justify-content: center;
+	justify-content: left;
+	transition: transform 0.3s ease, box-shadow 0.5s ease;
+	margin-top: 4px;
+}
+
+.offer-card:hover {
+	transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.offer-card.selected {
+	color: white;
+	display: flex;
+	align-items: center;
+	padding: 10px;
+	margin-bottom: 10px;
+	background: #051e55;
+	border-radius: 16px;
+	transition: transform 0.3s ease, box-shadow 0.5s ease;
+	width: 85%;
+	height: 70px;
+	justify-content: left;
+	margin-top: 5px;
+	box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+}
+
+.offer-card.selected:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
 .offer-info {
 	display: flex;
 	flex-direction: column;
-	justify-content: left;
+	justify-content: center;
 	margin-left: 10px;
 	white-space: normal; /* This allows the text to wrap */
 	overflow: scroll; /* This makes sure that text is not hidden */
+	margin-top: 0px;
+
 }
 
 .selected-user-details {
@@ -445,26 +455,12 @@ export default {
 	margin-top: 0px;
 }
 
-.offer-card.selected {
-	color: white;
-	display: flex;
-	align-items: center;
-	padding: 10px;
-	margin-bottom: 10px;
-	background: #051e55;
-	border-radius: 16px;
-	transition: background-color 0.3s;
-	width: 85%;
-	height: 70px;
-	justify-content: center;
-	box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
-}
-
 .user-name {
 	font-size: 18px;
 	margin-bottom: 0px;
 	margin-top: 0px;
 	font-weight: bolder;
+	
 }
 
 .offer-price {
@@ -474,17 +470,17 @@ export default {
 }
 
 .selected-user-telegram-id a {
-	color: #4f5151; /* Telegram's brand color, you can choose a different color if you want */
-	text-decoration: none; /* Removes the underline */
-	transition: font-weight 0.2s; /* Smooth transition for the font weight */
+	color: #4f5151; 
+	text-decoration: none; 
+	transition: font-weight 0.2s; 
 	margin-left: 0px;
 	font-weight: light;
 }
 
 .selected-user-telegram-id a:hover,
 .selected-user-telegram-id a:active {
-	font-weight: bolder; /* Makes the text bold on hover and when active (pressed) */
-	text-decoration: none; /* Optional: adds underline on hover */
+	font-weight: bolder; 
+	text-decoration: none; 
 	margin-left: 0px;
 	margin-bottom: 0px;
 }
@@ -496,7 +492,8 @@ export default {
 	margin-bottom: 0px;
 }
 .offers-container {
-	overflow-y: auto; /* Enable vertical scrolling */
+	overflow-y: auto; 
 	max-height: 300px;
+	margin-left: 0%;
 }
 </style>
