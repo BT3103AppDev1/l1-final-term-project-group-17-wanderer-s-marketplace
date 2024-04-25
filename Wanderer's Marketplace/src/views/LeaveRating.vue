@@ -1,6 +1,9 @@
 <template>
 	<div class="page-container">
-		<h1>Leave a Rating for @{{ this.ratedUsername }}</h1>
+		<div class="offer-header">
+			<h1>Leave a Rating for @{{ this.ratedUsername }}</h1>
+			<p>hidden</p>
+		</div>
 		<div class="rating-container">
 			<div class="left">
 				<ProductImage />
@@ -184,23 +187,22 @@ export default {
 
 <style scoped>
 .rating-container {
-	margin-top: 0%;
 	display: flex;
 	justify-content: center;
 	align-items: stretch;
-	padding: 50px;
+	padding: 20px 50px 50px 50px;
+	margin: auto;
+	width: auto;
+	gap: 5%;
 }
 
-.left {
-	flex: 1;
-}
-
+.left,
 .right {
-	flex: 1;
+	padding: 10px;
+	max-width: 50%;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	position: relative;
 }
 
 .rating-stars {
@@ -262,5 +264,22 @@ button:hover {
 	color: #fff; /* Darker text color for contrast */
 	cursor: not-allowed;
 	box-shadow: none; /* Remove shadow to make it look truly disabled */
+}
+
+.offer-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	text-align: center;
+	padding: 20px 50px 0px 50px;
+}
+
+.offer-header h1 {
+	margin: 0;
+}
+
+.offer-header p {
+	font-size: 20px;
+	color: #b3e3eb;
 }
 </style>
