@@ -49,7 +49,7 @@ export default {
 			stripePromise: null,
 			stripeOptions: {
 				pk: "pk_test_51P6wEnESKHXx7bolEjhOMLwFY2QlY6IS8plTEgXh0060tnO37z\
-		Qac6wR4OWMXSgRTOSkLu3ijPOXaP8fNf6GNESP00XUfvdzwB", // Replace with your Stripe public key
+		Qac6wR4OWMXSgRTOSkLu3ijPOXaP8fNf6GNESP00XUfvdzwB",
 				successUrl: window.location.origin + "/success",
 				cancelUrl: window.location.origin + "/cancel",
 			},
@@ -85,6 +85,10 @@ export default {
 	},
 	methods: {
 		async createStripePrice() {
+			/*
+			create a price object by calling api in node js backend
+			return the priceId of the price object
+			*/
 			try {
 				const response = await fetch(
 					"https://bt3103clone.vercel.app/create-price",
@@ -136,6 +140,10 @@ export default {
 			}
 		},
 		async fetchProductDetails(listingId) {
+			/*
+			fetch listing in database with listingId
+			assign listing fields to this.productDetails
+			*/
 			const db = getFirestore(firebaseApp);
 			const listingDocRef = doc(db, "Listings", listingId);
 
@@ -152,7 +160,14 @@ export default {
 			}
 		},
 		async processPayment() {
-			// Here you would have your logic to process the payment
+			/*
+			here we create a Stripe price object in stripe which we can pay for
+			1.create stripe price object
+			2. create stripe checkout session
+			3. redirect to stripe checkout page to pay and checkout
+			4. update listing and offer object in firestore db
+			5. redirect back to home page
+			*/
 			const priceId = await this.createStripePrice();
 			const offerId = this.$route.params.offerId;
 
