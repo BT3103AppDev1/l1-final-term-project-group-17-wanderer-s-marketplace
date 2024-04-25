@@ -120,6 +120,7 @@ export default {
 	height: 100%; /* Make the outer container fill the height */
 	width: 100%;
 	margin-left: auto;
+	box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
 }
 
 .input-offer-inner-container {

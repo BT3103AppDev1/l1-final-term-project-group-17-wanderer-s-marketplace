@@ -200,7 +200,13 @@ export default {
 	border-radius: 20px;
 	padding: 1rem;
 	box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	height: 550px;
+	justify-content: center;
 }
+
 .document-container {
 	display: flex;
 	justify-content: center;
@@ -210,9 +216,9 @@ export default {
 .proof-purchase {
 	background-color: #fff1e7;
 	padding: 1rem;
-	padding-bottom: 4rem;
 	border-radius: 10px;
 	height: auto;
+	margin: 20px;
 }
 
 .confirm-btn {
@@ -223,7 +229,7 @@ export default {
 	background-color: #051e55;
 	color: #fff;
 	cursor: pointer;
-	margin-top: 20px;
+	margin: 10px;
 	transition: transform 0.3s ease-in-out, box-shadow 0.3s ease; /* Smooth transition for movement and shadow */
 	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
@@ -232,12 +238,20 @@ export default {
 	transform: translateY(-2px); /* Subtle lift effect */
 	box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Enhanced shadow for 3D effect */
 }
+
 .confirmation-header {
-	margin-bottom: 10%;
+	margin-top: 10px;
+	font-size: 1.5rem;
 }
+
 .confirmation-text {
-	margin-top: 10%;
+	margin-bottom: 10px;
 }
+
+.proof-text {
+	font-size: 1rem;
+}
+
 .upload-container {
 	position: relative;
 	text-align: center;
@@ -253,7 +267,6 @@ export default {
 	padding: 0; /* Remove padding */
 	border: none; /* Remove border */
 	background-color: transparent; /* Make background transparent */
-	margin-top: 10%;
 }
 
 .uploaded-receipt {
@@ -263,15 +276,7 @@ export default {
 	margin-top: 10px;
 	object-fit: contain; /* This will ensure the image is resized within the dimensions, maintaining aspect ratio without being cropped */
 }
-.document-icon,
-.uploaded-receipt {
-	/* Apply the same width and height to both for consistency */
-	width: 150px; /* Adjust as needed */
-	height: 150px; /* Adjust as needed */
-	object-fit: contain;
-	display: block; /* Make these block elements */
-	margin: 0 auto; /* Auto margins for horizontal centering */
-}
+
 .upload-icon {
 	width: 3rem;
 	height: auto;

@@ -459,8 +459,7 @@ export default {
 	color: inherit;
 }
 
-.left {
-}
+.left,
 .right {
 	padding: 10px;
 }
