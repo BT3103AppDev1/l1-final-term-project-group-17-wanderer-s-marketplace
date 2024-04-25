@@ -46,6 +46,8 @@ export default {
 	box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
 	height: 55vh;
 	width: 100%;
+	display: flex;
+	flex-direction: column;
 	justify-content: center;
 }
 
